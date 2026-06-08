@@ -6,14 +6,36 @@ This project reproduces a Hong Kong government CorpID digital identity portal as
 
 > **v2 update:** After the first pass, the pages were refined against the actual mock images for higher fidelity — emoji icons replaced with inline SVG, corrected bottom-nav labels, iOS-style status bar, blue `iD` logo, masonry card grid, and bordered login cards.
 
+> **v3 update (services only):** `Mobile/Services/INDEX.html` (originally `services.html`) was redone against a new set of `mock-images/service_cat_*.PNG`. The 主題 tab became a 3-col icon grid (21 categories); the 政府 / 商業 tabs became logo-list rows. New mock data:
+> - **主題 (21, row order):** 農業林業及漁業 · 採礦及採石 · 製造 · 電力及燃氣供應 · 自來水供應/污水/廢棄物/污染防治 · 建造 · 進出口貿易批發及零售業 · 運輸倉庫郵政及速遞 · 住宿及膳食服務 · 資訊及通訊 · 金融及保險 · 地產 · 專業科學及技術 · 行政及支援服務 · 公共行政 · 教育 · 人類保健及社會工作 · 藝術娛樂及康樂 · 其他服務 · 家庭住戶內部工作 · 享有治外法權的組織及團體
+> - **政府及有關機構 (16):** 漁農自然護理署 · 稅務局 · 數字政策辦公室 · 海關 · 食物環境衞生署 · 醫務衞生局 · 運輸署 · 入境事務處 · 土木工程拓展署 (CEDD) · 土地註冊處 · 工業貿易署 · 商務及經濟發展局 · 康樂及文化事務署 · 路政署 · 運輸及物流局 · 公務員事務局 — (first 7 added later from individual logo PNGs in `mock-images/`; 數字政策辦公室 + 醫務衞生局 had **no sample**, so are approximated — digital-blue node mark + red HKSAR bauhinia emblem)
+> - **商業及其他機構 (6):** 香港數碼港管理 (Cyberport) · 香港科技園 (HKSTP) · 香港生產力促進局 (hkpc) · 香港金融管理局 (HKMA) · 貿易通電子貿易 (Tradelink) · 易簽寶香港 (eSign.AI)
+> - Org logos are **simplified inline-SVG approximations** (project's no-raster rule), not pixel-accurate brand artwork. Status bar kept the shared `79` pill (time 12:34) rather than the mock's plain full battery, for cross-page consistency.
+
+> **v4 update (services expansion):**
+> - **28 made-up demo companies** added to 商業及其他機構: 8 CJK (stroke 3–10, agriculture/mining/manufacturing/electricity) — 大豐農業 · 天耀礦業 · 永發製造廠 · 光明電力工程 · 良禾農產 · 金石礦業集團 · 南華製鐵 · 海能電力; and 20 English (A–M, water/construction/wholesale/accommodation/transportation/financial) — Aquaclear · Atlantic Builders · Beacon Hospitality · BlueWave Logistics · Crystal Springs · Drake Mercantile · Eastwind Trading · Fairmont Builders · Goldcrest Financial · Greenway Waterworks · Harbour View Resorts · Imperial Wholesale Mart · Jade Garden Inn · Keystone Construction · Kingsbridge Bank · Landmark Express · Liberty Reservoir · Merchant Marine · Metro Plaza Hotels. Each has a colored-circle + 2-letter monogram SVG logo (cyan/orange/green/purple/red/dark-blue per industry).
+> - **iOS Contacts-style sorting/indexing** added to both 政府 and 商業 tabs: a generic `buildIndex(panelId, barId, prefix)` sorts `.org-item`s by `classify(name)` → CJK (stroke count via `STROKES` map) first, then ASCII A–Z, then `#` bucket; inserts `.org-group-header` rows (`"N 劃"` / `"A"`); and populates a right-edge `.index-bar` (`#gov-index-bar` / `#biz-index-bar`) of tappable scroll-to-group items. `activateTab()` toggles the matching bar's `.show` class.
+> - **Gov items lost their `>` chevron** (all 16 `<span class="org-arrow">` removed) to mirror the biz section's clean look.
+> - **10 industry topic pages** created in `Mobile/Services/` — `Farming.html` · `Mining.html` · `Manufacture.html` · `Electric.html` · `Water.html` · `Construction.html` · `ImpExp.html` · `Catering.html` · `Transport.html` · `Finance.html` — all modelled on `InfoComm.html` (status bar / header / pale-blue topic banner / two `.org-list` sections / bottom nav). Each is wired to the matching 主題 tile in `INDEX.html` (the `<div class="topic-cell">` blocks are now `<a>` links). The page banner reuses the same SVG icon as the topic tile.
+> - **Dynamic back-navigation via `?from=` URL parameter** — every detail-page link inside a topic page uses `<a href="AFCD.html?from=Farming.html">`. Each detail page (`DPO.html` · `AFCD.html` · `FEH.html` · `Customs.html` · `TD.html` · `IRD.html`) has `id="backLink"` on its back chevron plus a small IIFE that reads `location.search`, validates the value against `/^[A-Za-z0-9_-]+\.html(#[A-Za-z0-9_-]+)?$/`, and rewrites the chevron's `href`. Without the param it falls back to the default `INDEX.html#gov`.
+
 ### Pages Built
 
 | File | Screen |
 |---|---|
 | `Mobile/home.html` | Home/landing — sky-gradient hero with CSS skyline + blue `iD` logo, "註冊 CORPiD" promo banner, announcement carousel (3 slides, auto-advances every 3.5s, animated pill dots), guide tabs (新手攻略 / 中小企指南 + 更多 link), masonry service card grid, bottom nav (首頁 active) |
-| `Mobile/services.html` | Services directory — 3-tab list (主題 / 政府及有關機構 / 商業及其他機構), 12 items each, bottom nav (服務 active = filled blue grid) |
+| `Mobile/Services/INDEX.html` | Services directory (renamed from `services.html`) — 3 tabs (主題 / 政府及有關機構 / 商業及其他機構). **v3** = layout; **v4** = both 政府 & 商業 use the same iOS-Contacts-style sort + right-edge stroke/letter index bar; 政府 items chevron-less to match 商業. 主題 is a **3-col icon grid** of 21 industry categories; each tile is now an `<a>` linking to its topic page (10 wired so far). Tab can be deep-linked via URL hash (`INDEX.html#gov`). |
+| `Mobile/Services/<TOPIC>.html` | **Topic pages**, all modelled on `InfoComm.html` (status bar / header → `INDEX.html#topics` / pale-blue topic banner / two `.org-list` sections — 政府 + 商業 / bottom nav). Built: `InfoComm.html` · `Farming.html` · `Mining.html` · `Manufacture.html` · `Electric.html` · `Water.html` · `Construction.html` · `ImpExp.html` · `Catering.html` · `Transport.html` · `Finance.html`. Each gov item inside a topic page links to its detail page with a **`?from=<thisTopic>.html`** query string. |
+| `Mobile/Services/<ORG>.html` | **Org detail pages**, all modelled on AFCD.html (same status bar / header / bottom nav; pale-blue org banner = logo + name; link rows = `<a href="#">` placeholders; back chevron = `<a id="backLink" href="INDEX.html#gov">` + IIFE that rewrites `href` from `?from=` param). Built: `AFCD.html` 漁農自然護理署 · `IRD.html` 稅務局 · `DPO.html` 數字政策辦公室 · `Customs.html` 海關 · `FEH.html` 食物環境衞生署 · `HD.html` 醫務衞生局 · `TD.html` 運輸署. The `?from=` handler is wired on all but `HD.html` (not currently linked from any topic). |
 | `Mobile/apply-corpid.html` | T&C scroll page — 7 sections of Chinese terms, checkbox button enables the 繼續 button via JS |
 | `Mobile/login.html` | Auth method selection — bordered white cards on gray page; iAM Smart green pill button (phone-check icon) + 2 boxed-↗ links; iD-One blue pill button + 1 link; no bottom nav |
+
+> **Folder note:** the services page + all topic / org detail pages live in `Mobile/Services/`. The services page was renamed `services.html` → **`INDEX.html`** (no `services.html` refs remain). Three navigation flows:
+> 1. **INDEX → detail** (direct from 政府 tab): `<a href="AFCD.html">` — detail back chevron falls back to `INDEX.html#gov`.
+> 2. **INDEX → topic → detail**: topic tile is `<a href="Farming.html">`; gov item inside the topic is `<a href="AFCD.html?from=Farming.html">`; detail-page IIFE rewrites `#backLink` → `Farming.html`.
+> 3. **INDEX → topic → INDEX**: topic back chevron is `<a href="INDEX.html#topics">`.
+>
+> Pattern for future topic pages: copy `InfoComm.html`, swap banner icon/name + the two `.org-list` payloads, ensure gov-item hrefs carry `?from=<thisFile>.html`, and turn the matching `INDEX.html` topic tile into an `<a>`. Pattern for future detail pages: copy `DPO.html` (it has the cleanest `?from=` handler), swap banner + link rows, keep `id="backLink"` on the chevron + the IIFE intact.
 
 ---
 

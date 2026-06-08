@@ -31,6 +31,27 @@ The v1 pass relied on the Explore agent's text description and used emoji/Unicod
 - **home.html** — blue `iD` logo (was teal "D"), CSS sky-gradient hero + `<svg>` skyline silhouette, "註冊 CORPiD" promo banner, masonry card grid with a tall card and department subtitles, "更多" right-aligned link
 - **login.html** — bordered white cards on gray bg, blue section headings, iAM Smart phone-check button icon, boxed-↗ external link icons
 
+### 5. Services Expansion (v4)
+Built out the 主題 tab as a real navigable hub. No new mock images for this round — content was authored from the existing industry list and the user's seed of demo company names. Changes:
+- **iOS-Contacts-style index** — refactored `buildBizIndex` (biz-only) into a generic `buildIndex(panelId, barId, prefix)` so 政府 and 商業 share the same sort + right-edge index strip. `classify(name)` returns `{ sort, id, label, text }` keyed on the 1st char: CJK → stroke count (via `STROKES` map, sorted first); ASCII letter → uppercase A–Z (sorted after CJK at `1000+charCode`); else `#`. Group headers are inserted into the list as `.org-group-header`, and the right strip (`.index-bar.show`) renders tappable scroll-to-group items. `activateTab()` toggles which bar shows.
+- **`STROKES` map** is the single source of truth; extend it whenever an item's 1st char isn't already listed (gov added: 入 土 工 公 食 商 康 稅 路 運 漁 數 醫). Missing chars fall into `#` and break the visual grouping, so always extend before adding items.
+- **10 industry topic pages** (`Farming.html` … `Finance.html`) cloned from `InfoComm.html`, with industry-appropriate gov + biz lists. Topic tiles in `INDEX.html` converted from `<div>` to `<a>`.
+- **`?from=` back-link pattern** — gov item inside a topic uses `<a href="AFCD.html?from=Farming.html">`. Detail page back chevron is `<a class="header-back" id="backLink" href="INDEX.html#gov">`, plus an IIFE just before `</body>`:
+
+  ```js
+  (function () {
+    var m = location.search.match(/[?&]from=([^&]+)/);
+    if (!m) return;
+    var from = decodeURIComponent(m[1]);
+    if (!/^[A-Za-z0-9_-]+\.html(#[A-Za-z0-9_-]+)?$/.test(from)) return;
+    var back = document.getElementById('backLink');
+    if (back) back.setAttribute('href', from);
+  })();
+  ```
+
+  The regex whitelist prevents `?from=` from being used as an open-redirect / XSS vector. Without the param the chevron keeps its default `INDEX.html#gov` target.
+- **Gov chevron removed** — `<span class="org-arrow">…</span>` deleted from all 16 gov items in `INDEX.html` to mirror the biz section. CSS for `.org-arrow` is still defined and used by topic pages.
+
 ---
 
 ## Skills & Tools Used
@@ -43,8 +64,11 @@ The v1 pass relied on the Explore agent's text description and used emoji/Unicod
 | `Write` / `Edit` | Create and refine the four HTML files and memory/artifact files |
 | `Bash` | Create the `Mobile/` and `artifacts/` directories |
 
-### Key Lesson
-The Explore agent's text description was good for structure and copy, but **reading the source images directly was necessary for visual fidelity** — icon shapes, the exact nav labels (本企 vs 企業), the blue (not teal) logo, and the iOS status-bar treatment were only correct after direct inspection.
+### Key Lessons
+- The Explore agent's text description was good for structure and copy, but **reading the source images directly was necessary for visual fidelity** — icon shapes, the exact nav labels (本企 vs 企業), the blue (not teal) logo, and the iOS status-bar treatment were only correct after direct inspection.
+- For multi-page expansion (10 topic pages), **batch into rounds** — Round 1: parallel `save-file` of stubs from the canonical template; Round 2: parallel `str-replace` to inject per-page content; Round 3: wire up the entry-point page; Round 4: update shared back-handler logic on detail pages. Each round used parallel tool calls; rounds were sequenced because Round N depended on Round N−1's file existing.
+- When extending the navigation graph, **map every entry → back-link pair explicitly** before editing. The `?from=` pattern avoids the dead-end-back-button problem for one-to-many fan-in (e.g. AFCD reachable from both INDEX and Farming) without duplicating detail pages or stuffing `history.back()` (which breaks on direct-URL loads).
+- **Refactor before duplicating** — when 政府 needed the same index strip as 商業, generalising `buildBizIndex` → `buildIndex(panelId, barId, prefix)` was cheaper than copy-pasting, and it positions a future 3rd panel for free.
 
 ---
 
@@ -52,20 +76,35 @@ The Explore agent's text description was good for structure and copy, but **read
 
 ```
 project/
-├── mock-images/          ← source JPEG mock-ups (read-only reference)
+├── mock-images/          ← source mock-ups (read-only reference)
 │   ├── HomePage1-4.jpeg
-│   ├── ServiceCat1-3a.jpeg
+│   ├── service_cat_1a/1b/2/3.PNG   ← v3 services redo
 │   ├── ApplyCorpID1-2.jpeg
-│   └── Login1.jpeg
+│   ├── Login1.jpeg
+│   └── 漁農自然護理署 / 稅務局 / 海關 / 食物環境衞生署 / 運輸署 .PNG  ← individual gov logos
 ├── Mobile/               ← output HTML pages
 │   ├── home.html
-│   ├── services.html
 │   ├── apply-corpid.html
-│   └── login.html
+│   ├── login.html
+│   └── Services/         ← services index + topic + org detail pages
+│       ├── INDEX.html              ← services directory (renamed from services.html)
+│       ├── AFCD/IRD/DPO/Customs/FEH/HD/TD.html    ← 7 org detail pages
+│       └── InfoComm/Farming/Mining/Manufacture/Electric/Water/
+│           Construction/ImpExp/Catering/Transport/Finance.html
+│                                   ← 11 topic pages (1 original + 10 added in v4)
 └── artifacts/            ← this folder
     ├── memory.md         ← project context + design system reference
     └── skill-notes.md    ← this file
 ```
+
+### Linking conventions (3-tier nav graph)
+- Services index file is **`INDEX.html`** (renamed from `services.html`; no `services.html` refs remain anywhere). Default tab on load is 主題; URL hash (`#gov` / `#biz` / `#topics`) deep-links via the load-time IIFE → `activateTab(name)`.
+- **INDEX → org detail (direct):** gov row is `<a href="AFCD.html">` reusing `.org-item` (`text-decoration:none; color:inherit;`). Back chevron on detail page falls back to its default `href="INDEX.html#gov"`.
+- **INDEX → topic → org detail:** topic tile is `<a href="Farming.html">` in INDEX's 主題 grid; the gov item inside `Farming.html` is `<a href="AFCD.html?from=Farming.html">`; detail-page IIFE rewrites `#backLink` so back goes to `Farming.html`.
+- **INDEX → topic (back):** topic-page back chevron is `<a href="INDEX.html#topics">` (no IIFE needed — single entry point).
+- **To add a topic page:** copy `InfoComm.html`, swap banner SVG/name + the two `.org-list` payloads, make each gov link carry `?from=<thisFile>.html`, then convert the matching INDEX 主題 tile from `<div class="topic-cell">` to `<a class="topic-cell" href="…">`.
+- **To add a detail page:** copy `DPO.html` (cleanest `?from=` handler), swap banner + link rows. Keep `id="backLink"` on the chevron and the IIFE intact. Wire row in `INDEX.html#gov` and (optionally) in any relevant topic page with `?from=<topic>.html`.
+- **Extending the index strip:** every new 政府 / 商業 item whose 1st char isn't already in the `STROKES` map at the top of `INDEX.html`'s `<script>` must be added there, otherwise it'll fall into `#`. CJK chars get integer stroke counts; ASCII letters are handled automatically by `classify()`.
 
 ---
 
@@ -73,7 +112,7 @@ project/
 
 1. Open each file in a browser (or DevTools device mode at 393×852)
 2. `home.html` — carousel rotates every 3.5s; guide tabs switch card grid; blue `iD` logo + skyline hero render
-3. `services.html` — three tabs show different lists; 服務 nav icon is filled blue with one light tile
+3. `Services/INDEX.html` — three tabs show different lists; 服務 nav icon is filled blue with one light tile; first 7 政府 rows link to org detail pages, whose back arrow returns to `INDEX.html#gov`
 4. `apply-corpid.html` — clicking the checkbox button enables the 繼續 button
 5. `login.html` — two bordered cards; green iAM Smart + blue iD-One pill buttons; boxed-↗ links
 6. Bottom-nav labels read 首頁 · 服務 · 掃描 · 待辦 · 本企 with SVG icons (no emoji)
