@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1">
+<title>戶口資料 — CorpID</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #e0e0e0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px 0; font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+  .phone-frame { width: 393px; height: 852px; background: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 8px 32px rgba(0,0,0,0.25); border-radius: 48px; }
+  .status-bar { height: 50px; background: #fff; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 26px 6px; flex-shrink: 0; }
+  .sb-time { font-size: 15px; font-weight: 600; color: #1a1a1a; letter-spacing: .3px; }
+  .sb-icons { display: flex; align-items: center; gap: 6px; }
+  .batt { display: inline-flex; align-items: center; gap: 2px; }
+  .batt-body { border: 1px solid rgba(0,0,0,.55); border-radius: 4px; font-size: 9px; font-weight: 700; padding: 1px 3px; line-height: 1; min-width: 22px; text-align: center; background: linear-gradient(to right, rgba(0,0,0,.8) 79%, transparent 79%); -webkit-text-fill-color: #fff; }
+  .batt-tip { width: 2px; height: 5px; background: rgba(0,0,0,.55); border-radius: 0 2px 2px 0; }
+  .header { height: 50px; background: #fff; display: flex; align-items: center; padding: 0 14px; position: relative; flex-shrink: 0; border-bottom: 1px solid #eef0f2; }
+  .header-back { background: none; border: none; cursor: pointer; padding: 4px; display: flex; }
+  .header-title { color: #1a1a1a; font-size: 18px; font-weight: 700; position: absolute; left: 50%; transform: translateX(-50%); }
+  .body-scroll { flex: 1; overflow-y: auto; background: #fff; }
+  .body-scroll::-webkit-scrollbar { display: none; }
+  .info-banner { background: #e9f0f8; padding: 16px 18px; font-size: 16px; color: #155CB0; line-height: 1.5; }
+  .section-title { padding: 14px 18px; font-size: 16px; font-weight: 700; color: #1a1a1a; background: #f4f6f8; }
+  .field { padding: 14px 18px; border-bottom: 1px solid #eef0f2; position: relative; }
+  .field .k { font-size: 14px; color: #8a929b; margin-bottom: 6px; }
+  .field .v { font-size: 18px; color: #1a1a1a; }
+  .field .eye { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); }
+  .field .verified { position: absolute; right: 18px; top: 14px; display: flex; align-items: center; gap: 4px; font-size: 13px; color: #2e8b6f; }
+  .field .edit { position: absolute; right: 18px; bottom: 14px; }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="sb-time">12:34</span>
+    <div class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1a1a1a"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#1a1a1a"/><rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#1a1a1a"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1a1a1a"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M2.5 5.2a9 9 0 0 1 12 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7.6a5.2 5.2 0 0 1 7 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.5" cy="10" r="1.3" fill="#1a1a1a"/></svg>
+      <span class="batt"><span class="batt-body">79</span><span class="batt-tip"></span></span>
+    </div>
+  </div>
+  <div class="header">
+    <a class="header-back" href="INDEX.html"><svg width="11" height="20" viewBox="0 0 11 20" fill="none"><path d="M9 2 L2 10 L9 18" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="header-title">戶口資料</span>
+  </div>
+
+  <div class="body-scroll">
+    <div class="info-banner">CorpID 已加密你的戶口資料，只有你能看到以下的戶口信息。</div>
+
+    <div class="section-title">身份證資料</div>
+    <div class="field">
+      <div class="k">香港身份證號碼</div>
+      <div class="v">*******(*)</div>
+      <span class="eye"><svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#8a929b" stroke-width="1.5" stroke-linecap="round"><path d="M2 4 C7 11, 19 11, 24 4"/><path d="M5 8 L3.5 11"/><path d="M13 10 L13 13"/><path d="M21 8 L22.5 11"/></svg></span>
+    </div>
+    <div class="field">
+      <div class="k">英文姓名</div>
+      <div class="v">LEUNG, Koon Sing</div>
+    </div>
+    <div class="field">
+      <div class="k">中文姓名</div>
+      <div class="v">梁冠誠</div>
+    </div>
+    <div class="field">
+      <div class="k">出生日期</div>
+      <div class="v">**-**-****</div>
+      <span class="eye"><svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#8a929b" stroke-width="1.5" stroke-linecap="round"><path d="M2 4 C7 11, 19 11, 24 4"/><path d="M5 8 L3.5 11"/><path d="M13 10 L13 13"/><path d="M21 8 L22.5 11"/></svg></span>
+    </div>
+    <div class="field">
+      <div class="k">性別</div>
+      <div class="v">男</div>
+    </div>
+    <div class="field">
+      <div class="k">聯絡電郵</div>
+      <div class="v">currysing@gmail.com</div>
+      <span class="verified"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L14 3.5 V8 c0 3.5 -2.5 5.5 -6 7 c-3.5 -1.5 -6 -3.5 -6 -7 V3.5 Z" fill="#2e8b6f"/><path d="M5.5 8 L7 9.5 L10.5 6" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>已驗證</span>
+      <span class="edit"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 l4 4 -10 10 -5 1 1 -5 Z"/></svg></span>
+    </div>
+
+    <div class="section-title">電子證書（適用於 CorpID＋ 用戶）</div>
+    <div class="field">
+      <div class="k">有效期至</div>
+      <div class="v">2027年03月25日</div>
+    </div>
+    <div class="field">
+      <div class="k">參考編號</div>
+      <div class="v">0010333013</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

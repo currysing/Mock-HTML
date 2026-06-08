@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1">
+<title>顯示 — CorpID</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e0e0e0;
+    display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 20px 0;
+    font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+  .phone-frame {
+    width: 393px; height: 852px; background: #fff;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25); border-radius: 48px;
+  }
+  /* white status bar */
+  .status-bar {
+    height: 50px; background: #fff; display: flex; align-items: flex-end;
+    justify-content: space-between; padding: 0 26px 6px; flex-shrink: 0;
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: #1a1a1a; letter-spacing: .3px; }
+  .sb-icons { display: flex; align-items: center; gap: 6px; }
+  .batt { display: inline-flex; align-items: center; gap: 2px; }
+  .batt-body {
+    border: 1px solid rgba(0,0,0,.55); border-radius: 4px;
+    font-size: 9px; font-weight: 700; padding: 1px 3px; line-height: 1;
+    min-width: 22px; text-align: center;
+    background: linear-gradient(to right, rgba(0,0,0,.8) 79%, transparent 79%);
+    -webkit-text-fill-color: #fff;
+  }
+  .batt-tip { width: 2px; height: 5px; background: rgba(0,0,0,.55); border-radius: 0 2px 2px 0; }
+  /* white header */
+  .header {
+    height: 50px; background: #fff; display: flex; align-items: center;
+    padding: 0 14px; position: relative; flex-shrink: 0; border-bottom: 1px solid #eef0f2;
+  }
+  .header-back { background: none; border: none; cursor: pointer; padding: 4px; display: flex; }
+  .header-title {
+    color: #1a1a1a; font-size: 18px; font-weight: 700;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .body-scroll { flex: 1; overflow-y: auto; background: #fff; }
+  .body-scroll::-webkit-scrollbar { display: none; }
+
+  .row {
+    display: flex; align-items: center; padding: 18px 18px;
+    border-bottom: 1px solid #eef0f2;
+  }
+  .row-label { font-size: 16px; color: #1a1a1a; }
+  .lang-pill {
+    margin-left: auto; display: flex; align-items: center; gap: 8px;
+    background: #f4f6f8; border: 1px solid #e2e6ea; border-radius: 10px;
+    padding: 8px 14px; color: #155CB0; font-size: 15px; font-weight: 600;
+  }
+  .block-label { padding: 18px 18px 4px; font-size: 16px; color: #1a1a1a; }
+  .preview {
+    padding: 8px 18px 20px; border-bottom: 1px solid #eef0f2;
+  }
+  .preview h3 { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 10px; }
+  .preview p { font-size: 16px; color: #1a1a1a; line-height: 1.6; }
+  .slider-area { padding: 26px 22px 18px; border-bottom: 1px solid #eef0f2; }
+  .slider-row { display: flex; align-items: center; gap: 14px; }
+  .slider-row .small-a { font-size: 16px; color: #1a1a1a; }
+  .slider-row .big-a { font-size: 30px; font-weight: 800; color: #1a1a1a; }
+  .track {
+    flex: 1; height: 6px; background: #eceff2; border-radius: 3px; position: relative;
+  }
+  .track .dot {
+    position: absolute; top: 50%; transform: translate(-50%,-50%);
+    width: 9px; height: 9px; border-radius: 50%; background: #c4ccd4;
+  }
+  .track .dot.d1 { left: 25%; } .track .dot.d3 { left: 75%; }
+  .track .knob {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 24px; height: 24px; border-radius: 50%; background: #fff;
+    border: 6px solid #155CB0; box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  }
+  .slider-caption { text-align: center; padding-top: 16px; font-size: 16px; color: #1a1a1a; }
+  .nav-row {
+    display: flex; align-items: center; padding: 18px 18px;
+    border-bottom: 1px solid #eef0f2; cursor: pointer; color: inherit; text-decoration: none;
+  }
+  .nav-row:active { background: #f6f8fa; }
+  .nav-row .lbl { flex: 1; font-size: 16px; color: #1a1a1a; }
+  .arrow { color: #c4ccd4; display: flex; }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="sb-time">12:34</span>
+    <div class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1a1a1a"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#1a1a1a"/><rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#1a1a1a"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1a1a1a"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M2.5 5.2a9 9 0 0 1 12 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7.6a5.2 5.2 0 0 1 7 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.5" cy="10" r="1.3" fill="#1a1a1a"/></svg>
+      <span class="batt"><span class="batt-body">79</span><span class="batt-tip"></span></span>
+    </div>
+  </div>
+  <div class="header">
+    <a class="header-back" href="INDEX.html"><svg width="11" height="20" viewBox="0 0 11 20" fill="none"><path d="M9 2 L2 10 L9 18" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="header-title">顯示</span>
+  </div>
+
+  <div class="body-scroll">
+    <div class="row">
+      <span class="row-label">語言</span>
+      <span class="lang-pill">繁體中文 <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#155CB0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+
+    <div class="block-label">字體大小</div>
+    <div class="preview">
+      <h3>預覽</h3>
+      <p>這些文字的大小將適用於應用程式內的文字。</p>
+      <p>2026年06月08日</p>
+    </div>
+
+    <div class="slider-area">
+      <div class="slider-row">
+        <span class="small-a">A</span>
+        <div class="track">
+          <span class="dot d1"></span>
+          <span class="dot d3"></span>
+          <span class="knob"></span>
+        </div>
+        <span class="big-a">A</span>
+      </div>
+      <div class="slider-caption">標準</div>
+    </div>
+
+    <a class="nav-row" href="#">
+      <span class="lbl">無障礙設計</span>
+      <span class="arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+  </div>
+</div>
+</body>
+</html>
