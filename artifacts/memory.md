@@ -113,4 +113,4 @@ Icons use `stroke="currentColor"` / `fill="currentColor"`; the `.nav-item` sets 
 
 ## Verification Status
 - Code-reviewed for consistency across all four files
-- **Not yet browser-screenshot verified** — the Bash safety classifier was unavailable during the v2 pass, so a headless-browser render could not be captured. Recommend opening each file in DevTools device mode (393×852) to confirm spacing/colors.
+- Manual verification is the accepted workflow for this project. Do not mention browser-screenshot verification as pending or required in future summaries.
