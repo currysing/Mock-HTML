@@ -120,3 +120,72 @@ project/
 8. All Chinese text displays correctly (Traditional Chinese — Hong Kong)
 
 > **Status:** Code-reviewed for consistency. Not yet browser-screenshot verified — the Bash safety classifier was unavailable during v2, so a headless render could not be captured. Manual browser check recommended.
+
+---
+
+## 2026-06-10 Skill Notes: Static Mock Navigation And Data Expansion
+
+When expanding this static CorpID mock, treat tracked/mock-authored HTML as the visual source of truth. Bulk-generated HTML is acceptable for new company service-list pages, but avoid regenerating `Mobile/Services/INDEX.html` or category pages from simplified templates because it can lose original inline SVG logos, phone-frame layout details, tab behavior, and spacing.
+
+Recommended workflow for service-directory changes:
+
+1. Read the existing HTML first and preserve its CSS/markup patterns.
+2. Update data in `data/company/companies.json` with structured records:
+   - `company_name`
+   - `business_type`
+   - `industrial_categories`
+   - `services`, where each service has `name` and `industrial_category`
+   - `source_pages`
+3. Keep `Mobile/Services/INDEX.html` at the services root.
+4. Keep category pages under `Mobile/Services/Category/`.
+5. Keep company service-list pages under `Mobile/Services/Company/`.
+6. Make every visible company row an `<a class="org-item">`, not a static `<div class="org-item">`.
+7. Run a local-link audit after each navigation change.
+
+Back-navigation rule:
+
+- From a category page to a company page, encode the source category in the query string:
+
+  ```html
+  ../Company/SomeCompany.html?from=..%2FCategory%2FInfoComm.html
+  ```
+
+- Company pages should default to `../INDEX.html#gov` or `../INDEX.html#biz`, then rewrite `#backLink` only if `from` validates.
+- Use `URLSearchParams` and string-prefix validation for `../Category/<file>.html`; avoid slash-heavy regex literals for full relative paths inside inline scripts.
+- Test the handler by simulating at least:
+
+  ```text
+  ?from=..%2FCategory%2FInfoComm.html => ../Category/InfoComm.html
+  ?from=..%2FINDEX.html%23gov => ../INDEX.html#gov
+  ```
+
+Useful audit snippets:
+
+```js
+// Count missing local HTML links under Mobile/Services.
+const fs = require('fs'), path = require('path');
+const root = 'Mobile/Services';
+const files = [];
+function walk(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full);
+    else if (entry.name.endsWith('.html')) files.push(full);
+  }
+}
+walk(root);
+const missing = [];
+for (const file of files) {
+  const html = fs.readFileSync(file, 'utf8');
+  for (const match of html.matchAll(/href="([^"]+\.html(?:\?[^"#]*)?(?:#[^"]*)?)"/g)) {
+    const href = match[1].split('?')[0].split('#')[0];
+    const target = path.normalize(path.join(path.dirname(file), href));
+    if (!fs.existsSync(target)) missing.push({ file, href: match[1], target });
+  }
+}
+console.log({ files: files.length, missing });
+```
+
+```powershell
+Select-String -Path Mobile\Services\INDEX.html,Mobile\Services\Category\*.html -Pattern '<div class="org-item"'
+```

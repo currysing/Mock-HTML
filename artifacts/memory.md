@@ -114,3 +114,56 @@ Icons use `stroke="currentColor"` / `fill="currentColor"`; the `.nav-item` sets 
 ## Verification Status
 - Code-reviewed for consistency across all four files
 - Manual verification is the accepted workflow for this project. Do not mention browser-screenshot verification as pending or required in future summaries.
+
+---
+
+## 2026-06-10 Services Reorganization Update
+
+The services mock-up now uses a three-level structure:
+
+- `Mobile/Services/INDEX.html` stays at the services root.
+- Category/topic pages live in `Mobile/Services/Category/`.
+- Company service-list pages live in `Mobile/Services/Company/`.
+- Extracted company data lives in `data/company/companies.json`.
+
+Important preservation rule: for the service directory UI, the original mock HTML is the visual source of truth. When adding data, links, or generated pages, avoid regenerating `INDEX.html` or category pages from simplified templates. Restore or copy original category markup when possible so inline SVG company logos and the phone-frame layout remain intact.
+
+All companies should be clickable and should land on a company page listing its services. A company can have multiple `industrial_categories`; each service record should include an `industrial_category` field so the company page can group services under the correct category heading.
+
+Current back-navigation convention:
+
+- Category rows link to company pages with an encoded `from` value, for example:
+
+  ```html
+  <a class="org-item" href="../Company/DPO.html?from=..%2FCategory%2FInfoComm.html">
+  ```
+
+- Company pages keep a default back link to either `../INDEX.html#gov` or `../INDEX.html#biz`, then rewrite `#backLink` from `from` when present.
+- The company-page script must accept `../Category/<CategoryFile>.html` and index anchors, but it must not use an unsafe slash-delimited path regex such as `/^../Category/.../`, because that can break script parsing and leave the default index back link in place.
+- Preferred safe validation pattern is string-prefix validation:
+
+  ```js
+  var params = new URLSearchParams(location.search);
+  var from = params.get("from");
+  if (from) {
+    try { from = decodeURIComponent(from); } catch (e) {}
+    var okIndex = from === "../INDEX.html#gov" || from === "../INDEX.html#biz" || from === "../INDEX.html";
+    var okCategory = false;
+    var categoryPrefix = "../Category/";
+    if (from.indexOf(categoryPrefix) === 0 && from.slice(-5) === ".html") {
+      var categoryFile = from.slice(categoryPrefix.length, -5);
+      okCategory = /^[A-Za-z0-9_-]+$/.test(categoryFile);
+    }
+    if (okIndex || okCategory) {
+      var back = document.getElementById("backLink");
+      if (back) back.setAttribute("href", from);
+    }
+  }
+  ```
+
+Latest verification performed after the reorganization:
+
+- 64 HTML files found under `Mobile/Services`.
+- Local `.html` link audit passed with no missing targets.
+- No remaining static `<div class="org-item">` rows in `INDEX.html` or category pages.
+- Category-to-company back navigation was simulated with `?from=..%2FCategory%2FInfoComm.html` and resolved to `../Category/InfoComm.html`.
