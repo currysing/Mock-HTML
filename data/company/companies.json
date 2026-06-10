@@ -1,0 +1,1229 @@
+[
+  {
+    "company_name": "Apex Construction Ltd.",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "建造"
+    ],
+    "services": [
+      {
+        "service_name": "Construction Project Registration Support Service",
+        "industrial_category": "建造",
+        "source_pages": [
+          "Company/ApexConstructionLtd.html",
+          "Category/Construction.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/ApexConstructionLtd.html",
+      "Category/Construction.html"
+    ]
+  },
+  {
+    "company_name": "Aqua Pure Water Co.",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "自來水供應、污水處理、廢棄物管理及污染防治活動"
+    ],
+    "services": [
+      {
+        "service_name": "Water, Waste Management and Pollution Control Support Service",
+        "industrial_category": "自來水供應、污水處理、廢棄物管理及污染防治活動",
+        "source_pages": [
+          "Company/AquaPureWaterCo.html",
+          "Category/Water.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/AquaPureWaterCo.html",
+      "Category/Water.html"
+    ]
+  },
+  {
+    "company_name": "Blue Harbour Logistics",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "運輸、倉庫、郵政及速遞服務"
+    ],
+    "services": [
+      {
+        "service_name": "Transport, Storage, Postal and Courier Operations Support Service",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/BlueHarbourLogistics.html",
+          "Category/Transport.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/BlueHarbourLogistics.html",
+      "Category/Transport.html"
+    ]
+  },
+  {
+    "company_name": "Bridgeway Capital Partners",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "金融及保險活動"
+    ],
+    "services": [
+      {
+        "service_name": "Finance and Insurance Business Support Service",
+        "industrial_category": "金融及保險活動",
+        "source_pages": [
+          "Company/BridgewayCapitalPartners.html",
+          "Category/Finance.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/BridgewayCapitalPartners.html",
+      "Category/Finance.html"
+    ]
+  },
+  {
+    "company_name": "Citywide Retail Group",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "進出口貿易、批發及零售業"
+    ],
+    "services": [
+      {
+        "service_name": "Import, Export, Wholesale and Retail Trade Support Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/CitywideRetailGroup.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/CitywideRetailGroup.html",
+      "Category/ImpExp.html"
+    ]
+  },
+  {
+    "company_name": "Crown Heritage Hotels",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "住宿及膳食服務活動"
+    ],
+    "services": [
+      {
+        "service_name": "Accommodation and Food Service Licensing Support Service",
+        "industrial_category": "住宿及膳食服務活動",
+        "source_pages": [
+          "Company/CrownHeritageHotels.html",
+          "Category/Catering.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/CrownHeritageHotels.html",
+      "Category/Catering.html"
+    ]
+  },
+  {
+    "company_name": "Delta Freight Services",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "運輸、倉庫、郵政及速遞服務"
+    ],
+    "services": [
+      {
+        "service_name": "Transport, Storage, Postal and Courier Operations Support Service",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/DeltaFreightServices.html",
+          "Category/Transport.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/DeltaFreightServices.html",
+      "Category/Transport.html"
+    ]
+  },
+  {
+    "company_name": "Eastwind Trading Co.",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "進出口貿易、批發及零售業"
+    ],
+    "services": [
+      {
+        "service_name": "Import, Export, Wholesale and Retail Trade Support Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/EastwindTradingCo.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/EastwindTradingCo.html",
+      "Category/ImpExp.html"
+    ]
+  },
+  {
+    "company_name": "Fairmont Builders Ltd.",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "建造"
+    ],
+    "services": [
+      {
+        "service_name": "Construction Project Registration Support Service",
+        "industrial_category": "建造",
+        "source_pages": [
+          "Company/FairmontBuildersLtd.html",
+          "Category/Construction.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/FairmontBuildersLtd.html",
+      "Category/Construction.html"
+    ]
+  },
+  {
+    "company_name": "Goldcrest Financial Holdings",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "金融及保險活動"
+    ],
+    "services": [
+      {
+        "service_name": "Finance and Insurance Business Support Service",
+        "industrial_category": "金融及保險活動",
+        "source_pages": [
+          "Company/GoldcrestFinancialHoldings.html",
+          "Category/Finance.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/GoldcrestFinancialHoldings.html",
+      "Category/Finance.html"
+    ]
+  },
+  {
+    "company_name": "Greenway Waterworks",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "自來水供應、污水處理、廢棄物管理及污染防治活動"
+    ],
+    "services": [
+      {
+        "service_name": "Water, Waste Management and Pollution Control Support Service",
+        "industrial_category": "自來水供應、污水處理、廢棄物管理及污染防治活動",
+        "source_pages": [
+          "Company/GreenwayWaterworks.html",
+          "Category/Water.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/GreenwayWaterworks.html",
+      "Category/Water.html"
+    ]
+  },
+  {
+    "company_name": "Harbour View Resorts",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "住宿及膳食服務活動"
+    ],
+    "services": [
+      {
+        "service_name": "Accommodation and Food Service Licensing Support Service",
+        "industrial_category": "住宿及膳食服務活動",
+        "source_pages": [
+          "Company/HarbourViewResorts.html",
+          "Category/Catering.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/HarbourViewResorts.html",
+      "Category/Catering.html"
+    ]
+  },
+  {
+    "company_name": "Imperial Wholesale Mart",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "進出口貿易、批發及零售業"
+    ],
+    "services": [
+      {
+        "service_name": "Import, Export, Wholesale and Retail Trade Support Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/ImperialWholesaleMart.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/ImperialWholesaleMart.html",
+      "Category/ImpExp.html"
+    ]
+  },
+  {
+    "company_name": "Jade Garden Inn Group",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "住宿及膳食服務活動"
+    ],
+    "services": [
+      {
+        "service_name": "Accommodation and Food Service Licensing Support Service",
+        "industrial_category": "住宿及膳食服務活動",
+        "source_pages": [
+          "Company/JadeGardenInnGroup.html",
+          "Category/Catering.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/JadeGardenInnGroup.html",
+      "Category/Catering.html"
+    ]
+  },
+  {
+    "company_name": "Keystone Construction Engineering",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "建造"
+    ],
+    "services": [
+      {
+        "service_name": "Construction Project Registration Support Service",
+        "industrial_category": "建造",
+        "source_pages": [
+          "Company/KeystoneConstructionEngineering.html",
+          "Category/Construction.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/KeystoneConstructionEngineering.html",
+      "Category/Construction.html"
+    ]
+  },
+  {
+    "company_name": "Kingsbridge Bank Ltd.",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "金融及保險活動"
+    ],
+    "services": [
+      {
+        "service_name": "Finance and Insurance Business Support Service",
+        "industrial_category": "金融及保險活動",
+        "source_pages": [
+          "Company/KingsbridgeBankLtd.html",
+          "Category/Finance.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/KingsbridgeBankLtd.html",
+      "Category/Finance.html"
+    ]
+  },
+  {
+    "company_name": "Landmark Express Couriers",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "運輸、倉庫、郵政及速遞服務"
+    ],
+    "services": [
+      {
+        "service_name": "Transport, Storage, Postal and Courier Operations Support Service",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/LandmarkExpressCouriers.html",
+          "Category/Transport.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/LandmarkExpressCouriers.html",
+      "Category/Transport.html"
+    ]
+  },
+  {
+    "company_name": "Liberty Reservoir Co.",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "自來水供應、污水處理、廢棄物管理及污染防治活動"
+    ],
+    "services": [
+      {
+        "service_name": "Water, Waste Management and Pollution Control Support Service",
+        "industrial_category": "自來水供應、污水處理、廢棄物管理及污染防治活動",
+        "source_pages": [
+          "Company/LibertyReservoirCo.html",
+          "Category/Water.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/LibertyReservoirCo.html",
+      "Category/Water.html"
+    ]
+  },
+  {
+    "company_name": "Merchant Marine Shipping",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "運輸、倉庫、郵政及速遞服務"
+    ],
+    "services": [
+      {
+        "service_name": "Transport, Storage, Postal and Courier Operations Support Service",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/MerchantMarineShipping.html",
+          "Category/Transport.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/MerchantMarineShipping.html",
+      "Category/Transport.html"
+    ]
+  },
+  {
+    "company_name": "Metro Plaza Hotels",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "住宿及膳食服務活動"
+    ],
+    "services": [
+      {
+        "service_name": "Accommodation and Food Service Licensing Support Service",
+        "industrial_category": "住宿及膳食服務活動",
+        "source_pages": [
+          "Company/MetroPlazaHotels.html",
+          "Category/Catering.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/MetroPlazaHotels.html",
+      "Category/Catering.html"
+    ]
+  },
+  {
+    "company_name": "Multi Category Company #1",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "資訊及通訊",
+      "教育",
+      "進出口貿易、批發及零售業"
+    ],
+    "services": [
+      {
+        "service_name": "Cloud Integration Advisory Service",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Managed Data Platform Support Service",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Cybersecurity Readiness Assessment Service",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Corporate Learning Management Service",
+        "industrial_category": "教育",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/Education.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Professional Training Course Enrollment Service",
+        "industrial_category": "教育",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/Education.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Cross-border Trade Documentation Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Wholesale Order Management Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Retail Partner Onboarding Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/MultiCategoryCompany1.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/MultiCategoryCompany1.html",
+      "INDEX.html",
+      "Category/InfoComm.html",
+      "Category/Education.html",
+      "Category/ImpExp.html"
+    ]
+  },
+  {
+    "company_name": "光明電力工程有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "電力及燃氣供應"
+    ],
+    "services": [
+      {
+        "service_name": "Electricity and Gas Supply Account Management Service",
+        "industrial_category": "電力及燃氣供應",
+        "source_pages": [
+          "Company/Company022.html",
+          "Category/Electric.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company022.html",
+      "Category/Electric.html"
+    ]
+  },
+  {
+    "company_name": "南華製鐵有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "製造"
+    ],
+    "services": [
+      {
+        "service_name": "Manufacturing Operations Support Service",
+        "industrial_category": "製造",
+        "source_pages": [
+          "Company/Company023.html",
+          "Category/Manufacture.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company023.html",
+      "Category/Manufacture.html"
+    ]
+  },
+  {
+    "company_name": "商務及經濟發展局",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "電力及燃氣供應"
+    ],
+    "services": [
+      {
+        "service_name": "Electricity and Gas Supply Account Management Service",
+        "industrial_category": "電力及燃氣供應",
+        "source_pages": [
+          "Company/Company024.html",
+          "Category/Electric.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company024.html",
+      "Category/Electric.html"
+    ]
+  },
+  {
+    "company_name": "土木工程拓展署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "採礦及採石",
+      "建造"
+    ],
+    "services": [
+      {
+        "service_name": "Mining and Quarrying Compliance Support Service",
+        "industrial_category": "採礦及採石",
+        "source_pages": [
+          "Company/Company025.html",
+          "Category/Mining.html",
+          "Category/Construction.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Construction Project Registration Support Service",
+        "industrial_category": "建造",
+        "source_pages": [
+          "Company/Company025.html",
+          "Category/Mining.html",
+          "Category/Construction.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company025.html",
+      "Category/Mining.html",
+      "Category/Construction.html"
+    ]
+  },
+  {
+    "company_name": "大豐農業有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "農業、林業及漁業"
+    ],
+    "services": [
+      {
+        "service_name": "Agriculture, Forestry and Fisheries Business Support Service",
+        "industrial_category": "農業、林業及漁業",
+        "source_pages": [
+          "Company/Company026.html",
+          "Category/Farming.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company026.html",
+      "Category/Farming.html"
+    ]
+  },
+  {
+    "company_name": "天耀礦業有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "採礦及採石"
+    ],
+    "services": [
+      {
+        "service_name": "Mining and Quarrying Compliance Support Service",
+        "industrial_category": "採礦及採石",
+        "source_pages": [
+          "Company/Company027.html",
+          "Category/Mining.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company027.html",
+      "Category/Mining.html"
+    ]
+  },
+  {
+    "company_name": "工業貿易署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "製造",
+      "進出口貿易、批發及零售業"
+    ],
+    "services": [
+      {
+        "service_name": "Manufacturing Operations Support Service",
+        "industrial_category": "製造",
+        "source_pages": [
+          "Company/Company028.html",
+          "Category/Manufacture.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      },
+      {
+        "service_name": "Import, Export, Wholesale and Retail Trade Support Service",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/Company028.html",
+          "Category/Manufacture.html",
+          "Category/ImpExp.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company028.html",
+      "Category/Manufacture.html",
+      "Category/ImpExp.html"
+    ]
+  },
+  {
+    "company_name": "數字政策辦公室",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "資訊及通訊"
+    ],
+    "services": [
+      {
+        "service_name": "E-Form Services of Certification Authority Recognition Office (CARO)",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/DPO.html",
+          "Category/InfoComm.html"
+        ]
+      },
+      {
+        "service_name": "e-Procurement",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/DPO.html",
+          "Category/InfoComm.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/DPO.html",
+      "Category/InfoComm.html"
+    ]
+  },
+  {
+    "company_name": "易簽寶(香港)有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "資訊及通訊"
+    ],
+    "services": [
+      {
+        "service_name": "Information and Communications Digital Service Support",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/Company030.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company030.html",
+      "Category/InfoComm.html"
+    ]
+  },
+  {
+    "company_name": "永發製造廠有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "製造"
+    ],
+    "services": [
+      {
+        "service_name": "Manufacturing Operations Support Service",
+        "industrial_category": "製造",
+        "source_pages": [
+          "Company/Company031.html",
+          "Category/Manufacture.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company031.html",
+      "Category/Manufacture.html"
+    ]
+  },
+  {
+    "company_name": "海能電力有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "電力及燃氣供應"
+    ],
+    "services": [
+      {
+        "service_name": "Electricity and Gas Supply Account Management Service",
+        "industrial_category": "電力及燃氣供應",
+        "source_pages": [
+          "Company/Company032.html",
+          "Category/Electric.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company032.html",
+      "Category/Electric.html"
+    ]
+  },
+  {
+    "company_name": "海關",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "進出口貿易、批發及零售業"
+    ],
+    "services": [
+      {
+        "service_name": "VLS",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/Customs.html",
+          "Category/ImpExp.html"
+        ]
+      },
+      {
+        "service_name": "Virtual Asset Registration",
+        "industrial_category": "進出口貿易、批發及零售業",
+        "source_pages": [
+          "Company/Customs.html",
+          "Category/ImpExp.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/Customs.html",
+      "Category/ImpExp.html"
+    ]
+  },
+  {
+    "company_name": "漁農自然護理署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "農業、林業及漁業"
+    ],
+    "services": [
+      {
+        "service_name": "Application of Pesticides Licence",
+        "industrial_category": "農業、林業及漁業",
+        "source_pages": [
+          "Company/AFCD.html",
+          "Category/Farming.html"
+        ]
+      },
+      {
+        "service_name": "Application of Marine Fish Culture Licence",
+        "industrial_category": "農業、林業及漁業",
+        "source_pages": [
+          "Company/AFCD.html",
+          "Category/Farming.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/AFCD.html",
+      "Category/Farming.html"
+    ]
+  },
+  {
+    "company_name": "稅務局",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "金融及保險活動"
+    ],
+    "services": [
+      {
+        "service_name": "Business Tax Portal",
+        "industrial_category": "金融及保險活動",
+        "source_pages": [
+          "Company/IRD.html",
+          "Category/Finance.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/IRD.html",
+      "Category/Finance.html"
+    ]
+  },
+  {
+    "company_name": "良禾農產有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "農業、林業及漁業"
+    ],
+    "services": [
+      {
+        "service_name": "Agriculture, Forestry and Fisheries Business Support Service",
+        "industrial_category": "農業、林業及漁業",
+        "source_pages": [
+          "Company/Company036.html",
+          "Category/Farming.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company036.html",
+      "Category/Farming.html"
+    ]
+  },
+  {
+    "company_name": "貿易通電子貿易有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "資訊及通訊"
+    ],
+    "services": [
+      {
+        "service_name": "Information and Communications Digital Service Support",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/Company037.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company037.html",
+      "Category/InfoComm.html"
+    ]
+  },
+  {
+    "company_name": "路政署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "建造"
+    ],
+    "services": [
+      {
+        "service_name": "Construction Project Registration Support Service",
+        "industrial_category": "建造",
+        "source_pages": [
+          "Company/Company038.html",
+          "Category/Construction.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company038.html",
+      "Category/Construction.html"
+    ]
+  },
+  {
+    "company_name": "運輸及物流局",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "運輸、倉庫、郵政及速遞服務"
+    ],
+    "services": [
+      {
+        "service_name": "Transport, Storage, Postal and Courier Operations Support Service",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/Company039.html",
+          "Category/Transport.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company039.html",
+      "Category/Transport.html"
+    ]
+  },
+  {
+    "company_name": "運輸署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "運輸、倉庫、郵政及速遞服務"
+    ],
+    "services": [
+      {
+        "service_name": "Online Renewal of Vehicle License",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/TD.html",
+          "Category/Transport.html"
+        ]
+      },
+      {
+        "service_name": "Online Application for Personalised Vehicle Registration Mark (PVRM)",
+        "industrial_category": "運輸、倉庫、郵政及速遞服務",
+        "source_pages": [
+          "Company/TD.html",
+          "Category/Transport.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/TD.html",
+      "Category/Transport.html"
+    ]
+  },
+  {
+    "company_name": "醫務衞生局",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [],
+    "services": [
+      {
+        "service_name": "2nd Generation Electronic Grant Management System",
+        "industrial_category": null,
+        "source_pages": [
+          "Company/HD.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/HD.html"
+    ]
+  },
+  {
+    "company_name": "金石礦業集團有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "採礦及採石"
+    ],
+    "services": [
+      {
+        "service_name": "Mining and Quarrying Compliance Support Service",
+        "industrial_category": "採礦及採石",
+        "source_pages": [
+          "Company/Company042.html",
+          "Category/Mining.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company042.html",
+      "Category/Mining.html"
+    ]
+  },
+  {
+    "company_name": "食物環境衞生署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "自來水供應、污水處理、廢棄物管理及污染防治活動",
+      "住宿及膳食服務活動"
+    ],
+    "services": [
+      {
+        "service_name": "Application and renewal of food licenses and other industry licenses",
+        "industrial_category": "自來水供應、污水處理、廢棄物管理及污染防治活動",
+        "source_pages": [
+          "Company/FEH.html",
+          "Category/Water.html"
+        ]
+      },
+      {
+        "service_name": "Application and renewal of food licenses and other industry licenses",
+        "industrial_category": "住宿及膳食服務活動",
+        "source_pages": [
+          "Company/FEH.html",
+          "Category/Catering.html"
+        ]
+      }
+    ],
+    "source_pages": [
+      "Company/FEH.html",
+      "Category/Water.html",
+      "Category/Catering.html"
+    ]
+  },
+  {
+    "company_name": "香港數碼港管理有限公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "資訊及通訊"
+    ],
+    "services": [
+      {
+        "service_name": "Information and Communications Digital Service Support",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/Company044.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company044.html",
+      "Category/InfoComm.html"
+    ]
+  },
+  {
+    "company_name": "香港生產力促進局",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "資訊及通訊"
+    ],
+    "services": [
+      {
+        "service_name": "Information and Communications Digital Service Support",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/Company045.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company045.html",
+      "Category/InfoComm.html"
+    ]
+  },
+  {
+    "company_name": "香港科技園公司",
+    "business_type": "商業及其他機構",
+    "industrial_categories": [
+      "資訊及通訊"
+    ],
+    "services": [
+      {
+        "service_name": "Information and Communications Digital Service Support",
+        "industrial_category": "資訊及通訊",
+        "source_pages": [
+          "Company/Company046.html",
+          "Category/InfoComm.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company046.html",
+      "Category/InfoComm.html"
+    ]
+  },
+  {
+    "company_name": "香港金融管理局",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "金融及保險活動"
+    ],
+    "services": [
+      {
+        "service_name": "Finance and Insurance Business Support Service",
+        "industrial_category": "金融及保險活動",
+        "source_pages": [
+          "Company/Company047.html",
+          "Category/Finance.html"
+        ],
+        "generated": true
+      }
+    ],
+    "source_pages": [
+      "Company/Company047.html",
+      "Category/Finance.html"
+    ]
+  },
+  {
+    "company_name": "入境事務處",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "政府公共服務"
+    ],
+    "services": [
+      {
+        "name": "Online Immigration Application Support Service",
+        "industrial_category": "政府公共服務"
+      }
+    ],
+    "source_pages": [
+      "Company/ImmD.html",
+      "INDEX.html"
+    ]
+  },
+  {
+    "company_name": "土地註冊處",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "地產及土地服務"
+    ],
+    "services": [
+      {
+        "name": "Digital Land Record Search Service",
+        "industrial_category": "地產及土地服務"
+      }
+    ],
+    "source_pages": [
+      "Company/LandRegistry.html",
+      "INDEX.html"
+    ]
+  },
+  {
+    "company_name": "康樂及文化事務署",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "社區、社會及個人服務業"
+    ],
+    "services": [
+      {
+        "name": "Venue Booking and Programme Registration Service",
+        "industrial_category": "社區、社會及個人服務業"
+      }
+    ],
+    "source_pages": [
+      "Company/LCSD.html",
+      "INDEX.html"
+    ]
+  },
+  {
+    "company_name": "公務員事務局",
+    "business_type": "政府及有關機構",
+    "industrial_categories": [
+      "政府公共服務"
+    ],
+    "services": [
+      {
+        "name": "Civil Service Training Enrollment Service",
+        "industrial_category": "政府公共服務"
+      }
+    ],
+    "source_pages": [
+      "Company/CSB.html",
+      "INDEX.html"
+    ]
+  }
+]
