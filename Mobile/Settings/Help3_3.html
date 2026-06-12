@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=393, initial-scale=1">
-<title>通知 — CorpID</title>
+<title>常見問題 — CorpID</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #e0e0e0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px 0; font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
@@ -19,15 +19,23 @@
   .header-title { color: #1a1a1a; font-size: 18px; font-weight: 700; position: absolute; left: 50%; transform: translateX(-50%); }
   .body-scroll { flex: 1; overflow-y: auto; background: #fff; }
   .body-scroll::-webkit-scrollbar { display: none; }
-  .section-title { padding: 14px 18px; font-size: 15px; font-weight: 700; color: #1a1a1a; background: #f4f6f8; }
-  .row { display: flex; align-items: center; padding: 18px 18px; border-bottom: 1px solid #eef0f2; cursor: pointer; color: inherit; text-decoration: none; }
-  .row:active { background: #f6f8fa; }
-  .row .lbl { flex: 1; font-size: 16px; color: #1a1a1a; }
-  .arrow { color: #c4ccd4; display: flex; }
-  .toggle { width: 50px; height: 30px; border-radius: 15px; background: #c8ced4; position: relative; flex-shrink: 0; cursor: pointer; transition: background .2s; }
-  .toggle .knob { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: left .2s; }
-  .toggle.on { background: #155CB0; }
-  .toggle.on .knob { left: 23px; }
+  .category { padding: 18px 18px 6px; font-size: 15px; color: #0f8b8d; font-weight: 600; }
+  .question { padding: 0 18px 14px; font-size: 18px; font-weight: 700; color: #1a1a1a; line-height: 1.4; }
+  .divider { height: 1px; background: #eef0f2; margin: 0 18px; }
+  .answer { padding: 18px; font-size: 16px; color: #555; line-height: 1.7; }
+  .answer p { margin-bottom: 16px; }
+  .answer p:last-child { margin-bottom: 0; }
+  .answer a { color: #155CB0; text-decoration: underline; }
+  .cta-section { padding: 0 18px 18px; }
+  .cta-title { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 14px; }
+  .cta-title::before { content: ''; display: block; width: 10px; height: 10px; background: #1a1a1a; }
+  .cta-card { display: flex; align-items: center; gap: 14px; border: 2px solid #0f8b8d; border-radius: 14px; padding: 16px 18px; cursor: pointer; }
+  .cta-card:active { background: #f0f8f7; }
+  .cta-icon { flex-shrink: 0; color: #0f8b8d; }
+  .cta-icon svg { display: block; }
+  .cta-text { flex: 1; }
+  .cta-text .main { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .cta-text .sub { font-size: 14px; color: #555; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -41,26 +49,35 @@
     </div>
   </div>
   <div class="header">
-    <a class="header-back" href="INDEX.html"><svg width="11" height="20" viewBox="0 0 11 20" fill="none"><path d="M9 2 L2 10 L9 18" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <span class="header-title">通知</span>
+    <a class="header-back" href="Help.html"><svg width="11" height="20" viewBox="0 0 11 20" fill="none"><path d="M9 2 L2 10 L9 18" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="header-title">常見問題</span>
   </div>
-
   <div class="body-scroll">
-    <div class="section-title">允許 CorpID 取用</div>
-    <a class="row" href="#"><span class="lbl">手機通知權限</span><span class="arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-
-    <div class="section-title">通知設定</div>
-    <div class="row" id="pushRow"><span class="lbl">填表通推送通知</span><div class="toggle" id="pushToggle"><span class="knob"></span></div></div>
-    <a class="row" href="personalization.html"><span class="lbl">個人化提示設定</span><span class="arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-
-    <a class="row" href="news_noti_category.html"><span class="lbl">消息及通知類別</span><span class="arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    <div class="category">如何使用</div>
+    <div class="question">如使用「CorpID」後，我是否仍可使用原有方法登入該政府網上服務？</div>
+    <div class="divider"></div>
+    <div class="answer">
+      <p>使用「CorpID」後，用戶仍可使用原有方法登入該政府網上服務。</p>
+    </div>
+    <div class="cta-section">
+      <div class="cta-title">還找不到所需資料和方法？</div>
+      <div class="cta-card">
+        <span class="cta-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="4" y="16" width="28" height="20" rx="4" stroke="#0f8b8d" stroke-width="2"/>
+            <path d="M10 24 H26" stroke="#0f8b8d" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 28 H22" stroke="#0f8b8d" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="28" cy="12" r="8" stroke="#0f8b8d" stroke-width="2"/>
+            <path d="M28 8 V12 L30 14" stroke="#0f8b8d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="cta-text">
+          <span class="main">即時對話</span>
+          <span class="sub">與我們的服務人員即時對話</span>
+        </span>
+      </div>
+    </div>
   </div>
 </div>
-<script>
-  (function () {
-    var t = document.getElementById('pushToggle'), r = document.getElementById('pushRow');
-    if (t && r) r.addEventListener('click', function () { t.classList.toggle('on'); });
-  })();
-</script>
 </body>
 </html>

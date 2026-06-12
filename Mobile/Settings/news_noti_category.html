@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1">
+<title>消息及通知類別 — CorpID</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e0e0e0; display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 20px 0;
+    font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+  .phone-frame {
+    width: 393px; height: 852px; background: #fff;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25); border-radius: 48px;
+  }
+  .status-bar {
+    height: 50px; background: #fff; display: flex; align-items: flex-end;
+    justify-content: space-between; padding: 0 26px 6px; flex-shrink: 0;
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: #1a1a1a; letter-spacing: .3px; }
+  .sb-icons { display: flex; align-items: center; gap: 6px; }
+  .batt { display: inline-flex; align-items: center; gap: 2px; }
+  .batt-body {
+    border: 1px solid rgba(0,0,0,.55); border-radius: 4px;
+    font-size: 9px; font-weight: 700; padding: 1px 3px; line-height: 1;
+    min-width: 22px; text-align: center;
+    background: linear-gradient(to right, rgba(0,0,0,.8) 79%, transparent 79%);
+    -webkit-text-fill-color: #fff;
+  }
+  .batt-tip { width: 2px; height: 5px; background: rgba(0,0,0,.55); border-radius: 0 2px 2px 0; }
+  .header {
+    height: 50px; background: #fff; display: flex; align-items: center;
+    padding: 0 14px; position: relative; flex-shrink: 0; border-bottom: 1px solid #eef0f2;
+  }
+  .header-back { background: none; border: none; cursor: pointer; padding: 4px; display: flex; }
+  .header-title {
+    color: #1a1a1a; font-size: 18px; font-weight: 700;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .body-scroll { flex: 1; overflow-y: auto; background: #fff; }
+  .body-scroll::-webkit-scrollbar { display: none; }
+
+  .cat-group { border-bottom: 1px solid #eef0f2; }
+  .cat-header {
+    display: flex; align-items: center; padding: 16px 18px;
+    cursor: pointer;
+  }
+  .cat-header .chevron {
+    width: 20px; flex-shrink: 0; color: #8e8e93; display: flex; align-items: center;
+    transition: transform .2s;
+  }
+  .cat-header.open .chevron { transform: rotate(180deg); }
+  .cat-header .cat-title {
+    flex: 1; font-size: 17px; font-weight: 700; color: #1a1a1a;
+  }
+  .cat-children { display: none; }
+  .cat-children.open { display: block; }
+
+  .sub-item {
+    display: flex; align-items: flex-start; padding: 14px 18px;
+    border-top: 1px solid #eef0f2; cursor: pointer;
+  }
+  .sub-item .txt-wrap { flex: 1; padding-left: 24px; }
+  .sub-item .sub-title {
+    font-size: 16px; color: #1a1a1a; line-height: 1.4;
+  }
+  .sub-item .sub-desc {
+    font-size: 14px; color: #8e8e93; line-height: 1.4; margin-top: 4px;
+  }
+  .sub-item .sub-sub-item {
+    display: flex; align-items: center; padding: 12px 0 12px 24px;
+    border-top: 1px solid #eef0f2; cursor: pointer;
+  }
+  .sub-item .sub-sub-item .sub-title {
+    flex: 1; font-size: 16px; color: #1a1a1a; padding-left: 24px;
+  }
+  .sub-item .sub-sub-item .sub-desc {
+    font-size: 14px; color: #8e8e93; margin-top: 4px; padding-left: 24px;
+  }
+  .sub-item .sub-sub-item .txt-wrap { flex: 1; }
+
+  .chkbox {
+    width: 22px; height: 22px; border: 2px solid #c8ced4; border-radius: 4px;
+    flex-shrink: 0; margin-left: 10px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .chkbox.checked { background: #155CB0; border-color: #155CB0; }
+  .chkbox.checked::after {
+    content: ''; display: block; width: 5px; height: 9px;
+    border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+    margin-top: -2px;
+  }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="sb-time">12:34</span>
+    <div class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1a1a1a"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#1a1a1a"/><rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#1a1a1a"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1a1a1a"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M2.5 5.2a9 9 0 0 1 12 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7.6a5.2 5.2 0 0 1 7 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.5" cy="10" r="1.3" fill="#1a1a1a"/></svg>
+      <span class="batt"><span class="batt-body">79</span><span class="batt-tip"></span></span>
+    </div>
+  </div>
+  <div class="header">
+    <a class="header-back" href="Notification.html"><svg width="11" height="20" viewBox="0 0 11 20" fill="none"><path d="M9 2 L2 10 L9 18" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="header-title">消息及通知類別</span>
+  </div>
+
+  <div class="body-scroll">
+
+    <!-- 空氣質素健康指數警示 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c1">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">空氣質素健康指數警示</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c1">
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">路邊空氣質素健康指數 - 高/甚高/嚴重</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">環保署發出之路邊空氣質素健康指數 - 高/甚高/嚴重警示</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">一般空氣質素健康指數 - 高/甚高/嚴重</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">環保署發出之一般空氣質素健康指數 - 高/甚高/嚴重警示</span></span><span class="chkbox"></span></div>
+      </div>
+    </div>
+
+    <!-- 食物警報 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c2">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">食物警報</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c2">
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">食物安全中心的食物警報</span></span><span class="chkbox"></span></div>
+      </div>
+    </div>
+
+    <!-- 選舉事務 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c3">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">選舉事務</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c3">
+        <div class="sub-item">
+          <span class="txt-wrap">
+            <span class="sub-title">選民登記</span>
+            <span class="sub-desc">選民登記截止日期及選民資料網上查閱系統(www.voterinfo.gov.hk)</span>
+          </span>
+          <span class="chkbox"></span>
+        </div>
+        <div class="sub-item">
+          <span class="txt-wrap">
+            <span class="sub-title">選舉資訊</span>
+            <span class="sub-desc">與選舉有關的最新資訊</span>
+          </span>
+          <span class="chkbox"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 天氣警告及特別天氣提示 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c4">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">天氣警告及特別天氣提示</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c4">
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">特別天氣提示</span></span><span class="chkbox"></span></div>
+
+        <!-- 熱帶氣旋警告信號 -->
+        <div class="sub-item" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; align-items:flex-start;">
+            <span class="txt-wrap">
+              <span class="sub-title">熱帶氣旋警告信號</span>
+            </span>
+            <span class="chkbox"></span>
+          </div>
+          <div class="sub-sub-item"><span class="sub-title">所有熱帶氣旋警告信號</span><span class="chkbox"></span></div>
+          <div class="sub-sub-item"><span class="sub-title">8號信號或以上（包括預警八號特別報告）</span><span class="chkbox"></span></div>
+        </div>
+
+        <!-- 暴雨警告信號 -->
+        <div class="sub-item" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; align-items:flex-start;">
+            <span class="txt-wrap">
+              <span class="sub-title">暴雨警告信號</span>
+            </span>
+            <span class="chkbox"></span>
+          </div>
+          <div class="sub-sub-item"><span class="sub-title">所有暴雨警告</span><span class="chkbox"></span></div>
+          <div class="sub-sub-item"><span class="sub-title">黑色暴雨警告</span><span class="chkbox"></span></div>
+        </div>
+
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">雷暴警告</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">新界北部水浸特別報告</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">山泥傾瀉警告</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">強烈季候風信號</span></span><span class="chkbox"></span></div>
+        <div class="sub-item"><span class="txt-wrap"><span class="sub-title">霜凍警告</span></span><span class="chkbox"></span></div>
+
+        <!-- 火災危險警告 -->
+        <div class="sub-item" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; align-items:flex-start;">
+            <span class="txt-wrap">
+              <span class="sub-title">火災危險警告</span>
+            </span>
+            <span class="chkbox"></span>
+          </div>
+          <div class="sub-sub-item" style="padding-left:0;"><span class="sub-title" style="padding-left:0;">寒冷天氣警告</span><span class="chkbox"></span></div>
+          <div class="sub-sub-item" style="padding-left:0;"><span class="sub-title" style="padding-left:0;">酷熱天氣警告</span><span class="chkbox"></span></div>
+          <div class="sub-sub-item" style="padding-left:0;"><span class="sub-title" style="padding-left:0;">海嘯警告</span><span class="chkbox"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 交通資訊 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c5">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">交通資訊</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c5"></div>
+    </div>
+
+    <!-- 康樂設施訊息 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c6">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">康樂設施訊息</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c6"></div>
+    </div>
+
+    <!-- 入境事務處資訊 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c7">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">入境事務處資訊</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c7"></div>
+    </div>
+
+    <!-- 學生資助處 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c8">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">學生資助處</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c8"></div>
+    </div>
+
+    <!-- 稅務資訊 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c9">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">稅務資訊</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c9"></div>
+    </div>
+
+    <!-- 差餉及地租訊息 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c10">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">差餉及地租訊息</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c10"></div>
+    </div>
+
+    <!-- 香港郵政資訊 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c11">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">香港郵政資訊</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c11"></div>
+    </div>
+
+    <!-- 外遊警示資訊 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c12">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">外遊警示資訊</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c12"></div>
+    </div>
+
+    <!-- 網絡保安資訊 -->
+    <div class="cat-group">
+      <div class="cat-header" data-target="c13">
+        <span class="chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cat-title">網絡保安資訊</span>
+        <span class="chkbox"></span>
+      </div>
+      <div class="cat-children" id="c13"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    document.querySelectorAll('.cat-header').forEach(function(header) {
+      header.addEventListener('click', function(e) {
+        if (e.target.closest('.chkbox')) return;
+        var target = document.getElementById(header.dataset.target);
+        if (target) {
+          target.classList.toggle('open');
+          header.classList.toggle('open');
+        }
+      });
+    });
+    document.querySelectorAll('.chkbox').forEach(function(chk) {
+      chk.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chk.classList.toggle('checked');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
