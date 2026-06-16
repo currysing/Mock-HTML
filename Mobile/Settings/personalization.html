@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1">
+<title>個人化提示設定 — CorpID</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e0e0e0; display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 20px 0;
+    font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+  .phone-frame {
+    width: 393px; height: 852px; background: #fff;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25); border-radius: 48px;
+  }
+  .status-bar {
+    height: 50px; background: #fff; display: flex; align-items: flex-end;
+    justify-content: space-between; padding: 0 26px 6px; flex-shrink: 0;
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: #1a1a1a; letter-spacing: .3px; }
+  .sb-icons { display: flex; align-items: center; gap: 6px; }
+  .batt { display: inline-flex; align-items: center; gap: 2px; }
+  .batt-body {
+    border: 1px solid rgba(0,0,0,.55); border-radius: 4px;
+    font-size: 9px; font-weight: 700; padding: 1px 3px; line-height: 1;
+    min-width: 22px; text-align: center;
+    background: linear-gradient(to right, rgba(0,0,0,.8) 79%, transparent 79%);
+    -webkit-text-fill-color: #fff;
+  }
+  .batt-tip { width: 2px; height: 5px; background: rgba(0,0,0,.55); border-radius: 0 2px 2px 0; }
+  .header {
+    height: 50px; background: #fff; display: flex; align-items: center;
+    padding: 0 14px; position: relative; flex-shrink: 0; border-bottom: 1px solid #eef0f2;
+  }
+  .header-back { background: none; border: none; cursor: pointer; padding: 4px; display: flex; }
+  .header-title {
+    color: #1a1a1a; font-size: 18px; font-weight: 700;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .body-scroll { flex: 1; overflow-y: auto; background: #fff; }
+  .body-scroll::-webkit-scrollbar { display: none; }
+
+  .intro { padding: 18px; }
+  .intro h3 { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
+  .intro p { font-size: 15px; color: #1a1a1a; line-height: 1.6; margin-bottom: 6px; }
+  .section-title-teal {
+    padding: 14px 18px; font-size: 15px; font-weight: 700;
+    color: #0f8b8d; background: #fff;
+  }
+  .dept-header {
+    padding: 14px 18px 4px; font-size: 16px; font-weight: 700;
+    color: #1a1a1a; background: #fff;
+  }
+  .service-row {
+    display: flex; align-items: center; padding: 14px 18px;
+    border-bottom: 1px solid #eef0f2; cursor: pointer;
+  }
+  .service-row:active { background: #f6f8fa; }
+  .service-row .lbl { flex: 1; font-size: 16px; color: #1a1a1a; }
+  .toggle {
+    width: 50px; height: 30px; border-radius: 15px; background: #c8ced4;
+    position: relative; flex-shrink: 0; cursor: pointer; transition: background .2s;
+  }
+  .toggle .knob {
+    position: absolute; top: 3px; left: 3px; width: 24px; height: 24px;
+    border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    transition: left .2s;
+  }
+  .toggle.on { background: #155CB0; }
+  .toggle.on .knob { left: 23px; }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="sb-time">12:34</span>
+    <div class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1a1a1a"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#1a1a1a"/><rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#1a1a1a"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1a1a1a"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M2.5 5.2a9 9 0 0 1 12 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7.6a5.2 5.2 0 0 1 7 0" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.5" cy="10" r="1.3" fill="#1a1a1a"/></svg>
+      <span class="batt"><span class="batt-body">79</span><span class="batt-tip"></span></span>
+    </div>
+  </div>
+  <div class="header">
+    <a class="header-back" href="Notification.html"><svg width="11" height="20" viewBox="0 0 11 20" fill="none"><path d="M9 2 L2 10 L9 18" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="header-title">個人化提示設定</span>
+  </div>
+
+  <div class="body-scroll">
+    <div class="intro">
+      <h3>如何啟動網上服務的個人化提示？</h3>
+      <p>1. 點擊開關並登入提供個人化提示的服務。</p>
+      <p>2. 成功登入及收到確認訊息後，該服務的個人化提示會自動開啟，用戶可選擇啟動或停止接收有關服務的通知。</p>
+      <p>3. 在啟用服務的個人化提示後，可能需要一些時間才能在此頁面反映狀態更新。</p>
+    </div>
+
+    <div class="section-title-teal">可提供個人化提示的服務</div>
+
+    <div class="dept-header">醫療輔助隊</div>
+    <div class="service-row"><span class="lbl">醫輔通</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">屋宇署</div>
+    <div class="service-row"><span class="lbl">屋宇署主題網站</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">電子資料呈交及處理系統 (ESH) (V2)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">政府統計處</div>
+    <div class="service-row"><span class="lbl">綜合住戶統計調查</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">[InApp] 2026年人口普查網上問卷</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">民眾安全服務處</div>
+    <div class="service-row"><span class="lbl">民眾安全服務隊招募易</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">[InApp] 民眾安全服務隊工具妥</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">[InApp] 民眾安全服務隊隊員平台</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">衞生署</div>
+    <div class="service-row"><span class="lbl">管理局及委員會辦公室 - 醫療專業人員資訊系統</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">公眾殮房遺體處理查詢平台</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">[InApp] 衞生署網上預約診症服務</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">數字政策辦公室</div>
+    <div class="service-row"><span class="lbl">1823 流動應用程式 (V2)</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">1823 流動應用程式 UAT</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">教育局</div>
+    <div class="service-row"><span class="lbl">幼稚園入學註冊證申請表格</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">機電工程署</div>
+    <div class="service-row"><span class="lbl">機電工程署（規管服務）網上註冊服務</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">消防處</div>
+    <div class="service-row"><span class="lbl">網上申請培訓課程及處理系統 (V2-UAT)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">香港警務處</div>
+    <div class="service-row"><span class="lbl">香港警務處網上服務申請平台</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">香港郵政</div>
+    <div class="service-row"><span class="lbl">特快專遞服務申請 (V2)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">入境事務處</div>
+    <div class="service-row"><span class="lbl">入境處提提您 (V2)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">政府新聞處</div>
+    <div class="service-row"><span class="lbl">政府書店</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">政府圖片資料庫 (V2)</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">政府書店 (in-app)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">稅務局</div>
+    <div class="service-row"><span class="lbl">稅務易 - 個人稅務網站 (ITP-DEV)</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">稅務易 - 個人稅務網站 (ITP-UAT)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">知識產權署</div>
+    <div class="service-row"><span class="lbl">商標、專利和外觀設計的電子提交服務</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">勞工處</div>
+    <div class="service-row"><span class="lbl">預約青年就業起點 (Y.E.S.) 服務和設施</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">援「冲」易</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">[InApp]「展翅青年就業計劃」(YETP) 學員申請</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">康樂及文化事務署</div>
+    <div class="service-row"><span class="lbl">智慧圖書館系統 (遷移) (MIG)</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">智慧圖書館系統 (UAT2)</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">SmartPLAY</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">強制性公積金計劃管理局</div>
+    <div class="service-row"><span class="lbl">積金局電子服務 (附屬中介人)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">海事處</div>
+    <div class="service-row"><span class="lbl">電子業務系統</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">社會福利署</div>
+    <div class="service-row"><span class="lbl">「長者咭計劃」申請表</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">工業貿易署</div>
+    <div class="service-row"><span class="lbl">中小企業支援與諮詢中心 - 諮詢服務</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">水務署</div>
+    <div class="service-row"><span class="lbl">水務署電子服務網站 (直接登錄 V2)</span><div class="toggle"><span class="knob"></span></div></div>
+
+    <div class="dept-header">在職家庭及學生資助事務處</div>
+    <div class="service-row"><span class="lbl">在職家庭津貼的電子遞交申請服務 (V2)</span><div class="toggle"><span class="knob"></span></div></div>
+    <div class="service-row"><span class="lbl">職學戶互通</span><div class="toggle"><span class="knob"></span></div></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    document.querySelectorAll('.service-row').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var t = row.querySelector('.toggle');
+        if (t) t.classList.toggle('on');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
