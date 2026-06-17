@@ -88,10 +88,14 @@
   .track {
     flex: 1; height: 6px; background: #eceff2; border-radius: 3px; position: relative;
   }
+  .track input[type="range"] {
+    position: absolute; inset: -14px 0; width: 100%; opacity: 0; cursor: pointer; z-index: 2;
+  }
   .track .dot {
     position: absolute; top: 50%; transform: translate(-50%,-50%);
     width: 9px; height: 9px; border-radius: 50%; background: #c4ccd4;
   }
+  .track .dot.d0 { left: 0%; } .track .dot.d2 { left: 50%; } .track .dot.d4 { left: 100%; }
   .track .dot.d1 { left: 25%; } .track .dot.d3 { left: 75%; }
   .track .knob {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
@@ -124,32 +128,8 @@
   </div>
 
   <div class="body-scroll">
-    <div class="row">
-      <span class="row-label">語言</span>
-      <div class="dropdown-wrap" id="langDropdown">
-        <button class="lang-pill" id="langTrigger">
-          <span id="langText">繁體中文</span>
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 L6 6.5 L11 1.5" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="lang-options" id="langOptions">
-          <div class="lang-opt selected" data-value="zh-HK">
-            <svg class="check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8 L6.5 11.5 L13 4.5" stroke="#155CB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>繁體中文</span>
-          </div>
-          <div class="lang-opt" data-value="zh-CN">
-            <svg class="check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8 L6.5 11.5 L13 4.5" stroke="#155CB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>简体中文</span>
-          </div>
-          <div class="lang-opt" data-value="en">
-            <svg class="check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8 L6.5 11.5 L13 4.5" stroke="#155CB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>English</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="block-label">字體大小</div>
-    <div class="preview">
+    <div class="preview" id="fontPreview">
       <h3>預覽</h3>
       <p>這些文字的大小將適用於應用程式內的文字。</p>
       <p>2026年06月08日</p>
@@ -158,14 +138,18 @@
     <div class="slider-area">
       <div class="slider-row">
         <span class="small-a">A</span>
-        <div class="track">
+        <div class="track" id="fontTrack">
+          <input id="fontSizeSlider" type="range" min="0" max="4" step="1" value="2" aria-label="字體大小">
+          <span class="dot d0"></span>
           <span class="dot d1"></span>
+          <span class="dot d2"></span>
           <span class="dot d3"></span>
-          <span class="knob"></span>
+          <span class="dot d4"></span>
+          <span class="knob" id="fontKnob"></span>
         </div>
         <span class="big-a">A</span>
       </div>
-      <div class="slider-caption">標準</div>
+      <div class="slider-caption" id="fontSizeCaption">標準</div>
     </div>
 
     <a class="nav-row" href="Accessibility.html">
@@ -177,29 +161,34 @@
 
 <script>
   (function() {
-    var trigger = document.getElementById('langTrigger');
-    var options = document.getElementById('langOptions');
-    var text = document.getElementById('langText');
-    var opts = options.querySelectorAll('.lang-opt');
+    var slider = document.getElementById('fontSizeSlider');
+    var knob = document.getElementById('fontKnob');
+    var preview = document.getElementById('fontPreview');
+    var caption = document.getElementById('fontSizeCaption');
+    var fontSizes = [
+      { label: '較小', scale: 0.88 },
+      { label: '小', scale: 0.94 },
+      { label: '標準', scale: 1 },
+      { label: '大', scale: 1.12 },
+      { label: '較大', scale: 1.24 }
+    ];
 
-    trigger.addEventListener('click', function(e) {
-      e.stopPropagation();
-      options.classList.toggle('open');
-    });
+    function updateFontSize() {
+      var index = Number(slider.value);
+      var setting = fontSizes[index];
+      var percent = (index / (fontSizes.length - 1)) * 100;
 
-    opts.forEach(function(opt) {
-      opt.addEventListener('click', function(e) {
-        e.stopPropagation();
-        opts.forEach(function(o) { o.classList.remove('selected'); });
-        opt.classList.add('selected');
-        text.textContent = opt.querySelector('span').textContent;
-        options.classList.remove('open');
+      knob.style.left = percent + '%';
+      caption.textContent = setting.label;
+      preview.querySelector('h3').style.fontSize = (20 * setting.scale) + 'px';
+      preview.querySelectorAll('p').forEach(function(p) {
+        p.style.fontSize = (16 * setting.scale) + 'px';
       });
-    });
+    }
 
-    document.addEventListener('click', function() {
-      options.classList.remove('open');
-    });
+    slider.addEventListener('input', updateFontSize);
+    slider.addEventListener('change', updateFontSize);
+    updateFontSize();
   })();
 </script>
 </body>
