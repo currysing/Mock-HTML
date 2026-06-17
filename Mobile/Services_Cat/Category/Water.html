@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
@@ -75,6 +75,9 @@
     display: flex; align-items: center; justify-content: center;
   }
   .org-name { flex: 1; font-size: 16px; color: #1a1a1a; line-height: 1.35; }
+  .service-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; line-height: 1.35; }
+  .service-name { font-size: 15px; font-weight: 650; color: #1a1a1a; }
+  .company-name { font-size: 13px; color: #68727d; }
   .org-arrow { color: #b9c1ca; display: flex; flex-shrink: 0; }
   .bottom-nav {
     height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
@@ -114,31 +117,42 @@
   </div>
 
   <div class="list-area">
-
     <div class="section-title">政府及有關機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/FEH.html?from=..%2FCategory%2FWater.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="46" height="40" viewBox="0 0 46 40"><text x="21" y="27" font-size="21" font-weight="700" fill="#5b3e8e" text-anchor="middle" font-family="Georgia, serif" font-style="italic">fe</text><circle cx="29" cy="13" r="2.6" fill="#ef7d22"/><path d="M8 31 Q23 26 40 31" stroke="#ef7d22" stroke-width="1.8" fill="none"/></svg></span>
-        <span class="org-name">食物環境衞生署</span>
+        <span class="service-copy">
+          <span class="service-name">Food Environment Licence Application Service</span>
+          <span class="company-name">食物環境衞生署</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>
 
     <div class="section-title">商業及其他機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/AquaPureWaterCo.html?from=..%2FCategory%2FWater.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#1a9bc4"/><text x="20" y="25" font-size="12" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">AP</text></svg></span>
-        <span class="org-name">Aqua Pure Water Co.</span>
+        <span class="service-copy">
+          <span class="service-name">Clean Water Compliance Desk</span>
+          <span class="company-name">Aqua Pure Water Co.</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a class="org-item" href="../Company/GreenwayWaterworks.html?from=..%2FCategory%2FWater.html">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#1a9bc4"/><text x="20" y="25" font-size="12" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">GW</text></svg></span>
-        <span class="org-name">Greenway Waterworks</span>
+        <span class="service-copy">
+          <span class="service-name">Wastewater Operations Desk</span>
+          <span class="company-name">Greenway Waterworks</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a class="org-item" href="../Company/LibertyReservoirCo.html?from=..%2FCategory%2FWater.html">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#1a9bc4"/><text x="20" y="25" font-size="12" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">LR</text></svg></span>
-        <span class="org-name">Liberty Reservoir Co.</span>
+        <span class="service-copy">
+          <span class="service-name">Reservoir Operations Compliance Desk</span>
+          <span class="company-name">Liberty Reservoir Co.</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>

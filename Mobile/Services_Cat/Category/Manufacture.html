@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
@@ -75,6 +75,9 @@
     display: flex; align-items: center; justify-content: center;
   }
   .org-name { flex: 1; font-size: 16px; color: #1a1a1a; line-height: 1.35; }
+  .service-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; line-height: 1.35; }
+  .service-name { font-size: 15px; font-weight: 650; color: #1a1a1a; }
+  .company-name { font-size: 13px; color: #68727d; }
   .org-arrow { color: #b9c1ca; display: flex; flex-shrink: 0; }
   .bottom-nav {
     height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
@@ -114,26 +117,42 @@
   </div>
 
   <div class="list-area">
-
     <div class="section-title">政府及有關機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/Company028.html?from=..%2FCategory%2FManufacture.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="44" height="40" viewBox="0 0 44 40"><path d="M6 16 H26 V12 L38 20 L26 28 V24 H6 Z" fill="#8a9099"/><path d="M10 22 H30 V19 L40 25 L30 31 V28 H10 Z" fill="#1a8a4a"/></svg></span>
-        <span class="org-name">工業貿易署</span>
+        <span class="service-copy">
+          <span class="service-name">Manufacturing Operations Support Service</span>
+          <span class="company-name">工業貿易署</span>
+        </span>
+        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="org-item service-item" href="#">
+        <span class="org-logo"><svg width="44" height="40" viewBox="0 0 44 40"><path d="M6 16 H26 V12 L38 20 L26 28 V24 H6 Z" fill="#8a9099"/><path d="M10 22 H30 V19 L40 25 L30 31 V28 H10 Z" fill="#1a8a4a"/></svg></span>
+        <span class="service-copy">
+          <span class="service-name">Import, Export, Wholesale and Retail Trade Support Service</span>
+          <span class="company-name">工業貿易署</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>
 
     <div class="section-title">商業及其他機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/Company031.html?from=..%2FCategory%2FManufacture.html">
-        <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#e3edf7"/><path d="M20 9 L22 13 L26 12 L26 16 L30 18 L28 22 L30 26 L26 28 L26 32 L22 31 L20 35 L18 31 L14 32 L14 28 L10 26 L12 22 L10 18 L14 16 L14 12 L18 13 Z" fill="#2a6cc8"/><circle cx="20" cy="22" r="4" fill="#e3edf7"/></svg></span>
-        <span class="org-name">永發製造廠有限公司</span>
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
+        <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#fbe6e0"/><rect x="8" y="22" width="6" height="10" fill="#8a8a8a"/><rect x="15" y="16" width="6" height="16" fill="#a0a0a0"/><rect x="22" y="12" width="6" height="20" fill="#8a8a8a"/><path d="M11 22 L11 18 L14 20 Z M18 16 L18 12 L21 14 Z M25 12 L25 8 L28 10 Z" fill="#c44020"/><path d="M6 33 H34" stroke="#5a3a2a" stroke-width="2"/></svg></span>
+        <span class="service-copy">
+          <span class="service-name">製鐵生產營運支援服務</span>
+          <span class="company-name">南華製鐵有限公司</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a class="org-item" href="../Company/Company023.html?from=..%2FCategory%2FManufacture.html">
-        <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#fbe6e0"/><rect x="8" y="22" width="6" height="10" fill="#8a8a8a"/><rect x="15" y="16" width="6" height="16" fill="#a0a0a0"/><rect x="22" y="12" width="6" height="20" fill="#8a8a8a"/><path d="M11 22 L11 18 L14 20 Z M18 16 L18 12 L21 14 Z M25 12 L25 8 L28 10 Z" fill="#c44020"/><path d="M6 33 H34" stroke="#5a3a2a" stroke-width="2"/></svg></span>
-        <span class="org-name">南華製鐵有限公司</span>
+      <a class="org-item service-item" href="#">
+        <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#e3edf7"/><path d="M20 9 L22 13 L26 12 L26 16 L30 18 L28 22 L30 26 L26 28 L26 32 L22 31 L20 35 L18 31 L14 32 L14 28 L10 26 L12 22 L10 18 L14 16 L14 12 L18 13 Z" fill="#2a6cc8"/><circle cx="20" cy="22" r="4" fill="#e3edf7"/></svg></span>
+        <span class="service-copy">
+          <span class="service-name">製造廠營運支援服務</span>
+          <span class="company-name">永發製造廠有限公司</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>

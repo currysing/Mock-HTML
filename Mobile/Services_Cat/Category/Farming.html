@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
@@ -75,6 +75,9 @@
     display: flex; align-items: center; justify-content: center;
   }
   .org-name { flex: 1; font-size: 16px; color: #1a1a1a; line-height: 1.35; }
+  .service-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; line-height: 1.35; }
+  .service-name { font-size: 15px; font-weight: 650; color: #1a1a1a; }
+  .company-name { font-size: 13px; color: #68727d; }
   .org-arrow { color: #b9c1ca; display: flex; flex-shrink: 0; }
   .bottom-nav {
     height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
@@ -114,26 +117,42 @@
   </div>
 
   <div class="list-area">
-
     <div class="section-title">政府及有關機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/AFCD.html?from=..%2FCategory%2FFarming.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#fff" stroke="#3aaa5e" stroke-width="2"/><path d="M20 7 L26 16 H23 L28 24 H12 L17 16 H14 Z" fill="#2e8b50"/><rect x="18.5" y="23" width="3" height="6" fill="#2e8b50"/><path d="M11 30 Q20 27 29 30" stroke="#2e8b50" stroke-width="2" fill="none"/></svg></span>
-        <span class="org-name">漁農自然護理署</span>
+        <span class="service-copy">
+          <span class="service-name">Application of Pesticides Licence</span>
+          <span class="company-name">漁農自然護理署</span>
+        </span>
+        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="org-item service-item" href="#">
+        <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#fff" stroke="#3aaa5e" stroke-width="2"/><path d="M20 7 L26 16 H23 L28 24 H12 L17 16 H14 Z" fill="#2e8b50"/><rect x="18.5" y="23" width="3" height="6" fill="#2e8b50"/><path d="M11 30 Q20 27 29 30" stroke="#2e8b50" stroke-width="2" fill="none"/></svg></span>
+        <span class="service-copy">
+          <span class="service-name">Application of Marine Fish Culture Licence</span>
+          <span class="company-name">漁農自然護理署</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>
 
     <div class="section-title">商業及其他機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/Company026.html?from=..%2FCategory%2FFarming.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#e6f3df"/><path d="M20 30 V14" stroke="#3a8a3a" stroke-width="2" stroke-linecap="round"/><path d="M20 18 C16 16 13 17 12 19 C14 21 17 21 20 19 Z" fill="#3a8a3a"/><path d="M20 18 C24 16 27 17 28 19 C26 21 23 21 20 19 Z" fill="#3a8a3a"/><path d="M20 24 C16 22 13 23 12 25 C14 27 17 27 20 25 Z" fill="#5fb05f"/><path d="M20 24 C24 22 27 23 28 25 C26 27 23 27 20 25 Z" fill="#5fb05f"/></svg></span>
-        <span class="org-name">大豐農業有限公司</span>
+        <span class="service-copy">
+          <span class="service-name">農林漁業業務支援服務</span>
+          <span class="company-name">大豐農業有限公司</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a class="org-item" href="../Company/Company036.html?from=..%2FCategory%2FFarming.html">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#e6f3df"/><path d="M20 32 V16" stroke="#3a8a3a" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="16" cy="20" rx="4" ry="2" fill="#7ec47e" transform="rotate(-25 16 20)"/><ellipse cx="24" cy="20" rx="4" ry="2" fill="#7ec47e" transform="rotate(25 24 20)"/><ellipse cx="17" cy="24" rx="4" ry="2" fill="#5fb05f" transform="rotate(-25 17 24)"/><ellipse cx="23" cy="24" rx="4" ry="2" fill="#5fb05f" transform="rotate(25 23 24)"/><path d="M20 16 C18 13 19 10 20 9 C21 10 22 13 20 16 Z" fill="#3a8a3a"/></svg></span>
-        <span class="org-name">良禾農產有限公司</span>
+        <span class="service-copy">
+          <span class="service-name">農產業務及合規支援服務</span>
+          <span class="company-name">良禾農產有限公司</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>

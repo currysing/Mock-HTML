@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
@@ -75,6 +75,9 @@
     display: flex; align-items: center; justify-content: center;
   }
   .org-name { flex: 1; font-size: 16px; color: #1a1a1a; line-height: 1.35; }
+  .service-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; line-height: 1.35; }
+  .service-name { font-size: 15px; font-weight: 650; color: #1a1a1a; }
+  .company-name { font-size: 13px; color: #68727d; }
   .org-arrow { color: #b9c1ca; display: flex; flex-shrink: 0; }
   .bottom-nav {
     height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
@@ -114,26 +117,42 @@
   </div>
 
   <div class="list-area">
-
     <div class="section-title">政府及有關機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/Company025.html?from=..%2FCategory%2FMining.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="44" height="40" viewBox="0 0 44 40"><path d="M4 14 Q22 6 40 14" stroke="#1a7a3a" stroke-width="2" fill="none"/><text x="22" y="24" font-size="11" font-weight="800" fill="#0b4ea2" text-anchor="middle" font-family="Arial">CEDD</text><rect x="6" y="28" width="32" height="2.5" fill="#1a7a3a"/></svg></span>
-        <span class="org-name">土木工程拓展署</span>
+        <span class="service-copy">
+          <span class="service-name">Mining and Quarrying Compliance Support Service</span>
+          <span class="company-name">土木工程拓展署</span>
+        </span>
+        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="org-item service-item" href="#">
+        <span class="org-logo"><svg width="44" height="40" viewBox="0 0 44 40"><path d="M4 14 Q22 6 40 14" stroke="#1a7a3a" stroke-width="2" fill="none"/><text x="22" y="24" font-size="11" font-weight="800" fill="#0b4ea2" text-anchor="middle" font-family="Arial">CEDD</text><rect x="6" y="28" width="32" height="2.5" fill="#1a7a3a"/></svg></span>
+        <span class="service-copy">
+          <span class="service-name">Civil Engineering Works Registration Service</span>
+          <span class="company-name">土木工程拓展署</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>
 
     <div class="section-title">商業及其他機構</div>
-    <div class="org-list">
-      <a class="org-item" href="../Company/Company027.html?from=..%2FCategory%2FMining.html">
+    <div class="org-list service-list">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#f0ece1"/><path d="M8 30 L16 16 L22 24 L26 18 L32 30 Z" fill="#7a5a3a"/><path d="M14 16 L17 12 L20 16 Z" fill="#a0825a"/><circle cx="24" cy="14" r="2" fill="#c9a85a"/></svg></span>
-        <span class="org-name">天耀礦業有限公司</span>
+        <span class="service-copy">
+          <span class="service-name">礦業及採石合規支援服務</span>
+          <span class="company-name">天耀礦業有限公司</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a class="org-item" href="../Company/Company042.html?from=..%2FCategory%2FMining.html">
+      <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#fdf2d6"/><path d="M14 14 L26 14 L31 22 L20 33 L9 22 Z" fill="#e0a020" stroke="#a87010" stroke-width="1.2" stroke-linejoin="round"/><path d="M14 14 L20 22 L26 14 M9 22 L20 22 L31 22 M20 22 L20 33" stroke="#a87010" stroke-width="1" fill="none"/></svg></span>
-        <span class="org-name">金石礦業集團有限公司</span>
+        <span class="service-copy">
+          <span class="service-name">礦產開採及採石營運支援服務</span>
+          <span class="company-name">金石礦業集團有限公司</span>
+        </span>
         <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>
