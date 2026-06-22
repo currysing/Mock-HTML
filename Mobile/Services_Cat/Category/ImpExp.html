@@ -70,6 +70,8 @@
     color: inherit; text-decoration: none;
   }
   .org-item:active { background: #f6f8fa; }
+  .org-item.service-disabled { opacity: .45; filter: grayscale(1); pointer-events: none; }
+  .org-item.service-disabled .favorite-heart { cursor: default; }
   .org-logo {
     width: 46px; height: 46px; flex-shrink: 0; margin-right: 14px;
     display: flex; align-items: center; justify-content: center;
@@ -78,7 +80,12 @@
   .service-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; line-height: 1.35; }
   .service-name { font-size: 15px; font-weight: 650; color: #1a1a1a; }
   .company-name { font-size: 13px; color: #68727d; }
-  .org-arrow { color: #b9c1ca; display: flex; flex-shrink: 0; }
+  .org-action { width: 34px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .favorite-heart { cursor: pointer; color: #d92d20; }
+  .favorite-heart svg { display: block; }
+  .favorite-heart .heart-shape { fill: none; stroke: currentColor; stroke-width: 8; stroke-linejoin: round; }
+  .favorite-heart.is-favorite .heart-shape { fill: currentColor; stroke: none; }
+  .favorite-heart:focus-visible { outline: 2px solid rgba(217,45,32,.35); outline-offset: 3px; border-radius: 6px; }
   .bottom-nav {
     height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
     display: flex; align-items: flex-start; flex-shrink: 0; padding-top: 8px;
@@ -119,13 +126,13 @@
   <div class="list-area">
     <div class="section-title">政府及有關機構</div>
     <div class="org-list service-list">
-      <a class="org-item service-item" href="#">
+      <a class="org-item service-item service-disabled" href="#" aria-disabled="true" tabindex="-1">
         <span class="org-logo"><svg width="44" height="40" viewBox="0 0 44 40"><path d="M6 16 H26 V12 L38 20 L26 28 V24 H6 Z" fill="#8a9099"/><path d="M10 22 H30 V19 L40 25 L30 31 V28 H10 Z" fill="#1a8a4a"/></svg></span>
         <span class="service-copy">
           <span class="service-name">Manufacturing Operations Support Service</span>
           <span class="company-name">工業貿易署</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart" role="button" tabindex="-1" aria-disabled="true" aria-pressed="false" aria-label="Not favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
       <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="44" height="40" viewBox="0 0 44 40"><path d="M6 16 H26 V12 L38 20 L26 28 V24 H6 Z" fill="#8a9099"/><path d="M10 22 H30 V19 L40 25 L30 31 V28 H10 Z" fill="#1a8a4a"/></svg></span>
@@ -133,15 +140,15 @@
           <span class="service-name">Import, Export, Wholesale and Retail Trade Support Service</span>
           <span class="company-name">工業貿易署</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart" role="button" tabindex="0" aria-pressed="false" aria-label="Not favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
-      <a class="org-item service-item" href="#">
+      <a class="org-item service-item service-disabled" href="#" aria-disabled="true" tabindex="-1">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#2f7d4f"/><circle cx="20" cy="20" r="14" fill="none" stroke="#c79a3a" stroke-width="1.6"/><path d="M20 6 a14 14 0 0 0 -12 7M20 6 a14 14 0 0 1 12 7" stroke="#c79a3a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 21 l4 4 8-9" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="service-copy">
           <span class="service-name">VLS</span>
           <span class="company-name">海關</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart" role="button" tabindex="-1" aria-disabled="true" aria-pressed="false" aria-label="Not favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
       <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#2f7d4f"/><circle cx="20" cy="20" r="14" fill="none" stroke="#c79a3a" stroke-width="1.6"/><path d="M20 6 a14 14 0 0 0 -12 7M20 6 a14 14 0 0 1 12 7" stroke="#c79a3a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 21 l4 4 8-9" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -149,7 +156,7 @@
           <span class="service-name">Virtual Asset Registration</span>
           <span class="company-name">海關</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart" role="button" tabindex="0" aria-pressed="false" aria-label="Not favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
     </div>
 
@@ -161,15 +168,15 @@
           <span class="service-name">Retail Trade Enablement Service</span>
           <span class="company-name">Citywide Retail Group</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart is-favorite" role="button" tabindex="0" aria-pressed="true" aria-label="Favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
-      <a class="org-item service-item" href="#">
+      <a class="org-item service-item service-disabled" href="#" aria-disabled="true" tabindex="-1">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#3a8a3a"/><text x="20" y="25" font-size="12" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">ET</text></svg></span>
         <span class="service-copy">
           <span class="service-name">Global Trade Documentation Desk</span>
           <span class="company-name">Eastwind Trading Co.</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart is-favorite" role="button" tabindex="-1" aria-disabled="true" aria-pressed="true" aria-label="Favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
       <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#3a8a3a"/><text x="20" y="25" font-size="12" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">IW</text></svg></span>
@@ -177,7 +184,7 @@
           <span class="service-name">Wholesale Distribution Desk</span>
           <span class="company-name">Imperial Wholesale Mart</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart is-favorite" role="button" tabindex="0" aria-pressed="true" aria-label="Favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
       <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#2457a6"/><text x="20" y="25" font-size="11" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">MC1</text></svg></span>
@@ -185,7 +192,7 @@
           <span class="service-name">Cross-border Trade Documentation Service</span>
           <span class="company-name">Multi Category Company #1</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart is-favorite" role="button" tabindex="0" aria-pressed="true" aria-label="Favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
       <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#2457a6"/><text x="20" y="25" font-size="11" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">MC1</text></svg></span>
@@ -193,7 +200,7 @@
           <span class="service-name">Wholesale Order Management Service</span>
           <span class="company-name">Multi Category Company #1</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart is-favorite" role="button" tabindex="0" aria-pressed="true" aria-label="Favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
       <a class="org-item service-item" href="#">
         <span class="org-logo"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="#2457a6"/><text x="20" y="25" font-size="11" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">MC1</text></svg></span>
@@ -201,7 +208,7 @@
           <span class="service-name">Retail Partner Onboarding Service</span>
           <span class="company-name">Multi Category Company #1</span>
         </span>
-        <span class="org-arrow"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M1.5 1.5 L7 8 L1.5 14.5" stroke="#c4ccd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="org-action favorite-heart is-favorite" role="button" tabindex="0" aria-pressed="true" aria-label="Favorite"><svg width="24" height="22" viewBox="0 0 122.88 107.41" aria-hidden="true"><path class="heart-shape" fill-rule="evenodd" clip-rule="evenodd" d="M60.83,17.19C68.84,8.84,74.45,1.62,86.79,0.21c23.17-2.66,44.48,21.06,32.78,44.41 c-3.33,6.65-10.11,14.56-17.61,22.32c-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.56C29.16,76.9,0.95,55.93,0.02,29.95 C-0.63,11.75,13.73,0.09,30.25,0.3C45.01,0.5,51.22,7.84,60.83,17.19L60.83,17.19L60.83,17.19z"/></svg></span>
       </a>
     </div>
 
@@ -231,5 +238,23 @@
   </div>
 
 </div>
-</body>
+<script>(function(){
+  function setHeartState(el, on) {
+    el.classList.toggle('is-favorite', on);
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    el.setAttribute('aria-label', on ? 'Favorite' : 'Not favorite');
+  }
+  document.addEventListener('click', function (e) {
+    var heart = e.target.closest && e.target.closest('.favorite-heart');
+    if (!heart || heart.closest('.service-disabled')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setHeartState(heart, !heart.classList.contains('is-favorite'));
+  });
+  document.addEventListener('keydown', function (e) {
+    if ((e.key !== 'Enter' && e.key !== ' ') || !e.target.classList || !e.target.classList.contains('favorite-heart')) return;
+    e.preventDefault();
+    setHeartState(e.target, !e.target.classList.contains('is-favorite'));
+  });
+})();</script></body>
 </html>
