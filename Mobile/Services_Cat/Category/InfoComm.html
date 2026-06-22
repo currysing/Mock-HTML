@@ -67,6 +67,12 @@
   /* ---- Content ---- */
   .list-area { flex: 1; overflow-y: auto; background: #fff; }
   .list-area::-webkit-scrollbar { display: none; }
+  .filter-row {
+    display: flex; justify-content: flex-end; align-items: center; gap: 14px;
+    padding: 12px 16px 0; background: #fff;
+  }
+  .filter-option { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4d5660; }
+  .filter-option input { width: 16px; height: 16px; accent-color: #155CB0; }
   .section-title {
     padding: 16px 16px 6px; font-size: 13px; font-weight: 600;
     color: #7c8590; letter-spacing: .3px;
@@ -140,6 +146,10 @@
 
   <!-- Content: two sections -->
   <div class="list-area">
+    <div class="filter-row" aria-label="Service filters">
+      <label class="filter-option"><input type="checkbox" id="filter-authorised">Authorised</label>
+      <label class="filter-option"><input type="checkbox" id="filter-favorite">Favorite</label>
+    </div>
     <div class="section-title">政府及有關機構</div>
     <div class="org-list service-list">
       <a class="org-item service-item" href="#">
@@ -272,5 +282,23 @@
     e.preventDefault();
     setHeartState(e.target, !e.target.classList.contains('is-favorite'));
   });
+})();</script><script>(function(){
+  function applyServiceFilters() {
+    var authorisedOnly = !!(document.getElementById('filter-authorised') || {}).checked;
+    var favoriteOnly = !!(document.getElementById('filter-favorite') || {}).checked;
+    document.querySelectorAll('.service-item').forEach(function (item) {
+      var isAuthorised = !item.classList.contains('service-disabled');
+      var isFavorite = !!item.querySelector('.favorite-heart.is-favorite');
+      item.style.display = ((authorisedOnly && !isAuthorised) || (favoriteOnly && !isFavorite)) ? 'none' : '';
+    });
+  }
+  var authorised = document.getElementById('filter-authorised');
+  var favorite = document.getElementById('filter-favorite');
+  if (authorised) authorised.addEventListener('change', applyServiceFilters);
+  if (favorite) favorite.addEventListener('change', applyServiceFilters);
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('.favorite-heart')) setTimeout(applyServiceFilters, 0);
+  });
+  applyServiceFilters();
 })();</script></body>
 </html>
