@@ -11,6 +11,7 @@
     display: flex; justify-content: center; align-items: flex-start;
     min-height: 100vh; padding: 20px 0;
     font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    overflow: hidden;
   }
   .phone-frame {
     width: 393px; height: 852px;
@@ -57,7 +58,7 @@
   }
   .org-banner .logo { width: 46px; height: 46px; flex-shrink: 0; }
   .org-banner .name { font-size: 17px; font-weight: 700; color: #1a1a1a; }
-  .list-area { flex: 1; overflow-y: auto; background: #fff; }
+  .list-area { flex: 1; overflow-y: auto; background: #fff; scrollbar-width: none; -ms-overflow-style: none; }
   .list-area::-webkit-scrollbar { display: none; }
   .filter-row {
     display: flex; justify-content: flex-end; align-items: center; gap: 14px;
