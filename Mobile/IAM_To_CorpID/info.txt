@@ -3,3 +3,12 @@
 午安 登入
 個人 企業
 梁冠誠
+
+
+Now the top banner background picture in iam_home.html is clearly not the same image as in the picture mock-images/IAM_Homepage.jpg., is it possible to actually screen capture the header from mock-images/IAM_Homepage.jpg (save it in the images folder), and use it as background header banner image. Note it contains the embedded text 午安 and 登入, so you will need to remove them and replaced with derived pixels.
+
+
+In iam_logined.html, replace the text 梁冠誠 with 陳大文
+
+Now I want to do replace the header banner background picture in iam_logined.html with captured banner image from IAM_logined.jpg, in a way the same as what was done to iam_home.html
+
