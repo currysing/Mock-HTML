@@ -1,0 +1,22 @@
+Consolidation report
+Generated: 2026-06-24
+
+HTML files checked: 21
+Associated *_files folders: removed
+All local asset references rewritten to assets/: yes
+Remaining root-relative local references: 0
+Missing local references: 5
+
+Missing pieces:
+- assets/service_item1-Gb0TXat9.png
+  Used by: index.html
+- assets/service_item2-CzPXFmNm.png
+  Used by: index.html
+- assets/service_item5-CFQLFhGk.png
+  Used by: index.html
+- assets/service_item6-BsyJePlk.png
+  Used by: index.html
+- favicon.ico
+  Used by: authorization-management.html, cert-management.html, corp-id-responsible.html, corporate-identity.html, corporate-profile.html, delegation-management.html, document-classification-list.html, documents-list.html, enterprise-list.html, index.html, invitation-application-drafts.html, invitation-application-received.html, invitation-application-submitted.html, invitation-delegation-delegated.html, invitation-delegation-delegatee.html, invitation-user-invitation-drafts.html, invitation-user-invitation-received.html, invitation-user-invitation-submitted.html, my-service-list.html, register.html, user-list.html
+
+Note: assets/index-Cfx39piE.css.pre-consolidation-backup is the previous CSS kept before replacing it with the regenerated index_files version.
