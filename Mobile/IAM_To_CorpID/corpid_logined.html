@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=393, initial-scale=1">
-<title>CorpID 首頁</title>
+<title>CorpID 首頁 (已登入)</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -14,141 +14,84 @@
   }
   .phone-frame {
     width: 393px; height: 852px;
-    background: #eef1f4;
+    background: #edf2f8;
     position: relative; overflow: hidden;
     display: flex; flex-direction: column;
     box-shadow: 0 8px 32px rgba(0,0,0,0.25);
     border-radius: 48px;
   }
 
-  /* ---- Status Bar ---- */
-  .status-bar {
-    height: 50px; display: flex; align-items: flex-end;
-    justify-content: space-between; padding: 0 26px 6px;
-    flex-shrink: 0; position: relative; z-index: 5;
-  }
-  .sb-time { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: .3px; }
-  .sb-icons { display: flex; align-items: center; gap: 6px; }
-  .batt { display: inline-flex; align-items: center; gap: 2px; }
-  .batt-body {
-    border: 1px solid rgba(255,255,255,.65); border-radius: 4px;
-    font-size: 9px; font-weight: 700; color: #fff;
-    padding: 1px 3px 1px; line-height: 1; min-width: 22px; text-align: center;
-    background: linear-gradient(to right, rgba(255,255,255,.85) 79%, transparent 79%);
-    -webkit-text-fill-color: #1155BB;
-  }
-  .batt-tip { width: 2px; height: 5px; background: rgba(255,255,255,.65); border-radius: 0 2px 2px 0; }
-
-  /* ---- Hero ---- */
+  /* ---- Hero photo (status bar, logo, pills, QR & search bar embedded) ---- */
   .hero {
-    position: relative; flex-shrink: 0;
-    padding: 6px 16px 18px;
-    background:
-      linear-gradient(180deg, rgba(10,40,90,.45) 0%, rgba(20,90,160,.15) 35%, rgba(120,170,210,.05) 60%, #eef1f4 100%),
-      linear-gradient(160deg, #6f9fc8 0%, #87b0d4 30%, #a9c9e4 55%, #cfe0ee 100%);
-    margin-top: -50px; padding-top: 56px;
+    position: relative; flex-shrink: 0; height: 305px;
+    background: #123a75 url('../../mock-images/corpid_logined_header.jpg') no-repeat top center;
+    background-size: 100% auto;
   }
-  /* skyline silhouette */
-  .skyline {
-    position: absolute; left: 0; right: 0; bottom: 92px; height: 120px;
-    opacity: .35; pointer-events: none;
+  .hero-greet {
+    position: absolute; left: 16px; top: 112px; z-index: 2; color: #fff;
+    text-shadow: 0 3px 14px rgba(0,15,45,.8), 0 1px 4px rgba(0,15,45,.55);
   }
-  .hero-top {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 14px; position: relative; z-index: 2;
-  }
-  .id-logo { display: flex; align-items: flex-end; }
-  .hero-icons { display: flex; align-items: center; gap: 16px; }
-  .hero-icons svg { display: block; }
-  .hero-title {
-    color: #fff; font-size: 26px; font-weight: 700;
-    display: flex; align-items: center; gap: 6px;
-    margin-bottom: 16px; position: relative; z-index: 2;
-    text-shadow: 0 1px 4px rgba(0,0,0,.18);
-  }
+  .g-row { display: flex; align-items: center; }
+  .g-1 { font-size: 17px; font-weight: 700; gap: 14px; margin-bottom: 14px; }
+  .g-2 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .g-3 { font-size: 20px; font-weight: 700; letter-spacing: .5px; }
 
-  .search-wrap {
-    display: flex; align-items: center;
-    background: #fff; border-radius: 26px;
-    padding: 0 5px 0 14px; gap: 8px; height: 48px;
-    position: relative; z-index: 2;
-    box-shadow: 0 4px 16px rgba(0,40,90,.18);
+  /* ---- Content card ---- */
+  .body-scroll {
+    flex: 1; overflow-y: auto;
+    background: #edf2f8;
+    border-radius: 22px 22px 0 0;
+    margin-top: -22px; position: relative; z-index: 2;
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / legacy Edge */
   }
-  .search-wrap .s-icon { color: #1155BB; display: flex; }
-  .search-wrap input {
-    flex: 1; border: none; outline: none;
-    font-size: 15px; color: #333; background: transparent; font-family: inherit;
-  }
-  .ai-btn {
-    background: #1155BB; color: #fff; border: none; border-radius: 20px;
-    padding: 9px 16px; font-size: 14px; font-weight: 600;
-    cursor: pointer; font-family: inherit; white-space: nowrap;
-  }
+  .body-scroll::-webkit-scrollbar { display: none; }  /* Chrome / Safari / Edge */
 
-  /* ---- Scroll body ---- */
-  .body-scroll { flex: 1; overflow-y: auto; }
-  .body-scroll::-webkit-scrollbar { display: none; }
-
-  /* Promo banner */
-  .promo {
-    margin: -4px 14px 0; border-radius: 14px; overflow: hidden;
-    background: linear-gradient(120deg, #0b3a6b 0%, #155a9c 45%, #2f7fbf 100%);
-    height: 132px; position: relative;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    box-shadow: 0 4px 14px rgba(0,40,90,.15);
+  /* Announcement */
+  .ann {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border-radius: 14px; padding: 16px 16px;
+    margin: 14px 14px 0;
+    box-shadow: 0 2px 8px rgba(20,60,120,.06);
   }
-  .promo::after {
-    content: ""; position: absolute; inset: 0;
-    background: repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 9px);
-  }
-  .promo .p-sub { color: rgba(255,255,255,.92); font-size: 14px; margin-bottom: 8px; position: relative; z-index: 1; }
-  .promo .p-main {
-    color: #fff; font-size: 26px; font-weight: 800; letter-spacing: .5px;
-    display: flex; align-items: center; gap: 8px; position: relative; z-index: 1;
-  }
-  .promo .p-cta {
-    width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.25);
-    display: inline-flex; align-items: center; justify-content: center; font-size: 14px;
-  }
-
-  /* Announcement carousel */
-  .carousel { padding: 12px 14px 4px; }
-  .ann-card {
-    display: none; align-items: center; gap: 12px;
-    background: #fff; border-radius: 14px; padding: 16px 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05);
-  }
-  .ann-card.active { display: flex; }
-  .ann-ic {
-    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
-    background: #fde9d0; display: flex; align-items: center; justify-content: center;
-  }
+  .ann-ic { flex-shrink: 0; display: flex; }
   .ann-body { flex: 1; min-width: 0; }
   .ann-title {
-    font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px;
+    font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 7px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .ann-date { font-size: 13px; color: #9aa0a6; }
-  .dots { display: flex; justify-content: center; gap: 7px; padding: 12px 0 4px; }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: #c4ccd4; cursor: pointer; transition: all .2s; }
-  .dot.active { background: #1155BB; width: 18px; border-radius: 4px; }
+  .ann-date { font-size: 12.5px; color: #9aa0a6; }
+  .dots { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 12px 0 2px; }
+  .dot { width: 6px; height: 6px; border-radius: 3px; background: #c9d2dc; }
+  .dot.active { width: 16px; background: #1b6fc9; }
+
+  /* Quick actions */
+  .quick-row {
+    display: flex; padding: 12px 8px 4px;
+  }
+  .qa {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 7px;
+    cursor: pointer;
+  }
+  .qa .ic { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+  .qa .lbl { font-size: 12px; color: #2a2a2a; }
 
   /* Guide tabs */
   .guide-head {
-    display: flex; align-items: center; padding: 8px 18px 0; gap: 22px;
+    display: flex; align-items: baseline; padding: 12px 16px 0; gap: 22px;
   }
   .guide-tab {
-    padding: 8px 0 12px; font-size: 18px; color: #9aa0a6; cursor: pointer;
+    padding: 6px 0 10px; font-size: 17px; color: #9aa0a6; cursor: pointer;
     background: none; border: none; font-family: inherit; position: relative; font-weight: 600;
   }
-  .guide-tab.active { color: #1a1a1a; }
+  .guide-tab.active { color: #1a1a1a; font-weight: 700; }
   .guide-tab.active::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 3px;
+    content: ""; position: absolute; left: 2px; right: 2px; bottom: 2px; height: 3px;
     background: #1155BB; border-radius: 2px;
   }
   .guide-more { margin-left: auto; color: #1155BB; font-size: 14px; cursor: pointer; }
 
-  /* Cards masonry */
+  /* Cards */
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
   .cards {
@@ -159,32 +102,23 @@
     border-radius: 16px; padding: 16px 14px; position: relative; overflow: hidden;
     min-height: 92px; display: flex; flex-direction: column;
   }
-  .card::after {
-    content: ""; position: absolute; inset: 0;
-    background: repeating-linear-gradient(125deg, rgba(255,255,255,.35) 0 1px, transparent 1px 14px);
-    pointer-events: none;
-  }
   .card.tall { grid-row: span 2; justify-content: flex-start; }
   .card .c-title { font-size: 16px; font-weight: 700; color: #2a2a2a; line-height: 1.35; position: relative; z-index: 1; }
   .card .c-sub { font-size: 12px; color: #7c8590; margin-top: 4px; position: relative; z-index: 1; }
-  .card .c-emoji {
-    position: absolute; right: 12px; bottom: 10px; font-size: 30px;
-    z-index: 1; filter: saturate(.9);
+  .card .c-ic {
+    position: absolute; right: 12px; bottom: 10px; z-index: 1; opacity: .85;
   }
-  .card.tall .c-emoji { font-size: 46px; right: 16px; bottom: 18px; }
-
-  .bg-blue   { background: #dde9f6; }
-  .bg-green  { background: #d9efe6; }
-  .bg-beige  { background: #f5e7d6; }
-  .bg-purple { background: #e6e1f2; }
-  .bg-pink   { background: #f7e1e8; }
-  .bg-yellow { background: #f7f0d8; }
-  .bg-teal   { background: #d8eef0; }
+  .bg-mint   { background: #e2f1ec; }
+  .bg-yellow { background: #fbf3d5; }
+  .bg-pink   { background: #f6e3ec; }
+  .bg-peri   { background: #e6e9f5; }
+  .bg-blue   { background: #e2eaf6; }
 
   /* ---- Bottom Nav ---- */
   .bottom-nav {
     height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
     display: flex; align-items: flex-start; flex-shrink: 0; padding-top: 8px;
+    position: relative; z-index: 3;
   }
   .nav-item {
     flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -198,102 +132,96 @@
 <body>
 <div class="phone-frame">
 
-  <!-- Hero (status bar overlaps the photo) -->
+  <!-- Hero photo (status bar, logo, pills, QR icon & search bar are part of the image) -->
   <div class="hero">
-    <!-- skyline silhouette -->
-    <svg class="skyline" viewBox="0 0 393 120" preserveAspectRatio="none">
-      <g fill="#3a6790">
-        <rect x="0" y="70" width="20" height="50"/>
-        <rect x="22" y="40" width="14" height="80"/>
-        <rect x="40" y="80" width="22" height="40"/>
-        <rect x="66" y="20" width="10" height="100"/>
-        <polygon points="71,8 76,20 66,20"/>
-        <rect x="82" y="58" width="26" height="62"/>
-        <rect x="112" y="74" width="18" height="46"/>
-        <rect x="134" y="34" width="16" height="86"/>
-        <rect x="154" y="64" width="24" height="56"/>
-        <rect x="182" y="48" width="14" height="72"/>
-        <rect x="200" y="78" width="28" height="42"/>
-        <rect x="232" y="28" width="18" height="92"/>
-        <rect x="254" y="60" width="22" height="60"/>
-        <rect x="280" y="44" width="14" height="76"/>
-        <rect x="298" y="72" width="26" height="48"/>
-        <rect x="328" y="36" width="16" height="84"/>
-        <rect x="348" y="66" width="20" height="54"/>
-        <rect x="372" y="54" width="21" height="66"/>
-      </g>
-    </svg>
-
-    <div class="status-bar">
-      <span class="sb-time">11:15</span>
-      <div class="sb-icons">
-        <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#fff"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#fff"/><rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#fff"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#fff"/></svg>
-        <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M2.5 5.2a9 9 0 0 1 12 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7.6a5.2 5.2 0 0 1 7 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.5" cy="10" r="1.3" fill="#fff"/></svg>
-        <span class="batt"><span class="batt-body">79</span><span class="batt-tip"></span></span>
+    <div class="hero-greet">
+      <div class="g-row g-1">陳大文
+        <svg width="24" height="17" viewBox="0 0 22 16" fill="none" style="margin-left:14px"><path d="M1 8 a11 7 0 0 1 20 0 a11 7 0 0 1 -20 0 Z" stroke="#fff" stroke-width="1.8"/><circle cx="11" cy="8" r="3" stroke="#fff" stroke-width="1.8"/></svg>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="#fff" style="margin-left:16px"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="11" y="1" width="6" height="6" rx="1"/><rect x="1" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="2.6" height="2.6"/><rect x="15.4" y="11" width="2.6" height="2.6"/><rect x="11" y="15.4" width="2.6" height="2.6"/><rect x="15.4" y="15.4" width="2.6" height="2.6"/></svg>
       </div>
-    </div>
-
-    <div class="hero-top">
-      <!-- blue iD logo -->
-      <div class="id-logo">
-        <svg width="56" height="34" viewBox="0 0 56 34">
-          <rect x="2" y="6" width="7" height="24" rx="2" fill="#1155BB"/>
-          <circle cx="5.5" cy="1.5" r="1.5" fill="#1155BB"/>
-          <path d="M16 4 h12 a13 13 0 0 1 0 26 H16 Z" fill="#1155BB"/>
-          <path d="M23 11 h5 a6 6 0 0 1 0 12 h-5 Z" fill="#cfe0ee"/>
-        </svg>
-      </div>
-      <div class="hero-icons">
-        <svg width="22" height="6" viewBox="0 0 22 6"><circle cx="3" cy="3" r="2.5" fill="#fff"/><circle cx="11" cy="3" r="2.5" fill="#fff"/><circle cx="19" cy="3" r="2.5" fill="#fff"/></svg>
-        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 3 L15 15 M15 3 L3 15" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-      </div>
-    </div>
-
-    <div class="hero-title">陳大文<span style="font-size:22px;"></span></div>
-
-    <div class="search-wrap">
-      <span class="s-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="6" stroke="#1155BB" stroke-width="1.8"/><path d="M13 13 L18 18" stroke="#1155BB" stroke-width="1.8" stroke-linecap="round"/></svg></span>
-      <input type="text" id="searchInput" placeholder="我想註冊CorpID" readonly>
-      <button class="ai-btn">AI 助手</button>
+      <div class="g-row g-2">仁一有限公司</div>
+      <div class="g-row g-3">BELIZABETH HK LIMITED</div>
     </div>
   </div>
 
-  <!-- Scroll body -->
+  <!-- Content -->
   <div class="body-scroll">
 
-    <!-- Promo banner -->
-    <div class="promo">
-      <div class="p-sub">開始為你的企業建立數碼企業身份</div>
-      <div class="p-main">註冊 CORP<span style="color:#7fd0e0;">iD</span> <span class="p-cta">›</span></div>
+    <!-- Announcement -->
+    <div class="ann">
+      <div class="ann-ic">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+          <path d="M6 13 v8 a2 2 0 0 0 2 2 h3 l9 6 V5 l-9 6 H8 a2 2 0 0 0 -2 2 Z" fill="#2fb9c9"/>
+          <path d="M11 23 l2.5 7 a1.6 1.6 0 0 0 3 -1 l-1.8 -5.4" fill="#1b6fc9"/>
+          <path d="M24 11 a7 7 0 0 1 0 12" stroke="#1b6fc9" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M27.5 8.5 a11 11 0 0 1 0 17" stroke="#2fb9c9" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ann-body">
+        <div class="ann-title">一站式電子申請平台現已支援 CorpID 登…</div>
+        <div class="ann-date">2025-12-22 11:30</div>
+      </div>
+    </div>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
     </div>
 
-    <!-- Announcement carousel -->
-    <div class="carousel">
-      <div class="ann-card active" id="slide-0">
-        <div class="ann-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Z" fill="#e8852e"/><path d="M16 8a5 5 0 0 1 0 8" stroke="#e8852e" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="ann-body">
-          <div class="ann-title">通訊事務管理局辦公室 – 一站式電子申請平…</div>
-          <div class="ann-date">2025-12-16 11:30</div>
+    <!-- Quick actions -->
+    <div class="quick-row">
+      <div class="qa">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="7" y="14" width="13" height="22" fill="#1b6fc9"/>
+            <rect x="22" y="7" width="13" height="29" fill="#2fb9c9"/>
+            <path d="M10 18 h3 M10 23 h3 M10 28 h3 M15 18 h2 M15 23 h2 M15 28 h2" stroke="#fff" stroke-width="1.6"/>
+            <path d="M25 12 h3 M25 17 h3 M25 22 h3 M25 27 h3 M30 12 h2 M30 17 h2 M30 22 h2 M30 27 h2" stroke="#fff" stroke-width="1.6"/>
+          </svg>
         </div>
+        <div class="lbl">企業資料</div>
       </div>
-      <div class="ann-card" id="slide-1">
-        <div class="ann-ic" style="background:#e4dcf7"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" fill="#7a5fc0"/><circle cx="16" cy="9" r="2.4" fill="#9b85d4"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0Z" fill="#7a5fc0"/><path d="M14 19a4.5 4.5 0 0 1 7-3.7" stroke="#9b85d4" stroke-width="1.8" fill="none"/></svg></div>
-        <div class="ann-body">
-          <div class="ann-title">加入為指定 CORPID 之負責人</div>
-          <div class="ann-date">2025-12-22 11:30</div>
+      <div class="qa">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M8 14 L21 8 L34 14 V30 L21 36 L8 30 Z" fill="#2fb9c9"/>
+            <path d="M8 14 L21 20 L34 14 M21 20 V36" stroke="#1b6fc9" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+            <path d="M14 11.5 L27 17.5" stroke="#e8f6f8" stroke-width="1.8"/>
+          </svg>
         </div>
+        <div class="lbl">文件包</div>
       </div>
-      <div class="ann-card" id="slide-2">
-        <div class="ann-ic" style="background:#cdeee6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" fill="#2f9e7e"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <div class="ann-body">
-          <div class="ann-title">用戶可透過 CorpID 進行身分驗證及申請流程</div>
-          <div class="ann-date">2025-12-10 11:30</div>
+      <div class="qa">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M12 7 h18 M12 35 h18" stroke="#1b6fc9" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M14 7 c0 8 5 10 7 12 c-2 2 -7 4 -7 12 M28 7 c0 8 -5 10 -7 12 c2 2 7 4 7 12" stroke="#2fb9c9" stroke-width="2.2" fill="none"/>
+            <path d="M18 27 c1.5 -1.5 4.5 -1.5 6 0 c.8 1 1.5 3 2 5 H16 c.5 -2 1.2 -4 2 -5 Z" fill="#2fb9c9"/>
+          </svg>
         </div>
+        <div class="lbl">申請進度</div>
       </div>
-      <div class="dots">
-        <div class="dot active" onclick="goSlide(0)"></div>
-        <div class="dot" onclick="goSlide(1)"></div>
-        <div class="dot" onclick="goSlide(2)"></div>
+      <div class="qa">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="10" y="18" width="22" height="16" rx="3" fill="#1b6fc9"/>
+            <path d="M15 18 v-4 a6 6 0 0 1 11.8 -1.5" stroke="#2fb9c9" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <circle cx="21" cy="25" r="2.4" fill="#fff"/>
+            <path d="M21 26.5 v3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="lbl">授權管理</div>
+      </div>
+      <div class="qa">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <circle cx="21" cy="9" r="4" fill="#1b6fc9"/>
+            <circle cx="10" cy="30" r="4" fill="#2fb9c9"/>
+            <circle cx="32" cy="30" r="4" fill="#2fb9c9"/>
+            <path d="M21 13 v6 M21 19 L12 26 M21 19 L30 26" stroke="#1b6fc9" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="lbl">委託管理</div>
       </div>
     </div>
 
@@ -307,27 +235,56 @@
     <!-- Beginner -->
     <div class="tab-panel active" id="panel-beginner">
       <div class="cards">
-        <div class="card tall bg-blue">
-          <div class="c-title">註冊香港公司</div>
-          <div class="c-sub">公司註冊處</div>
-          <span class="c-emoji">📄</span>
+        <div class="card tall bg-mint">
+          <div class="c-title">貿易單一窗口</div>
+          <div class="c-sub">商務及經濟發展局</div>
+          <span class="c-ic">
+            <svg width="52" height="42" viewBox="0 0 52 42" fill="none">
+              <path d="M4 22 h10 v-6 a3.5 3.5 0 0 1 7 0 v6 h10 v10 h-10 v6 a3.5 3.5 0 0 1 -7 0 v-6 H4 Z" fill="#7fc8bc"/>
+              <path d="M34 4 h10 v10 h-10 v6 a3.5 3.5 0 0 1 -7 0 v-6 h-3 V4 Z" fill="#a5dcd3" transform="translate(3 14)"/>
+            </svg>
+          </span>
         </div>
-        <div class="card bg-green">
-          <div class="c-title">使用公司秘書服務</div>
-          <span class="c-emoji">💼</span>
+        <div class="card bg-yellow">
+          <div class="c-title">準備貿易文件</div>
+          <span class="c-ic">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+              <rect x="7" y="4" width="20" height="26" rx="2" fill="#f0d76a"/>
+              <path d="M11 10 h12 M11 15 h12 M11 20 h8" stroke="#c9a92e" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M23 30 l3 3 5 -6" stroke="#c9a92e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
         </div>
-        <div class="card bg-beige">
-          <div class="c-title">開立商業銀行戶口</div>
-          <span class="c-emoji">🏦</span>
+        <div class="card bg-pink">
+          <div class="c-title">本地配送與電商物流</div>
+          <span class="c-ic">
+            <svg width="36" height="34" viewBox="0 0 36 34" fill="none">
+              <path d="M4 6 h4 l3.5 14 h16 l3 -10 H10" stroke="#d47ba0" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="27" r="2.8" fill="#d47ba0"/>
+              <circle cx="25" cy="27" r="2.8" fill="#d47ba0"/>
+            </svg>
+          </span>
         </div>
-        <div class="card bg-purple">
-          <div class="c-title">申請政府資助計劃</div>
-          <span class="c-emoji">💰</span>
+        <div class="card bg-peri">
+          <div class="c-title">制定營銷策略</div>
+          <span class="c-ic">
+            <svg width="36" height="34" viewBox="0 0 36 34" fill="none">
+              <rect x="5" y="5" width="26" height="17" rx="2" fill="#a9b6e0"/>
+              <path d="M10 17 l5 -5 4 3 6 -7" stroke="#5b6fc0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 22 v7 M22 22 v7 M11 29 h14" stroke="#5b6fc0" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
         </div>
-        <div class="card bg-purple">
-          <div class="c-title">更改公司地址</div>
-          <div class="c-sub">數字政策辦公室</div>
-          <span class="c-emoji">🏢</span>
+        <div class="card bg-blue">
+          <div class="c-title">港口社區系統</div>
+          <span class="c-ic">
+            <svg width="38" height="34" viewBox="0 0 38 34" fill="none">
+              <path d="M6 22 h26 l-3.5 7 h-19 Z" fill="#8faad4"/>
+              <path d="M12 22 v-8 h14 v8" stroke="#5b7fb8" stroke-width="2" fill="none"/>
+              <path d="M16 14 v-4 h6 v4" stroke="#5b7fb8" stroke-width="2" fill="none"/>
+              <path d="M4 31 q3 2.5 6 0 q3 2.5 6 0 q3 2.5 6 0 q3 2.5 6 0 q3 2.5 6 0" stroke="#5b7fb8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -335,39 +292,26 @@
     <!-- SME -->
     <div class="tab-panel" id="panel-sme">
       <div class="cards">
-        <div class="card tall bg-blue">
-          <div class="c-title">註冊香港公司</div>
-          <div class="c-sub">公司註冊處</div>
-          <span class="c-emoji">📄</span>
-        </div>
-        <div class="card bg-green">
-          <div class="c-title">使用公司秘書服務</div>
-          <span class="c-emoji">💼</span>
-        </div>
-        <div class="card bg-beige">
-          <div class="c-title">開立商業銀行戶口</div>
-          <span class="c-emoji">🏦</span>
-        </div>
-        <div class="card bg-purple">
-          <div class="c-title">申請政府資助計劃</div>
-          <span class="c-emoji">💰</span>
-        </div>
-        <div class="card bg-purple">
-          <div class="c-title">更改公司地址</div>
-          <div class="c-sub">數字政策辦公室</div>
-          <span class="c-emoji">🏢</span>
+        <div class="card tall bg-mint">
+          <div class="c-title">貿易單一窗口</div>
+          <div class="c-sub">商務及經濟發展局</div>
+          <span class="c-ic">
+            <svg width="52" height="42" viewBox="0 0 52 42" fill="none">
+              <path d="M4 22 h10 v-6 a3.5 3.5 0 0 1 7 0 v6 h10 v10 h-10 v6 a3.5 3.5 0 0 1 -7 0 v-6 H4 Z" fill="#7fc8bc"/>
+            </svg>
+          </span>
         </div>
         <div class="card bg-yellow">
-          <div class="c-title">獲取最新政府招標資訊</div>
-          <span class="c-emoji">📋</span>
-        </div>
-        <div class="card bg-teal">
-          <div class="c-title">拓展海外業務支援</div>
-          <span class="c-emoji">🌐</span>
+          <div class="c-title">準備貿易文件</div>
         </div>
         <div class="card bg-pink">
-          <div class="c-title">申請商業貸款計劃</div>
-          <span class="c-emoji">📊</span>
+          <div class="c-title">本地配送與電商物流</div>
+        </div>
+        <div class="card bg-peri">
+          <div class="c-title">制定營銷策略</div>
+        </div>
+        <div class="card bg-blue">
+          <div class="c-title">港口社區系統</div>
         </div>
       </div>
     </div>
@@ -378,11 +322,11 @@
   <!-- Bottom Nav -->
   <div class="bottom-nav">
     <div class="nav-item active">
-      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 14 L14 5 L24 14 V23 a1 1 0 0 1 -1 1 H5 a1 1 0 0 1 -1 -1 Z" fill="currentColor"/></svg>
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M14 4.5 L24.5 13 a2 2 0 0 1 .7 1.5 V23 a1.5 1.5 0 0 1 -1.5 1.5 H4.8 A1.5 1.5 0 0 1 3.3 23 V14.5 a2 2 0 0 1 .7-1.5 Z" fill="currentColor"/><rect x="11.5" y="17" width="5" height="7.5" rx="1" fill="#fff"/></svg>
       <span class="nav-label">首頁</span>
     </div>
     <div class="nav-item">
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="15" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="15" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="8.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="16" y="2.6" width="8.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.8" transform="rotate(15 20.2 6.8)"/><rect x="4" y="15.5" width="8.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="15.5" y="15.5" width="8.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg>
       <span class="nav-label">服務</span>
     </div>
     <div class="nav-item">
@@ -394,7 +338,7 @@
       <span class="nav-label">待辦</span>
     </div>
     <div class="nav-item">
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M4 24 H24"/><rect x="7" y="11" width="14" height="13"/><path d="M9 11 V8 H19 V11"/><path d="M14 8 V5"/><line x1="11" y1="15" x2="11" y2="20"/><line x1="14" y1="15" x2="14" y2="20"/><line x1="17" y1="15" x2="17" y2="20"/></svg>
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="9" width="20" height="14" rx="2.5"/><path d="M10 9 V7 a2 2 0 0 1 2-2 h4 a2 2 0 0 1 2 2 v2"/><path d="M4 15 h20"/><circle cx="14" cy="15" r="1.6" fill="currentColor" stroke="none"/></svg>
       <span class="nav-label">本企</span>
     </div>
   </div>
@@ -402,15 +346,6 @@
 </div>
 
 <script>
-  var currentSlide = 0;
-  var searchTexts = ['我想註冊CorpID', '我想開立商業銀行戶口', '我想申請稅務易商業稅務帳戶'];
-  function goSlide(n) {
-    document.querySelectorAll('.ann-card').forEach(function(c,i){ c.classList.toggle('active', i===n); });
-    document.querySelectorAll('.dot').forEach(function(d,i){ d.classList.toggle('active', i===n); });
-    document.getElementById('searchInput').placeholder = searchTexts[n];
-    currentSlide = n;
-  }
-  setInterval(function(){ goSlide((currentSlide+1)%3); }, 3500);
   function switchTab(name, btn) {
     document.querySelectorAll('.guide-tab').forEach(function(t){ t.classList.remove('active'); });
     btn.classList.add('active');
