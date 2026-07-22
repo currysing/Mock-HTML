@@ -12,3 +12,4 @@ In iam_logined.html, replace the text 梁冠誠 with 陳大文
 
 Now I want to do replace the header banner background picture in iam_logined.html with captured banner image from IAM_logined.jpg, in a way the same as what was done to iam_home.html
 
+I want to create a new page "iam_home_1.html", which is just a copy of  the @Mobile\IAM_To_CorpID\iam_home.html. On the top left, below the text "登入", I want to add 2 buttons. One should be a green-ish color with label "個人", the other should be blue-ish with label "企業".
