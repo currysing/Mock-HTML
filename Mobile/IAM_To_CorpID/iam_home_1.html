@@ -33,20 +33,28 @@
     text-shadow: 0 3px 14px rgba(0,25,60,.75), 0 1px 4px rgba(0,25,60,.5);
   }
   .hero-greet .g-2 {
+    position: absolute;
+    top: -13px; left: 0;
     font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 5px;
-    margin-top: -10px;
   }
-  .login-single { width: 180px; height: auto; display: block; margin-top: -3px; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
+  .login-link {
+    position: absolute;
+    top: 24px; left: 0;
+  }
+  .login-single { width: 180px; height: auto; display: block; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
   .corpid-label {
-    margin-top: -5px;
-    margin-left: 5px;
-    padding: 1px 12px;
+    position: absolute;
+    bottom: 43px;
+    left: 12px;
+    padding: 0 12px 1px 12px;
     background: #3B82F6;
     color: #fff;
-    font-size: 14px;
+    font-size: 13px;
     border-radius: 6px;
-    display: inline-block;
+    display: block;
+    width: fit-content;
     cursor: pointer;
+    z-index: 2;
   }
 
   /* ---- Quick actions card (overlaps hero) ---- */
@@ -190,11 +198,11 @@
     <div class="hero-greet">
       <div class="g-2">午安
       </div>
-      <a href="iam_logined.html">
+      <a href="iam_logined_1.html" class="login-link">
         <img src="images/btn_login_iam3_transparent.png" alt="登入智方便" class="login-single">
       </a>
-      <div class="corpid-label" onclick="window.location.href='corpid_logined.html'">轉移至 CorpID ....</div>
     </div>
+    <div class="corpid-label" onclick="window.location.href='corpid_logined.html'">CorpID 用戶？ 切換至 CorpID ➡</div>
   </div>
 
   <!-- Quick actions -->
