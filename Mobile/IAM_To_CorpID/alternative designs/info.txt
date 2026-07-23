@@ -1,0 +1,4 @@
+﻿The attached image is the header of a mobile app design. On the bottom left, there is a button "登入智方便", and beneath it is a link "轉移至 CorpID". Both are going to 2 different urls. The idea is, the first button is native to this current app, so this is where the focus is, but at the same time, we also want users to be easily switch to the sister app which is link 2. Now I want some alternative designs from you. The main point is, the sister app link must be present at all time, but not obstructive to the main app UI.
+
+
+Now I have an idea. Can we put an icon at the bottom right of the banner. User can drag it to the left, it will slide like a curtain, and review the sister app.
