@@ -25,7 +25,7 @@
   .hero {
     position: relative; flex-shrink: 0; height: 208px;
     padding: 64px 16px 0;
-    background: #8fb6d6 url('../../mock-images/iam_home_header.jpg') no-repeat top center;
+    background: #8fb6d6 url('images/iam_home_header.jpg') no-repeat top center;
     background-size: 100% auto;
   }
   .hero-greet {
@@ -34,27 +34,19 @@
   }
   .hero-greet .g-2 {
     font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 5px;
-    cursor: pointer;
+    margin-top: -10px;
   }
-  .login-tabs {
-    display: flex; gap: 10px; margin-top: 14px;
-  }
-  .login-tab {
-    padding: 8px 20px; border-radius: 24px; border: 1px solid rgba(255,255,255,.45);
-    font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;
+  .login-single { width: 180px; height: auto; display: block; margin-top: -3px; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
+  .corpid-label {
+    margin-top: -5px;
+    margin-left: 5px;
+    padding: 1px 12px;
+    background: #3B82F6;
     color: #fff;
-    background: rgba(255,255,255,.22);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 14px rgba(0,25,60,.25);
-  }
-  .login-tab.personal {
-    background: rgba(14,138,95,.35);
-    border-color: rgba(14,138,95,.55);
-  }
-  .login-tab.corp {
-    background: rgba(28,111,208,.35);
-    border-color: rgba(28,111,208,.55);
+    font-size: 14px;
+    border-radius: 6px;
+    display: inline-block;
+    cursor: pointer;
   }
 
   /* ---- Quick actions card (overlaps hero) ---- */
@@ -196,13 +188,12 @@
   <!-- Hero photo (status bar & weather pill are part of the image) -->
   <div class="hero">
     <div class="hero-greet">
-      <div class="g-2">登入
-        <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M5 3 L11 8 L5 13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="g-2">午安
       </div>
-      <div class="login-tabs">
-        <button class="login-tab personal">個人</button>
-        <button class="login-tab corp">企業</button>
-      </div>
+      <a href="iam_logined.html">
+        <img src="images/btn_login_iam3_transparent.png" alt="登入智方便" class="login-single">
+      </a>
+      <div class="corpid-label" onclick="window.location.href='corpid_logined.html'">轉移至 CorpID ....</div>
     </div>
   </div>
 
@@ -348,7 +339,7 @@
           <div class="wc-day">
             <div class="d-date">07月22日</div>
             <div class="d-week">星期三</div>
-            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><circle cx="8" cy="7" r="3.4" stroke="#ffd34d" stroke-width="1.5" fill="none"/><path d="M8 1.5 v1.6 M2.5 7 h1.6 M13.5 7 h-1.6 M4 3 l1.2 1.2 M12 3 l-1.2 1.2" stroke="#ffd34d" stroke-width="1.3" stroke-linecap="round"/><path d="M8 15 a3 3 0 0 1 .8-5.9 A4 4 0 0 1 16 11 a2.6 2.6 0 0 1 .6 4 Z" fill="#cfe3f7"/></svg></div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><circle cx="8" cy="7" r="3.4" stroke="#ffd34d" stroke-width="1.5" fill="none"/><path d="M8 1.5 v1.6 M2.5 7 h1.6 M13.5 7 h-1.6 M4 3 l1.2 1.2 M12 3 l-1.2 1.2" stroke="#ffd34d" stroke-width="1.3" stroke-linecap="round"/><path d="M8 15 a3 3 0 0 1 .8-5.9 A4 4 0 0 1 16 11 a2.6 2.6 0 0 1 -1 4 Z" fill="#cfe3f7"/></svg></div>
             <div class="d-temp">27°C/32°C</div>
           </div>
           <div class="wc-day">
