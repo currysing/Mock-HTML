@@ -54,27 +54,34 @@
   }
   .drag-handle {
     position: absolute;
-    top: 139px; left: 0;
-    width: 168px; height: 30px;
-    border-radius: 0 15px 15px 0;
-    background: #1a3a6e;
+    top: 138px; left: 0;
+    width: 168px; height: 32px;
+    border-radius: 0 16px 16px 0;
+    background: linear-gradient(135deg, #2f86e8 0%, #1a63c8 60%, #1253b0 100%);
     display: flex; align-items: center;
     justify-content: flex-start;
     padding-left: 10px;
     gap: 10px;
-    box-shadow: 2px 3px 10px rgba(0,0,0,0.35);
+    box-shadow: 2px 4px 14px rgba(10,40,90,0.5), 0 0 0 2px rgba(255,255,255,0.85);
     cursor: grab;
     z-index: 4;
     touch-action: none;
     user-select: none;
     overflow: hidden;
+    animation: tabPulse 2s ease-in-out infinite;
+  }
+  @keyframes tabPulse {
+    0%, 100% { box-shadow: 2px 4px 14px rgba(10,40,90,0.5), 0 0 0 2px rgba(255,255,255,0.85); }
+    50%      { box-shadow: 2px 4px 18px rgba(10,40,90,0.6), 0 0 0 5px rgba(255,255,255,0.35); }
   }
   .drag-text {
     color: #fff;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 700;
     line-height: 1.2;
     white-space: nowrap;
     display: flex; align-items: center; gap: 6px;
+    text-shadow: 0 1px 3px rgba(0,20,50,.5);
   }
   .drag-handle:active { cursor: grabbing; }
   .drag-icon { width: 28px; height: 28px; object-fit: cover; transform: scale(0.97); flex-shrink: 0; }
@@ -235,7 +242,7 @@
     </div>
   </div>
   <div class="drag-handle" id="dragHandle">
-    <img src="images/corpid_icon.png" alt="CorpID" class="drag-icon">
+    <img src="images/corpid_icon_trans.png" alt="CorpID" class="drag-icon">
     <div class="drag-text">切換至 CorpID <svg class="drag-arrow" width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M0.5 6 H13 M9 1.5 L14 6 L9 10.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </div>
 
