@@ -19,3 +19,5 @@ CorpID 用戶？ 切換至 CorpID =>
 
 
 Now focus on iam_home_2.html. I want to experiment with a new design. Now clicking on the label "CorpID 用戶？ 切換至 CorpID" will navigate to corpid_logined.html, I want to remove this label, but at bottom right corner of the banner, I want an icon, and I can drag the icon to the left, which will work like a curtain, will reveal the page corpid_logined.html
+
+

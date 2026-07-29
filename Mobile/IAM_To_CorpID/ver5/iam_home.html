@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1">
+<title>iAM Smart 首頁</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e0e0e0;
+    display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 20px 0;
+    font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+  .phone-frame {
+    width: 393px; height: 852px;
+    background: #ffffff;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    border-radius: 48px;
+  }
+
+  /* ---- Hero (skyline photo with embedded status bar & weather) ---- */
+  .hero {
+    position: relative; flex-shrink: 0; height: 208px;
+    padding: 64px 16px 0;
+    background: #8fb6d6 url('../images/iam_home_header.jpg') no-repeat top center;
+    background-size: 100% auto;
+  }
+  .hero-greet {
+    position: relative; z-index: 2; color: #fff;
+    text-shadow: 0 3px 14px rgba(0,25,60,.75), 0 1px 4px rgba(0,25,60,.5);
+  }
+  .hero-greet .g-2 {
+    font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 5px;
+    margin-top: -2px;
+  }
+  .login-single { width: 145px; height: auto; display: block; margin-top: -3px; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
+  .hero-greet .login-link { color: inherit; text-decoration: none; }
+  .phone-frame { position: relative; }
+  .curtain {
+    position: absolute; inset: 0;
+    background: #ffffff;
+    z-index: 2;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.25s ease-out;
+  }
+  .reveal-page {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+    z-index: 1;
+    background: #123a75;
+  }
+  .drag-handle {
+    position: absolute;
+    top: 106px; left: 0;
+    height: 38px;
+    display: flex; align-items: center;
+    justify-content: flex-start;
+    padding-left: 12px;
+    gap: 2px;
+    cursor: grab;
+    z-index: 4;
+    touch-action: none;
+    user-select: none;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-ribbon {
+    position: absolute;
+    left: -8px; right: 30px; top: 50%;
+    transform: translateY(-50%);
+    height: 34px;
+    background: linear-gradient(180deg, #0a89be 0%, #0391cf 55%, #0083c9 100%);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+    filter: drop-shadow(0 2px 5px rgba(0,25,60,.4));
+  }
+  .drag-text {
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 4px;
+    text-shadow: 0 1px 3px rgba(0,20,50,.5);
+  }
+  .drag-chevrons {
+    position: relative;
+    height: 37px; width: auto; flex-shrink: 0;
+    margin-left: -20px;
+    filter:
+      drop-shadow(0 0 2px rgba(255,255,255,.95))
+      drop-shadow(0 0 6px rgba(255,255,255,.55))
+      drop-shadow(0 2px 5px rgba(0,25,60,.45));
+    animation: chevNudge 1.6s ease-in-out infinite;
+  }
+  @keyframes chevNudge {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(5px); }
+  }
+
+  /* ---- Quick actions card (overlaps hero) ---- */
+  .quick-card {
+    margin: -49px 0 0; background: #fff; border-radius: 22px 22px 0 0;
+    position: relative; z-index: 3; flex-shrink: 0;
+    display: flex; align-items: center;
+    padding: 16px 0 12px;
+    border-bottom: 1px solid #eceef0;
+  }
+  .quick-item {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 17px; font-weight: 600; color: #1a1a1a; cursor: pointer;
+  }
+  .quick-item + .quick-item { border-left: 1px solid #e4e7ea; }
+
+  /* ---- Scroll body ---- */
+  .body-scroll {
+    flex: 1; overflow-y: auto;
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / legacy Edge */
+  }
+  .body-scroll::-webkit-scrollbar { display: none; }  /* Chrome / Safari / Edge */
+
+  /* Section head */
+  .sec-head {
+    display: flex; align-items: baseline; padding: 14px 16px 6px; gap: 14px;
+  }
+  .sec-tab {
+    font-size: 17px; color: #6b7178; cursor: pointer; font-weight: 600;
+    background: none; border: none; font-family: inherit; padding: 4px 10px;
+    border-radius: 14px;
+  }
+  .sec-tab.active { color: #1a1a1a; font-weight: 700; background: none; }
+  .sec-tab.pill { background: #eef0f2; }
+  .sec-more { margin-left: auto; color: #0e8a5f; font-size: 14px; cursor: pointer; }
+
+  /* Service grid */
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 4px 6px; padding: 6px 12px 4px;
+  }
+  .svc {
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    cursor: pointer; padding: 8px 2px;
+  }
+  .svc .ic {
+    width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
+  }
+  .svc .lbl {
+    font-size: 12px; color: #2a2a2a; text-align: center; line-height: 1.25;
+    max-width: 84px; min-height: 30px;
+  }
+
+  /* Useful info */
+  .info-head {
+    display: flex; align-items: baseline; padding: 12px 16px 8px;
+  }
+  .info-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .info-updated { margin-left: auto; color: #0e8a5f; font-size: 13px; }
+
+  .info-row { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
+  .info-arrow {
+    color: #b7bcc2; font-size: 22px; cursor: pointer; flex-shrink: 0; padding: 0 2px;
+  }
+
+  /* Weather card */
+  .weather-card {
+    flex: 1; border-radius: 14px; color: #fff;
+    background: linear-gradient(150deg, #1c6fd0 0%, #155bb4 55%, #0f4a9c 100%);
+    padding: 18px 16px 14px;
+    box-shadow: 0 4px 14px rgba(15,74,156,.25);
+  }
+  .wc-top { display: flex; align-items: flex-start; }
+  .wc-temp { font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+  .wc-right { margin-left: auto; text-align: right; }
+  .wc-hilo { font-size: 16px; font-weight: 600; margin-top: 8px; }
+  .wc-days {
+    display: flex; justify-content: space-between; margin-top: 16px;
+    border-top: 1px solid rgba(255,255,255,.22); padding-top: 12px;
+  }
+  .wc-day { flex: 1; text-align: center; font-size: 11.5px; }
+  .wc-day .d-date { opacity: .95; margin-bottom: 2px; }
+  .wc-day .d-week { opacity: .8; margin-bottom: 6px; }
+  .wc-day .d-icon { display: flex; justify-content: center; margin-bottom: 6px; }
+  .wc-day .d-temp { font-size: 11px; opacity: .95; white-space: nowrap; }
+
+  .info-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 2px; }
+  .info-dot { width: 7px; height: 7px; border-radius: 50%; background: #d3d7db; cursor: pointer; }
+  .info-dot.active { background: #0e8a5f; }
+
+  /* Consultation banners */
+  .bn-row { display: flex; align-items: center; padding: 10px 6px 0; gap: 2px; }
+  .bn-cards { flex: 1; display: flex; gap: 10px; overflow: hidden; }
+  .bn-card {
+    flex: 0 0 calc(50% - 5px); border-radius: 12px; padding: 14px 12px;
+    min-height: 116px; display: flex; flex-direction: column; justify-content: center;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .bn-green { background: #bfe3c6; }
+  .bn-green .b-1 { color: #1c7a3f; font-size: 20px; font-weight: 800; line-height: 1.3; }
+  .bn-blue {
+    background: linear-gradient(140deg, #1c86d8 0%, #0f5cb4 70%, #0b4a9c 100%);
+    color: #fff;
+  }
+  .bn-blue .b-0 { font-size: 10.5px; opacity: .9; margin-bottom: 6px; }
+  .bn-blue .b-1 { font-size: 17px; font-weight: 800; line-height: 1.35; }
+  .bn-blue .b-2 { font-size: 12px; opacity: .95; margin-top: 5px; }
+  .bn-blue::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(115deg, rgba(255,255,255,.06) 0 2px, transparent 2px 10px);
+  }
+
+  /* ---- Bottom Nav ---- */
+  .bottom-nav {
+    height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
+    display: flex; align-items: flex-start; flex-shrink: 0; padding-top: 8px;
+    position: relative;
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    cursor: pointer; color: #5b6168;
+  }
+  .nav-item.active { color: #0e8a5f; }
+  .nav-item svg { display: block; }
+  .nav-label { font-size: 11px; font-weight: 500; color: inherit; }
+  .nav-scan {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #136b52; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: -22px; box-shadow: 0 4px 12px rgba(19,107,82,.4);
+    border: 3px solid #fff;
+  }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <iframe class="reveal-page" src="corpid_logined.html" title="CorpID" scrolling="no" frameborder="0"></iframe>
+  <div class="curtain" id="curtain">
+
+  <!-- Hero photo (status bar & weather pill are part of the image) -->
+  <div class="hero">
+    <div class="hero-greet">
+      <div class="g-2"><a href="iam_logined.html" class="login-link">登入 &gt;</a>
+      </div>
+    </div>
+  </div>
+  <div class="drag-handle" id="dragHandle">
+    <div class="drag-ribbon"></div>
+    <div class="drag-text">切換至 CorpID</div>
+    <img src="../images/arrow_rev.png" alt="" class="drag-chevrons">
+  </div>
+
+  <!-- Quick actions -->
+  <div class="quick-card">
+    <div class="quick-item">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="9.5" cy="9.5" r="6.5" stroke="#1a1a1a" stroke-width="1.7"/><path d="M14.5 14.5 L20 20" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round"/></svg>
+      搜尋
+    </div>
+    <div class="quick-item">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="#1a1a1a" stroke-width="1.7"/><path d="M11 10 v5" stroke="#1a1a1a" stroke-width="1.9" stroke-linecap="round"/><circle cx="11" cy="7" r="1.3" fill="#1a1a1a"/></svg>
+      資訊
+    </div>
+    <div class="quick-item">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5 h16 v11 h-16 Z" stroke="#1a1a1a" stroke-width="1.7" stroke-linejoin="round"/><path d="M3 6 L11 12 L19 6" stroke="#1a1a1a" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      訊息
+    </div>
+  </div>
+
+  <!-- Scroll body -->
+  <div class="body-scroll">
+
+    <!-- Services -->
+    <div class="sec-head">
+      <button class="sec-tab active">精選服務</button>
+      <button class="sec-tab pill">專題服務</button>
+      <span class="sec-more">更多</span>
+    </div>
+
+    <div class="svc-grid">
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="8" y="10" width="26" height="26" rx="5" stroke="#12795a" stroke-width="2"/>
+            <text x="21" y="29" font-size="14" font-weight="800" fill="#12795a" text-anchor="middle" font-family="inherit">AI</text>
+            <path d="M12 4 l1.2 2.8 2.8 1.2 -2.8 1.2 -1.2 2.8 -1.2-2.8 -2.8-1.2 2.8-1.2 Z" fill="#12795a"/>
+            <path d="M30 2 l.8 2 2 .8 -2 .8 -.8 2 -.8-2 -2-.8 2-.8 Z" fill="#12795a"/>
+          </svg>
+        </div>
+        <div class="lbl">AI大講堂</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42">
+            <g fill="#2e8f46">
+              <ellipse cx="21" cy="13" rx="6" ry="7.5"/>
+              <ellipse cx="12.5" cy="21" rx="7.5" ry="6" transform="rotate(-30 12.5 21)"/>
+              <ellipse cx="29.5" cy="21" rx="7.5" ry="6" transform="rotate(30 29.5 21)"/>
+              <ellipse cx="16" cy="30.5" rx="7" ry="5.5" transform="rotate(20 16 30.5)"/>
+              <ellipse cx="26" cy="30.5" rx="7" ry="5.5" transform="rotate(-20 26 30.5)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="lbl">港話通</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="46" height="42" viewBox="0 0 46 42" fill="none">
+            <text x="23" y="17" font-size="13" font-weight="800" fill="#0e8a5f" text-anchor="middle" font-family="inherit" font-style="italic">eMPF</text>
+            <text x="23" y="34" font-size="12" font-weight="700" fill="#0e8a5f" text-anchor="middle" font-family="inherit">積金易</text>
+            <circle cx="4" cy="12" r="2" fill="#0e8a5f"/>
+          </svg>
+        </div>
+        <div class="lbl">積金易 (eMPF) (流…</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M34 6 a15 15 0 1 0 4 12" stroke="#0e8a5f" stroke-width="2" stroke-linecap="round"/>
+            <text x="20" y="20" font-size="9.5" font-weight="800" fill="#0e8a5f" text-anchor="middle" font-family="inherit">稅務易</text>
+            <text x="20" y="31" font-size="8.5" font-weight="700" fill="#0e8a5f" text-anchor="middle" font-family="inherit" font-style="italic">eTAX</text>
+          </svg>
+        </div>
+        <div class="lbl">稅務易 - 個人稅務網站</div>
+      </div>
+
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="9" y="6" width="20" height="26" rx="2" stroke="#12795a" stroke-width="2"/>
+            <path d="M14 18 l3 3 5-6" stroke="#12795a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 26 h10" stroke="#12795a" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="28" cy="30" r="5.5" stroke="#12795a" stroke-width="2"/>
+            <path d="M32 34 l4 4" stroke="#12795a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="lbl">選民資料網上查閱系統</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="46" height="42" viewBox="0 0 46 42" fill="none">
+            <path d="M8 26 q6 -12 14 -14" stroke="#0e8a5f" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="25" cy="10" r="3" fill="#0e8a5f"/>
+            <path d="M10 30 q10 -4 18 -1" stroke="#2e8f46" stroke-width="2.4" stroke-linecap="round"/>
+            <text x="23" y="40" font-size="8" font-weight="800" fill="#0e8a5f" text-anchor="middle" font-family="inherit" font-style="italic">SmartPLAY</text>
+          </svg>
+        </div>
+        <div class="lbl">SmartPLAY 康體通 (流…</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M10 10 h12 v6 h-6 v4" stroke="#12795a" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 10 v0 a3 3 0 0 1 6 0 M8 7 v6" stroke="#12795a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <rect x="6" y="18" width="22" height="5" rx="2.5" fill="#12795a"/>
+            <path d="M6 20.5 h-2 M28 20.5 h4 v6 a4 4 0 0 1 -8 0" stroke="#12795a" stroke-width="2" fill="none"/>
+            <path d="M24 33 c0 3 4 3 4 0 a2.2 2.2 0 0 0 -4 0" fill="#12795a"/>
+          </svg>
+        </div>
+        <div class="lbl">水務易</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M10 8 h22 l-3 6 3 6 h-22 Z" fill="#cdeee0" stroke="#0e8a5f" stroke-width="1.6" stroke-linejoin="round"/>
+            <text x="20" y="17" font-size="7" font-weight="800" fill="#0e8a5f" text-anchor="middle" font-family="inherit">eWFSFAA</text>
+            <text x="20" y="24" font-size="6.5" font-weight="700" fill="#0e8a5f" text-anchor="middle" font-family="inherit">職學戶互通</text>
+            <path d="M20 26 q-2 6 -6 8" stroke="#0e8a5f" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <circle cx="12" cy="34" r="2.5" fill="none" stroke="#0e8a5f" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="lbl">職學戶互通</div>
+      </div>
+    </div>
+
+    <!-- Useful info -->
+    <div class="info-head">
+      <span class="info-title">實用資訊</span>
+      <span class="info-updated">更新於 17:02</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-arrow">‹</span>
+      <div class="weather-card">
+        <div class="wc-top">
+          <div class="wc-temp">29°C</div>
+          <div class="wc-right">
+            <svg width="44" height="32" viewBox="0 0 44 32" fill="none"><path d="M12 26 a8 8 0 0 1 -.8-15.9 A11 11 0 0 1 33 14 a6.6 6.6 0 0 1 -1 12 Z" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg>
+            <div class="wc-hilo">26°C/31°C</div>
+          </div>
+        </div>
+        <div class="wc-days">
+          <div class="wc-day">
+            <div class="d-date">07月22日</div>
+            <div class="d-week">星期三</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><circle cx="8" cy="7" r="3.4" stroke="#ffd34d" stroke-width="1.5" fill="none"/><path d="M8 1.5 v1.6 M2.5 7 h1.6 M13.5 7 h-1.6 M4 3 l1.2 1.2 M12 3 l-1.2 1.2" stroke="#ffd34d" stroke-width="1.3" stroke-linecap="round"/><path d="M8 15 a3 3 0 0 1 .8-5.9 A4 4 0 0 1 16 11 a2.6 2.6 0 0 1 -1 4 Z" fill="#cfe3f7"/></svg></div>
+            <div class="d-temp">27°C/32°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">07月23日</div>
+            <div class="d-week">星期四</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M9 2 a5 5 0 0 1 5 5 v3 a3 3 0 1 1 -6 0 v-1 h3" stroke="#ffd34d" stroke-width="1.5" fill="none" stroke-linecap="round"/><text x="14" y="17" font-size="6" fill="#ffd34d" font-weight="700">熱</text></svg></div>
+            <div class="d-temp">28°C/33°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">07月24日</div>
+            <div class="d-week">星期五</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M9 2 a5 5 0 0 1 5 5 v3 a3 3 0 1 1 -6 0 v-1 h3" stroke="#ffd34d" stroke-width="1.5" fill="none" stroke-linecap="round"/><text x="14" y="17" font-size="6" fill="#ffd34d" font-weight="700">熱</text></svg></div>
+            <div class="d-temp">28°C/33°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">07月25日</div>
+            <div class="d-week">星期六</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18" fill="none"><path d="M5 11 a3.4 3.4 0 0 1 .5-6.7 A4.6 4.6 0 0 1 14 6.4 a3 3 0 0 1 .6 4.6" stroke="#cfe3f7" stroke-width="1.5"/><path d="M7 13 l-1 2.5 M11 13 l-1 2.5 M15 13 l-1 2.5" stroke="#7fb3e8" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="d-temp">27°C/32°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">07月26日</div>
+            <div class="d-week">星期日</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18" fill="none"><path d="M5 10 a3.4 3.4 0 0 1 .5-6.7 A4.6 4.6 0 0 1 14 5.4 a3 3 0 0 1 .6 4.6" stroke="#cfe3f7" stroke-width="1.5"/><path d="M6.5 12 l-1.4 3 M10.5 12 l-1.4 3 M14.5 12 l-1.4 3 M8.5 12 l-1.4 3" stroke="#7fb3e8" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="d-temp">26°C/30°C</div>
+          </div>
+        </div>
+      </div>
+      <span class="info-arrow">›</span>
+    </div>
+    <div class="info-dots">
+      <div class="info-dot active"></div>
+      <div class="info-dot"></div>
+    </div>
+
+    <!-- Consultation banners -->
+    <div class="bn-row">
+      <span class="info-arrow">‹</span>
+      <div class="bn-cards">
+        <div class="bn-card bn-green">
+          <div class="b-1">2026年<br>施政報告<br>公眾諮詢</div>
+        </div>
+        <div class="bn-card bn-blue">
+          <div class="b-0">香港特別行政區經濟和社會發展</div>
+          <div class="b-1">第一個五年規劃</div>
+          <div class="b-2">(2026-2030)<br>公眾諮詢</div>
+        </div>
+      </div>
+      <span class="info-arrow">›</span>
+    </div>
+
+    <div style="height:14px"></div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 14 L14 5 L24 14 V23 a1 1 0 0 1 -1 1 H5 a1 1 0 0 1 -1 -1 Z" fill="currentColor"/></svg>
+      <span class="nav-label">主頁</span>
+    </div>
+    <div class="nav-item">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="15" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="15" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span class="nav-label">服務</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-scan">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M5 10 V6 a1 1 0 0 1 1-1 h4 M18 5 h4 a1 1 0 0 1 1 1 v4 M23 18 v4 a1 1 0 0 1 -1 1 h-4 M10 23 H6 a1 1 0 0 1 -1 -1 v-4"/><line x1="4" y1="14" x2="24" y2="14"/></svg>
+      </div>
+      <span class="nav-label">掃描</span>
+    </div>
+    <div class="nav-item">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="14" cy="9.5" r="4.5"/><path d="M5.5 24 a8.5 8.5 0 0 1 17 0" stroke-linecap="round"/></svg>
+      <span class="nav-label">我的</span>
+    </div>
+    <div class="nav-item">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="14" cy="14" r="3.2"/><path d="M14 4 v3 M14 21 v3 M4 14 h3 M21 14 h3 M7 7 l2.1 2.1 M18.9 18.9 L21 21 M21 7 l-2.1 2.1 M9.1 18.9 L7 21"/></svg>
+      <span class="nav-label">設定</span>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  const curtain = document.getElementById('curtain');
+  const handle = document.getElementById('dragHandle');
+  const frame = curtain.parentElement;
+  let isDragging = false;
+  let didDrag = false;
+  let startX = 0;
+  let currentX = 0;
+  const threshold = 0.45;
+
+  function getX(e) {
+    return e.touches ? e.touches[0].clientX : e.clientX;
+  }
+
+  function setTranslate(x) {
+    curtain.style.transform = 'translateX(' + x + 'px)';
+  }
+
+  handle.addEventListener('mousedown', start);
+  handle.addEventListener('touchstart', start, { passive: false });
+
+  function start(e) {
+    isDragging = true;
+    didDrag = false;
+    startX = getX(e);
+    currentX = 0;
+    curtain.style.transition = 'none';
+    e.preventDefault();
+  }
+
+  function move(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = getX(e);
+    const delta = x - startX;
+    if (Math.abs(delta) > 3) didDrag = true;
+    currentX = Math.max(0, Math.min(delta, frame.offsetWidth));
+    setTranslate(currentX);
+  }
+
+  function end() {
+    if (!isDragging) return;
+    isDragging = false;
+    curtain.style.transition = 'transform 0.25s ease-out';
+    if (Math.abs(currentX) > frame.offsetWidth * threshold) {
+      setTranslate(frame.offsetWidth);
+      setTimeout(function() {
+        window.location.href = 'corpid_logined.html';
+      }, 250);
+    } else {
+      setTranslate(0);
+      currentX = 0;
+    }
+  }
+
+  handle.addEventListener('click', function(e) {
+    if (didDrag) return;
+    curtain.style.transition = 'transform 0.25s ease-out';
+    setTranslate(frame.offsetWidth);
+    setTimeout(function() {
+      window.location.href = 'corpid_logined.html';
+    }, 250);
+  });
+
+  document.addEventListener('mousemove', move);
+  document.addEventListener('touchmove', move, { passive: false });
+  document.addEventListener('mouseup', end);
+  document.addEventListener('touchend', end);
+})();
+</script>
+</body>
+</html>
