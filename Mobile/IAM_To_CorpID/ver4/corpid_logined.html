@@ -24,7 +24,7 @@
   /* ---- Hero photo (status bar, logo, pills & search bar embedded) ---- */
   .hero {
     position: relative; flex-shrink: 0; height: 305px;
-    background: #123a75 url('images/corpid_logined_header_2.jpg') no-repeat top center;
+    background: #123a75 url('../images/corpid_logined_header_2.jpg') no-repeat top center;
     background-size: 100% auto;
   }
   .hero-greet {
@@ -175,7 +175,7 @@
 </head>
 <body>
 <div class="phone-frame">
-  <iframe class="reveal-page" src="iam_logined_3.html" title="iAM Smart" scrolling="no" frameborder="0"></iframe>
+  <iframe class="reveal-page" src="iam_logined.html" title="iAM Smart" scrolling="no" frameborder="0"></iframe>
   <div class="curtain" id="curtain">
 
   <!-- Hero photo (status bar, logo, pills & search bar are part of the image) -->
@@ -192,7 +192,7 @@
   <div class="drag-handle" id="dragHandle">
     <svg class="drag-arrow" width="14" height="12" viewBox="0 0 16 12" fill="none"><path d="M15.5 6 H3 M7 1.5 L2 6 L7 10.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <div class="drag-text">切換至<br>智方便</div>
-    <img src="images/iam_icon.png" alt="iAM Smart" class="drag-icon">
+    <img src="../images/iam_icon.png" alt="iAM Smart" class="drag-icon">
   </div>
 
   <!-- Content -->
@@ -455,7 +455,7 @@
     if (Math.abs(currentX) > frame.offsetWidth * threshold) {
       setTranslate(-frame.offsetWidth);
       setTimeout(function() {
-        window.location.href = 'iam_logined_3.html';
+        window.location.href = 'iam_logined.html';
       }, 250);
     } else {
       setTranslate(0);
@@ -468,7 +468,7 @@
     curtain.style.transition = 'transform 0.25s ease-out';
     setTranslate(-frame.offsetWidth);
     setTimeout(function() {
-      window.location.href = 'iam_logined_3.html';
+      window.location.href = 'iam_logined.html';
     }, 250);
   });
 

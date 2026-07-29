@@ -25,7 +25,7 @@
   .hero {
     position: relative; flex-shrink: 0; height: 208px;
     padding: 64px 16px 0;
-    background: #8fb6d6 url('images/iam_home_header.jpg') no-repeat top center;
+    background: #8fb6d6 url('../images/iam_home_header.jpg') no-repeat top center;
     background-size: 100% auto;
   }
   .hero-greet {
@@ -34,10 +34,59 @@
   }
   .hero-greet .g-2 {
     font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 5px;
+    margin-top: -10px;
   }
-  .login-tabs { display: flex; gap: 10px; margin-top: 9px; justify-content: flex-start; }
-  .login-btn { display: block; text-decoration: none; }
-  .login-img { width: 100px; height: auto; display: block; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
+  .login-single { width: 145px; height: auto; display: block; margin-top: -3px; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
+  .phone-frame { position: relative; }
+  .curtain {
+    position: absolute; inset: 0;
+    background: #ffffff;
+    z-index: 2;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.25s ease-out;
+  }
+  .reveal-page {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+    z-index: 1;
+    background: #123a75;
+  }
+  .drag-handle {
+    position: absolute;
+    top: 138px; left: 0;
+    width: 168px; height: 32px;
+    border-radius: 0 16px 16px 0;
+    background: linear-gradient(135deg, #2f86e8 0%, #1a63c8 60%, #1253b0 100%);
+    display: flex; align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    gap: 10px;
+    box-shadow: 2px 4px 14px rgba(10,40,90,0.5), 0 0 0 2px rgba(255,255,255,0.85);
+    cursor: grab;
+    z-index: 4;
+    touch-action: none;
+    user-select: none;
+    overflow: hidden;
+    animation: tabPulse 2s ease-in-out infinite;
+  }
+  @keyframes tabPulse {
+    0%, 100% { box-shadow: 2px 4px 14px rgba(10,40,90,0.5), 0 0 0 2px rgba(255,255,255,0.85); }
+    50%      { box-shadow: 2px 4px 18px rgba(10,40,90,0.6), 0 0 0 5px rgba(255,255,255,0.35); }
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-text {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+    text-shadow: 0 1px 3px rgba(0,20,50,.5);
+  }
+  .drag-arrow { flex-shrink: 0; }
+  .drag-icon { width: 28px; height: 28px; object-fit: cover; transform: scale(0.97); flex-shrink: 0; }
 
   /* ---- Quick actions card (overlaps hero) ---- */
   .quick-card {
@@ -174,22 +223,22 @@
 </head>
 <body>
 <div class="phone-frame">
+  <iframe class="reveal-page" src="corpid_logined.html" title="CorpID" scrolling="no" frameborder="0"></iframe>
+  <div class="curtain" id="curtain">
 
   <!-- Hero photo (status bar & weather pill are part of the image) -->
   <div class="hero">
     <div class="hero-greet">
-      <div class="g-2">登入
-        <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M5 3 L11 8 L5 13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="g-2">午安
       </div>
-      <div class="login-tabs">
-        <a href="iam_logined.html" class="login-btn">
-          <img src="images/IAM_button_v2.png" alt="個人" class="login-img">
-        </a>
-        <a href="corpid_logined.html" class="login-btn">
-          <img src="images/CorpID_button_v2.png" alt="企業" class="login-img">
-        </a>
-      </div>
+      <a href="iam_logined.html">
+        <img src="../images/btn_login_iam3_transparent.png" alt="登入智方便" class="login-single">
+      </a>
     </div>
+  </div>
+  <div class="drag-handle" id="dragHandle">
+    <img src="../images/corpid_icon_trans.png" alt="CorpID" class="drag-icon">
+    <div class="drag-text">切換至 CorpID <svg class="drag-arrow" width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M0.5 6 H13 M9 1.5 L14 6 L9 10.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </div>
 
   <!-- Quick actions -->
@@ -415,6 +464,79 @@
     </div>
   </div>
 
+  </div>
 </div>
+
+<script>
+(function() {
+  const curtain = document.getElementById('curtain');
+  const handle = document.getElementById('dragHandle');
+  const frame = curtain.parentElement;
+  let isDragging = false;
+  let didDrag = false;
+  let startX = 0;
+  let currentX = 0;
+  const threshold = 0.45;
+
+  function getX(e) {
+    return e.touches ? e.touches[0].clientX : e.clientX;
+  }
+
+  function setTranslate(x) {
+    curtain.style.transform = 'translateX(' + x + 'px)';
+  }
+
+  handle.addEventListener('mousedown', start);
+  handle.addEventListener('touchstart', start, { passive: false });
+
+  function start(e) {
+    isDragging = true;
+    didDrag = false;
+    startX = getX(e);
+    currentX = 0;
+    curtain.style.transition = 'none';
+    e.preventDefault();
+  }
+
+  function move(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = getX(e);
+    const delta = x - startX;
+    if (Math.abs(delta) > 3) didDrag = true;
+    currentX = Math.max(0, Math.min(delta, frame.offsetWidth));
+    setTranslate(currentX);
+  }
+
+  function end() {
+    if (!isDragging) return;
+    isDragging = false;
+    curtain.style.transition = 'transform 0.25s ease-out';
+    if (Math.abs(currentX) > frame.offsetWidth * threshold) {
+      setTranslate(frame.offsetWidth);
+      setTimeout(function() {
+        window.location.href = 'corpid_logined.html';
+      }, 250);
+    } else {
+      setTranslate(0);
+      currentX = 0;
+    }
+  }
+
+  handle.addEventListener('click', function(e) {
+    if (didDrag) return;
+    curtain.style.transition = 'transform 0.25s ease-out';
+    setTranslate(frame.offsetWidth);
+    setTimeout(function() {
+      window.location.href = 'corpid_logined.html';
+    }, 250);
+  });
+
+  document.addEventListener('mousemove', move);
+  document.addEventListener('touchmove', move, { passive: false });
+  document.addEventListener('mouseup', end);
+  document.addEventListener('touchend', end);
+})();
+</script>
 </body>
 </html>
