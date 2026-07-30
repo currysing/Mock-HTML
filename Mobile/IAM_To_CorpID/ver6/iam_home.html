@@ -24,7 +24,7 @@
   /* ---- Hero (skyline photo with embedded status bar & weather) ---- */
   .hero {
     position: relative; flex-shrink: 0; height: 208px;
-    padding: 46px 16px 0;
+    padding: 64px 16px 0;
     background: #8fb6d6 url('../images/iam_home_header.jpg') no-repeat top center;
     background-size: 100% auto;
   }
@@ -33,18 +33,73 @@
     text-shadow: 0 3px 14px rgba(0,25,60,.75), 0 1px 4px rgba(0,25,60,.5);
   }
   .hero-greet .g-2 {
-    font-size: 23px; font-weight: 700; display: flex; align-items: center; gap: 5px;
-    margin-top: 12px; color: inherit; text-decoration: none;
+    font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 5px;
+    margin-top: -2px;
   }
-  .login-tabs { display: flex; gap: 20px; justify-content: flex-start; }
-  .login-link {
-    display: inline-block; text-decoration: none; color: #fff;
-    font-size: 21px; font-weight: 700;
-    padding-bottom: 4px; border-bottom: 4px solid #fff;
+  .login-single { width: 145px; height: auto; display: block; margin-top: -3px; filter: drop-shadow(0 4px 8px rgba(0,25,60,.25)); }
+  .hero-greet .login-link { color: inherit; text-decoration: none; }
+  .phone-frame { position: relative; }
+  .curtain {
+    position: absolute; inset: 0;
+    background: #ffffff;
+    z-index: 2;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.25s ease-out;
   }
-  .login-link.disabled {
-    color: #F5F7FA; border-bottom: none; text-shadow: none;
-    pointer-events: none; cursor: default;
+  .reveal-page {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+    z-index: 1;
+    background: #123a75;
+  }
+  .drag-handle {
+    position: absolute;
+    top: 106px; left: 0;
+    height: 38px;
+    display: flex; align-items: center;
+    justify-content: flex-start;
+    padding-left: 12px;
+    gap: 2px;
+    cursor: grab;
+    z-index: 4;
+    touch-action: none;
+    user-select: none;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-ribbon {
+    position: absolute;
+    left: -8px; right: 30px; top: 50%;
+    transform: translateY(-50%);
+    height: 34px;
+    background: linear-gradient(180deg, #0a89be 0%, #0391cf 55%, #0083c9 100%);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+    filter: drop-shadow(0 2px 5px rgba(0,25,60,.4));
+  }
+  .drag-text {
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 4px;
+    text-shadow: 0 1px 3px rgba(0,20,50,.5);
+  }
+  .drag-chevrons {
+    position: relative;
+    height: 37px; width: auto; flex-shrink: 0;
+    margin-left: -25px;
+    filter:
+      drop-shadow(0 0 2px rgba(255,255,255,.95))
+      drop-shadow(0 0 6px rgba(255,255,255,.55))
+      drop-shadow(0 2px 5px rgba(0,25,60,.45));
+    animation: chevNudge 1.6s ease-in-out infinite;
+  }
+  @keyframes chevNudge {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(5px); }
   }
 
   /* ---- Quick actions card (overlaps hero) ---- */
@@ -182,18 +237,20 @@
 </head>
 <body>
 <div class="phone-frame">
+  <iframe class="reveal-page" src="corpid_logined.html" title="CorpID" scrolling="no" frameborder="0"></iframe>
+  <div class="curtain" id="curtain">
 
   <!-- Hero photo (status bar & weather pill are part of the image) -->
   <div class="hero">
     <div class="hero-greet">
-      <div class="login-tabs">
-        <a class="login-link disabled">個人</a>
-        <a href="corpid_logined.html" class="login-link">企業</a>
+      <div class="g-2"><a href="iam_logined.html" class="login-link">登入 &gt;</a>
       </div>
-      <a href="iam_logined.html" class="g-2">登入
-        <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M5 3 L11 8 L5 13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
     </div>
+  </div>
+  <div class="drag-handle" id="dragHandle">
+    <div class="drag-ribbon"></div>
+    <div class="drag-text">切換至 CorpID</div>
+    <img src="../images/arrow_rev2.png" alt="" class="drag-chevrons">
   </div>
 
   <!-- Quick actions -->
@@ -419,6 +476,79 @@
     </div>
   </div>
 
+  </div>
 </div>
+
+<script>
+(function() {
+  const curtain = document.getElementById('curtain');
+  const handle = document.getElementById('dragHandle');
+  const frame = curtain.parentElement;
+  let isDragging = false;
+  let didDrag = false;
+  let startX = 0;
+  let currentX = 0;
+  const threshold = 0.45;
+
+  function getX(e) {
+    return e.touches ? e.touches[0].clientX : e.clientX;
+  }
+
+  function setTranslate(x) {
+    curtain.style.transform = 'translateX(' + x + 'px)';
+  }
+
+  handle.addEventListener('mousedown', start);
+  handle.addEventListener('touchstart', start, { passive: false });
+
+  function start(e) {
+    isDragging = true;
+    didDrag = false;
+    startX = getX(e);
+    currentX = 0;
+    curtain.style.transition = 'none';
+    e.preventDefault();
+  }
+
+  function move(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = getX(e);
+    const delta = x - startX;
+    if (Math.abs(delta) > 3) didDrag = true;
+    currentX = Math.max(0, Math.min(delta, frame.offsetWidth));
+    setTranslate(currentX);
+  }
+
+  function end() {
+    if (!isDragging) return;
+    isDragging = false;
+    curtain.style.transition = 'transform 0.25s ease-out';
+    if (Math.abs(currentX) > frame.offsetWidth * threshold) {
+      setTranslate(frame.offsetWidth);
+      setTimeout(function() {
+        window.location.href = 'corpid_logined.html';
+      }, 250);
+    } else {
+      setTranslate(0);
+      currentX = 0;
+    }
+  }
+
+  handle.addEventListener('click', function(e) {
+    if (didDrag) return;
+    curtain.style.transition = 'transform 0.25s ease-out';
+    setTranslate(frame.offsetWidth);
+    setTimeout(function() {
+      window.location.href = 'corpid_logined.html';
+    }, 250);
+  });
+
+  document.addEventListener('mousemove', move);
+  document.addEventListener('touchmove', move, { passive: false });
+  document.addEventListener('mouseup', end);
+  document.addEventListener('touchend', end);
+})();
+</script>
 </body>
 </html>
