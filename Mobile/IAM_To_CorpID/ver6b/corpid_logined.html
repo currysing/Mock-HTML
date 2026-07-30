@@ -27,6 +27,10 @@
     background: #123a75 url('../images/corpid_logined_header_2.jpg') no-repeat top center;
     background-size: 100% auto;
   }
+  .hero-close {
+    position: absolute; top: 46px; right: 2px; width: 40px; height: 40px;
+    z-index: 3; display: block; text-decoration: none;
+  }
   .hero-greet {
     position: absolute; left: 16px; top: 112px; z-index: 2; color: #fff;
     text-shadow: 0 3px 14px rgba(0,15,45,.8), 0 1px 4px rgba(0,15,45,.55);
@@ -144,33 +148,6 @@
     z-index: 1;
     background: #8fb6d6;
   }
-  .drag-handle {
-    position: absolute;
-    top: 188px; right: 0;
-    width: 99px; height: 40px;
-    border-radius: 20px 0 0 20px;
-    background: #33503e;
-    display: flex; align-items: center;
-    justify-content: flex-start;
-    padding-left: 10px;
-    gap: 4px;
-    box-shadow: -2px 3px 10px rgba(0,0,0,0.35);
-    cursor: grab;
-    z-index: 4;
-    touch-action: none;
-    user-select: none;
-    overflow: hidden;
-  }
-  .drag-handle:active { cursor: grabbing; }
-  .drag-text {
-    color: #fff;
-    font-size: 10px;
-    line-height: 1.2;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .drag-icon { width: 28px; height: 28px; object-fit: cover; transform: scale(0.97); flex-shrink: 0; }
-  .drag-arrow { flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -188,11 +165,7 @@
       <div class="g-row g-2">仁一有限公司</div>
       <div class="g-row g-3">BELIZABETH HK LIMITED</div>
     </div>
-  </div>
-  <div class="drag-handle" id="dragHandle">
-    <svg class="drag-arrow" width="14" height="12" viewBox="0 0 16 12" fill="none"><path d="M15.5 6 H3 M7 1.5 L2 6 L7 10.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="drag-text">切換至<br>智方便</div>
-    <img src="../images/iam_icon.png" alt="iAM Smart" class="drag-icon">
+    <a href="iam_logined.html" class="hero-close" aria-label="關閉"></a>
   </div>
 
   <!-- Content -->
@@ -407,76 +380,5 @@
   }
 </script>
 
-<script>
-(function() {
-  const curtain = document.getElementById('curtain');
-  const handle = document.getElementById('dragHandle');
-  const frame = curtain.parentElement;
-  let isDragging = false;
-  let didDrag = false;
-  let startX = 0;
-  let currentX = 0;
-  const threshold = 0.45;
-
-  function getX(e) {
-    return e.touches ? e.touches[0].clientX : e.clientX;
-  }
-
-  function setTranslate(x) {
-    curtain.style.transform = 'translateX(' + x + 'px)';
-  }
-
-  handle.addEventListener('mousedown', start);
-  handle.addEventListener('touchstart', start, { passive: false });
-
-  function start(e) {
-    isDragging = true;
-    didDrag = false;
-    startX = getX(e);
-    currentX = 0;
-    curtain.style.transition = 'none';
-    e.preventDefault();
-  }
-
-  function move(e) {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = getX(e);
-    const delta = x - startX;
-    if (Math.abs(delta) > 3) didDrag = true;
-    currentX = Math.min(0, Math.max(delta, -frame.offsetWidth));
-    setTranslate(currentX);
-  }
-
-  function end() {
-    if (!isDragging) return;
-    isDragging = false;
-    curtain.style.transition = 'transform 0.25s ease-out';
-    if (Math.abs(currentX) > frame.offsetWidth * threshold) {
-      setTranslate(-frame.offsetWidth);
-      setTimeout(function() {
-        window.location.href = 'iam_logined.html';
-      }, 250);
-    } else {
-      setTranslate(0);
-      currentX = 0;
-    }
-  }
-
-  handle.addEventListener('click', function(e) {
-    if (didDrag) return;
-    curtain.style.transition = 'transform 0.25s ease-out';
-    setTranslate(-frame.offsetWidth);
-    setTimeout(function() {
-      window.location.href = 'iam_logined.html';
-    }, 250);
-  });
-
-  document.addEventListener('mousemove', move);
-  document.addEventListener('touchmove', move, { passive: false });
-  document.addEventListener('mouseup', end);
-  document.addEventListener('touchend', end);
-})();
-</script>
 </body>
 </html>

@@ -27,6 +27,10 @@
     background: #123a75 url('../images/corpid_logined_header.jpg') no-repeat top center;
     background-size: 100% auto;
   }
+  .hero-close {
+    position: absolute; top: 46px; right: 2px; width: 40px; height: 40px;
+    z-index: 3; display: block; text-decoration: none;
+  }
   .hero-greet {
     position: absolute; left: 16px; top: 112px; z-index: 2; color: #fff;
     text-shadow: 0 3px 14px rgba(0,15,45,.8), 0 1px 4px rgba(0,15,45,.55);
@@ -35,19 +39,6 @@
   .g-1 { font-size: 20px; font-weight: 700; gap: 14px; margin-bottom: 14px; }
   .g-2 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
   .g-3 { font-size: 20px; font-weight: 700; letter-spacing: .5px; }
-  .login-tabs {
-    position: absolute; top: 55px; left: 65px; z-index: 2; display: flex; gap: 20px;
-    text-shadow: 0 3px 14px rgba(0,15,45,.8), 0 1px 4px rgba(0,15,45,.55);
-  }
-  .login-link {
-    display: inline-block; text-decoration: none; color: #fff;
-    font-size: 21px; font-weight: 700;
-    padding-bottom: 4px; border-bottom: 4px solid #fff;
-  }
-  .login-link.disabled {
-    color: #F5F7FA; border-bottom: none; text-shadow: none;
-    pointer-events: none; cursor: default;
-  }
 
   /* ---- Content card ---- */
   .body-scroll {
@@ -155,10 +146,7 @@
       <div class="g-row g-2">仁一有限公司</div>
       <div class="g-row g-3">BELIZABETH HK LIMITED</div>
     </div>
-    <div class="login-tabs">
-      <a href="iam_logined.html" class="login-link">個人</a>
-      <a class="login-link disabled">企業</a>
-    </div>
+    <a href="iam_logined.html" class="hero-close" aria-label="關閉"></a>
   </div>
 
   <!-- Content -->
