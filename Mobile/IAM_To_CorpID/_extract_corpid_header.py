@@ -32,7 +32,7 @@ def vfill(im, x0, y0, x1, y1, anchor=6, blur_sigma=10.0):
 out = crop.copy()
 # Remove only the left-side identity text; keep status bar, logo, pills,
 # right-side QR icon and the search bar in the photo.
-out = vfill(out, 45, 355, 490, 450)    # 測試員 + eye + small QR
+out = vfill(out, 45, 355, 490, 450)    # 大文 + eye + small QR
 out = vfill(out, 45, 495, 480, 585)    # 仁一有限公司
 out = vfill(out, 45, 600, 920, 690)    # BELIZABETH HK LIMITED
 
