@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1">
+<title>iAM Smart Home (Logged In)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e0e0e0;
+    display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 20px 0;
+    font-family: -apple-system, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+  .phone-frame {
+    width: 393px; height: 852px;
+    background: #ffffff;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    border-radius: 48px;
+  }
+
+  /* ---- Hero (skyline photo with embedded status bar & weather) ---- */
+  .hero {
+    position: relative; flex-shrink: 0; height: 208px;
+    padding: 56px 16px 0;
+    background: #8fb6d6 url('../images/iam_logined_header.jpg') no-repeat top center;
+    background-size: 100% auto;
+  }
+  .hero-greet {
+    position: relative; z-index: 2; color: #fff;
+    text-shadow: 0 3px 14px rgba(0,25,60,.75), 0 1px 4px rgba(0,25,60,.5);
+  }
+  .hero-greet .g-1 { font-size: 23px; font-weight: 700; margin-bottom: 8px; position: relative; top: 35px; }
+  .hero-greet .g-2 {
+    font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+    position: relative; top: 22px;
+  }
+  .login-tabs { position: absolute; top: -10px; left: 0; display: flex; gap: 20px; }
+  .login-link {
+    display: inline-block; text-decoration: none; color: #fff;
+    font-size: 18px; font-weight: 700;
+    padding-bottom: 4px; border-bottom: 4px solid #fff;
+  }
+  .login-link.disabled {
+    color: #F5F7FA; border-bottom: none; text-shadow: none;
+    pointer-events: none; cursor: default;
+  }
+
+  /* ---- Quick actions card (overlaps hero) ---- */
+  .quick-card {
+    margin: -49px 0 0; background: #fff; border-radius: 22px 22px 0 0;
+    position: relative; z-index: 3; flex-shrink: 0;
+    display: flex; align-items: center;
+    padding: 16px 0 12px;
+    border-bottom: 1px solid #eceef0;
+  }
+  .quick-item {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 17px; font-weight: 600; color: #1a1a1a; cursor: pointer;
+  }
+  .quick-item + .quick-item { border-left: 1px solid #e4e7ea; }
+  .q-ic { position: relative; display: flex; }
+  .q-badge {
+    position: absolute; top: -1px; right: -2px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #e5342d; border: 1.5px solid #fff;
+  }
+
+  /* ---- Scroll body ---- */
+  .body-scroll {
+    flex: 1; overflow-y: auto;
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / legacy Edge */
+  }
+  .body-scroll::-webkit-scrollbar { display: none; }  /* Chrome / Safari / Edge */
+
+  /* Section head */
+  .sec-head {
+    display: flex; align-items: baseline; padding: 14px 16px 6px; gap: 14px;
+  }
+  .sec-tab {
+    font-size: 17px; color: #6b7178; cursor: pointer; font-weight: 600;
+    background: none; border: none; font-family: inherit; padding: 4px 10px;
+    border-radius: 14px;
+  }
+  .sec-tab.active { color: #1a1a1a; font-weight: 700; background: none; }
+  .sec-tab.pill { background: #eef0f2; }
+  .sec-title { font-size: 17px; font-weight: 700; color: #1a1a1a; }
+  .sec-more { margin-left: auto; color: #0e8a5f; font-size: 14px; cursor: pointer; }
+
+  /* Service grid */
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 4px 6px; padding: 6px 12px 4px;
+  }
+  .svc {
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    cursor: pointer; padding: 8px 2px;
+  }
+  .svc .ic {
+    width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
+  }
+  .svc .lbl {
+    font-size: 12px; color: #2a2a2a; text-align: center; line-height: 1.25;
+    max-width: 84px; min-height: 30px;
+  }
+
+  /* Useful info */
+  .info-head {
+    display: flex; align-items: baseline; padding: 12px 16px 8px;
+  }
+  .info-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .info-updated { margin-left: auto; color: #0e8a5f; font-size: 13px; }
+
+  .info-row { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
+  .info-arrow {
+    color: #b7bcc2; font-size: 22px; cursor: pointer; flex-shrink: 0; padding: 0 2px;
+  }
+
+  /* Weather card */
+  .weather-card {
+    flex: 1; border-radius: 14px; color: #fff;
+    background: linear-gradient(150deg, #1c6fd0 0%, #155bb4 55%, #0f4a9c 100%);
+    padding: 18px 16px 14px;
+    box-shadow: 0 4px 14px rgba(15,74,156,.25);
+  }
+  .wc-top { display: flex; align-items: flex-start; }
+  .wc-temp { font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+  .wc-right { margin-left: auto; text-align: right; }
+  .wc-hilo { font-size: 16px; font-weight: 600; margin-top: 8px; }
+  .wc-days {
+    display: flex; justify-content: space-between; margin-top: 16px;
+    border-top: 1px solid rgba(255,255,255,.22); padding-top: 12px;
+  }
+  .wc-day { flex: 1; text-align: center; font-size: 11.5px; }
+  .wc-day .d-date { opacity: .95; margin-bottom: 2px; }
+  .wc-day .d-week { opacity: .8; margin-bottom: 6px; }
+  .wc-day .d-icon { display: flex; justify-content: center; margin-bottom: 6px; }
+  .wc-day .d-temp { font-size: 11px; opacity: .95; white-space: nowrap; }
+
+  .info-dots { display: flex; justify-content: center; gap: 7px; padding: 10px 0 2px; }
+  .info-dot { width: 7px; height: 7px; border-radius: 50%; background: #d3d7db; cursor: pointer; }
+  .info-dot.active { background: #0e8a5f; }
+
+  /* Consultation banners */
+  .bn-row { display: flex; align-items: center; padding: 10px 6px 0; gap: 2px; }
+  .bn-cards { flex: 1; display: flex; gap: 10px; overflow: hidden; }
+  .bn-card {
+    flex: 0 0 calc(50% - 5px); border-radius: 12px; padding: 14px 12px;
+    min-height: 116px; display: flex; flex-direction: column; justify-content: center;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .bn-green { background: #bfe3c6; }
+  .bn-green .b-1 { color: #1c7a3f; font-size: 20px; font-weight: 800; line-height: 1.3; }
+  .bn-blue {
+    background: linear-gradient(140deg, #1c86d8 0%, #0f5cb4 70%, #0b4a9c 100%);
+    color: #fff;
+  }
+  .bn-blue .b-0 { font-size: 10.5px; opacity: .9; margin-bottom: 6px; }
+  .bn-blue .b-1 { font-size: 17px; font-weight: 800; line-height: 1.35; }
+  .bn-blue .b-2 { font-size: 12px; opacity: .95; margin-top: 5px; }
+  .bn-blue::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(115deg, rgba(255,255,255,.06) 0 2px, transparent 2px 10px);
+  }
+
+  /* ---- Bottom Nav ---- */
+  .bottom-nav {
+    height: 78px; background: #fff; border-top: 1px solid #e7e9ec;
+    display: flex; align-items: flex-start; flex-shrink: 0; padding-top: 8px;
+    position: relative;
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    cursor: pointer; color: #5b6168;
+  }
+  .nav-item.active { color: #0e8a5f; }
+  .nav-item svg { display: block; }
+  .nav-label { font-size: 11px; font-weight: 500; color: inherit; }
+  .nav-scan {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #136b52; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: -22px; box-shadow: 0 4px 12px rgba(19,107,82,.4);
+    border: 3px solid #fff;
+  }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+
+  <!-- Hero photo (status bar & weather pill are part of the image) -->
+  <div class="hero">
+    <div class="hero-greet">
+      <div class="login-tabs">
+        <a class="login-link disabled">Personal</a>
+        <a href="corpid_logined.html" class="login-link">Corporate</a>
+      </div>
+      <div class="g-1">Good Afternoon</div>
+      <div class="g-2">Chan Tai Man
+        <svg width="28" height="20" viewBox="0 0 22 16" fill="none"><path d="M1 8 a11 7 0 0 1 20 0 a11 7 0 0 1 -20 0 Z" stroke="#fff" stroke-width="1.8"/><circle cx="11" cy="8" r="3" stroke="#fff" stroke-width="1.8"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="quick-card">
+    <div class="quick-item">
+      <span class="q-ic"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="9.5" cy="9.5" r="6.5" stroke="#1a1a1a" stroke-width="1.7"/><path d="M14.5 14.5 L20 20" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+      Search
+    </div>
+    <div class="quick-item">
+      <span class="q-ic"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="#1a1a1a" stroke-width="1.7"/><path d="M11 10 v5" stroke="#1a1a1a" stroke-width="1.9" stroke-linecap="round"/><circle cx="11" cy="7" r="1.3" fill="#1a1a1a"/></svg></span>
+      Info
+    </div>
+    <div class="quick-item">
+      <span class="q-ic">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5 h16 v11 h-16 Z" stroke="#1a1a1a" stroke-width="1.7" stroke-linejoin="round"/><path d="M3 6 L11 12 L19 6" stroke="#1a1a1a" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span class="q-badge"></span>
+      </span>
+      Inbox
+    </div>
+  </div>
+
+  <!-- Scroll body -->
+  <div class="body-scroll">
+
+    <!-- Services -->
+    <div class="sec-head">
+      <button class="sec-tab pill">Saved</button>
+      <button class="sec-tab active">Recent</button>
+      <span class="sec-more">More</span>
+    </div>
+
+    <div class="svc-grid">
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="9" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="9" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="lbl">[MiniApp] CorpID_iSIT</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="9" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="9" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="lbl">[MiniApp] CorpID_UAT</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="9" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="9" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="lbl">[InApp] CorpID_DEV</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="9" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="9" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="lbl">DAA141 In-App Brows…</div>
+      </div>
+
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="9" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="8" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="9" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+            <rect x="23" y="23" width="11" height="11" rx="2" stroke="#12795a" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="lbl">dpo-小程序 isit-WSD</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="46" height="42" viewBox="0 0 46 42" fill="none">
+            <text x="23" y="26" font-size="12.5" font-weight="600" fill="#2e8f46" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">GovHK</text>
+          </svg>
+        </div>
+        <div class="lbl">MyGovHK - Subscriptio…</div>
+      </div>
+      <div class="svc">
+        <div class="ic">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <rect x="8" y="10" width="26" height="24" rx="3" stroke="#12795a" stroke-width="2"/>
+            <path d="M12.5 7 v5 M18.5 7 v5 M24.5 7 v5 M30.5 7 v5" stroke="#12795a" stroke-width="2" stroke-linecap="round"/>
+            <path d="M21 16.5 c2.8 0 4.3 1.9 4.3 4.3 v2.2 l1.4 2 h-11.4 l1.4 -2 v-2.2 c0 -2.4 1.5 -4.3 4.3 -4.3 Z" stroke="#12795a" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+            <circle cx="21" cy="26.8" r="1.2" fill="#12795a"/>
+          </svg>
+        </div>
+        <div class="lbl">I-Remind U</div>
+      </div>
+    </div>
+
+    <!-- Useful info -->
+    <div class="info-head">
+      <span class="info-title">Useful Information</span>
+      <span class="info-updated">Updated at 18:02</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-arrow">‹</span>
+      <div class="weather-card">
+        <div class="wc-top">
+          <div class="wc-temp">29°C</div>
+          <div class="wc-right">
+            <svg width="48" height="34" viewBox="0 0 48 34" fill="none">
+              <circle cx="18" cy="13" r="6.5" stroke="#ffd34d" stroke-width="2.2"/>
+              <path d="M18 3 v2.6 M8 13 h2.6 M10.9 5.9 l1.8 1.8 M25.1 5.9 l-1.8 1.8" stroke="#ffd34d" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M16 28 a7 7 0 0 1 -.7-13.9 A9.8 9.8 0 0 1 34.4 18 a5.9 5.9 0 0 1 -1.4 10 Z" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+            </svg>
+            <div class="wc-hilo">26°C/31°C</div>
+          </div>
+        </div>
+        <div class="wc-days">
+          <div class="wc-day">
+            <div class="d-date">Jul 22</div>
+            <div class="d-week">Wed</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><circle cx="8" cy="7" r="3.4" stroke="#ffd34d" stroke-width="1.5" fill="none"/><path d="M8 1.5 v1.6 M2.5 7 h1.6 M13.5 7 h-1.6 M4 3 l1.2 1.2 M12 3 l-1.2 1.2" stroke="#ffd34d" stroke-width="1.3" stroke-linecap="round"/><path d="M8 15 a3 3 0 0 1 .8-5.9 A4 4 0 0 1 16 11 a2.6 2.6 0 0 1 -1 4 Z" fill="#cfe3f7"/></svg></div>
+            <div class="d-temp">27°C/32°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">Jul 23</div>
+            <div class="d-week">Thu</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M9 2 a5 5 0 0 1 5 5 v3 a3 3 0 1 1 -6 0 v-1 h3" stroke="#ffd34d" stroke-width="1.5" fill="none" stroke-linecap="round"/><text x="10.5" y="17" font-size="5" fill="#ffd34d" font-weight="700">Hot</text></svg></div>
+            <div class="d-temp">28°C/33°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">Jul 24</div>
+            <div class="d-week">Fri</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M9 2 a5 5 0 0 1 5 5 v3 a3 3 0 1 1 -6 0 v-1 h3" stroke="#ffd34d" stroke-width="1.5" fill="none" stroke-linecap="round"/><text x="10.5" y="17" font-size="5" fill="#ffd34d" font-weight="700">Hot</text></svg></div>
+            <div class="d-temp">28°C/33°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">Jul 25</div>
+            <div class="d-week">Sat</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18" fill="none"><path d="M5 11 a3.4 3.4 0 0 1 .5-6.7 A4.6 4.6 0 0 1 14 6.4 a3 3 0 0 1 .6 4.6" stroke="#cfe3f7" stroke-width="1.5"/><path d="M7 13 l-1 2.5 M11 13 l-1 2.5 M15 13 l-1 2.5" stroke="#7fb3e8" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="d-temp">27°C/32°C</div>
+          </div>
+          <div class="wc-day">
+            <div class="d-date">Jul 26</div>
+            <div class="d-week">Sun</div>
+            <div class="d-icon"><svg width="22" height="18" viewBox="0 0 22 18" fill="none"><path d="M5 10 a3.4 3.4 0 0 1 .5-6.7 A4.6 4.6 0 0 1 14 5.4 a3 3 0 0 1 .6 4.6" stroke="#cfe3f7" stroke-width="1.5"/><path d="M6.5 12 l-1.4 3 M10.5 12 l-1.4  3 M14.5 12 l-1.4 3 M8.5 12 l-1.4 3" stroke="#7fb3e8" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="d-temp">26°C/30°C</div>
+          </div>
+        </div>
+      </div>
+      <span class="info-arrow">›</span>
+    </div>
+    <div class="info-dots">
+      <div class="info-dot active"></div>
+      <div class="info-dot"></div>
+    </div>
+
+    <!-- Consultation banners -->
+    <div class="bn-row">
+      <span class="info-arrow">‹</span>
+      <div class="bn-cards">
+        <div class="bn-card bn-green">
+          <div class="b-1">2026 Policy<br>Address Public<br>Consultation</div>
+        </div>
+        <div class="bn-card bn-blue">
+          <div class="b-0">Economic and Social Development of the HKSAR</div>
+          <div class="b-1">The First Five-Year Plan</div>
+          <div class="b-2">(2026-2030)<br>Public Consultation</div>
+        </div>
+      </div>
+      <span class="info-arrow">›</span>
+    </div>
+
+    <div style="height:14px"></div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 14 L14 5 L24 14 V23 a1 1 0 0 1 -1 1 H5 a1 1 0 0 1 -1 -1 Z" fill="currentColor"/></svg>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="15" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="15" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span class="nav-label">Services</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-scan">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M5 10 V6 a1 1 0 0 1 1-1 h4 M18 5 h4 a1 1 0 0 1 1 1 v4 M23 18 v4 a1 1 0 0 1 -1 1 h-4 M10 23 H6 a1 1 0 0 1 -1 -1 v-4"/><line x1="4" y1="14" x2="24" y2="14"/></svg>
+      </div>
+      <span class="nav-label">Scan</span>
+    </div>
+    <div class="nav-item">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13" cy="9.5" r="4.5"/><path d="M4.5 24 a8.5 8.5 0 0 1 17 0" stroke-linecap="round"/><path d="M22 4 v6 M19 7 h6" stroke="#0e8a5f" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="nav-label">Me</span>
+    </div>
+    <div class="nav-item">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="14" cy="14" r="3.2"/><path d="M14 4 v3 M14 21 v3 M4 14 h3 M21 14 h3 M7 7 l2.1 2.1 M18.9 18.9 L21 21 M21 7 l-2.1 2.1 M9.1 18.9 L7 21"/></svg>
+      <span class="nav-label">Settings</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
